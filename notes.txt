@@ -1,0 +1,29 @@
+install node application in backend directory using (npm init)
+
+install express.js from express.js website to create server (Express.js, or simply Express,
+ is a backend web application framework for building RESTful APIs with Node.js,
+ released as free and open-source software under the MIT License. It is designed for building
+web applications and APIs.[2] It has been called the de facto standard server framework for 
+Node.js.)
+
+install nodemon (it restarts server automatically on save)
+
+
+install mongodb compass on systom to create database
+
+install mongoos in project to connect project with database
+
+install postman on systom to test APIs
+
+install axios in frontend to receive and send HTTP request
+
+install cors in frontend(to run page on same port)
+
+install bcryptjs in backend to hide password
+
+install react-hot-toast for customized popup messages (login successful etc..)
+
+
+
+i was creating boook deatails page
+

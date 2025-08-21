@@ -10,7 +10,7 @@ function Hero() {
       <div className="herosection">
         <div className="herotext">
           <h2>
-            Hello, Welcome here to learn something <span>new everyday!!!</span>
+            {/* Hello, Welcome here to learn something <span>new everyday!!!</span> */}
           </h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis

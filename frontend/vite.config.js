@@ -7,4 +7,21 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
+
+  //froom chat gpt
+  server: {
+    proxy: {
+      "/user": "http://localhost:4001",
+      "/book": "http://localhost:4001",
+    },
+  },
 });
+
+// export default {
+// server: {
+//   proxy: {
+//     '/user': 'http://localhost:4001',
+//     '/book': 'http://localhost:4001',
+//   },
+// },
+// };

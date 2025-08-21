@@ -26,11 +26,11 @@ function Freebook() {
 
   var settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    initialSlide: 0,
+    initialSlide: 1,
     responsive: [
       {
         breakpoint: 1024,
@@ -64,7 +64,7 @@ function Freebook() {
         <div className="freebook-heading">
           <h1 className=" dark:text-white">free offered cources</h1>
           <p>
-            ipsum dolor sit amet consectetur, adipisicing elit. Facere sed
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere sed
             deserunt, tempore doloremque, debitis perferendis at dicta culpa
             omnis ipsam autem quidem maiores exercitationem libero dignissimos
           </p>

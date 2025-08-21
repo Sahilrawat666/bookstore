@@ -64,7 +64,7 @@ function Freebook() {
         <div className="freebook-heading">
           <h1 className=" dark:text-white">free offered cources</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere sed
+            ipsum dolor sit amet consectetur, adipisicing elit. Facere sed
             deserunt, tempore doloremque, debitis perferendis at dicta culpa
             omnis ipsam autem quidem maiores exercitationem libero dignissimos
           </p>

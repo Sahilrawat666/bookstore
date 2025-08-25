@@ -6,6 +6,22 @@ import mongoose from "mongoose";
 const router = express.Router();
 //get all books
 router.get("/", getAllBooks);
+
+//search book
+router.get("/search", async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    const books = await book.find({
+      name: { $regex: query, $options: "i" },
+    });
+
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Search failed", error });
+  }
+});
+
 //get single book sdata
 router.get("/:id", async (req, res) => {
   try {

@@ -25,10 +25,12 @@ function Login() {
         console.log(res.data);
         if (res.data) {
           toast.success("loggedin successfully");
+
           Navigate("/");
-          // document.getElementById("my-model").close();
 
           window.location.reload();
+
+          // document.getElementById("my-model").close();
         }
         localStorage.setItem("User", JSON.stringify(res.data.user));
       })

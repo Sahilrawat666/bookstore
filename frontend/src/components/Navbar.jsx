@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { MdLightMode, MdDarkMode, MdSearch } from "react-icons/md";
-// import Login from "./Login";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
 import { IoMenuSharp } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 function Navbar() {
   // const [theme, setTheme] = useState(
@@ -65,6 +66,20 @@ function Navbar() {
     return () => window.removeEventListener("scroll", scrollHandler);
   }, [top]);
 
+  // search book
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (searchTerm.trim() !== "") {
+      navigate(`/search?query=${searchTerm}`);
+      setSearchTerm("");
+    }
+  };
+
   return (
     <>
       <nav className=" sticky top-0 left-0 bg-gray-300 dark:bg-slate-900 dark:text-white dark:border-white ">
@@ -84,10 +99,36 @@ function Navbar() {
           <li>
             <a href="">About</a>
           </li>
+          {/* toast.success("loggedin successfully");
+{authUser?{handleSearch}: } */}
+          {/* {authUser ? (handleSearch()) : toast.success("please login first")} */}
 
           <li className="flex items-center ">
-            <MdSearch className="absolute ml-1 text-1" />
-            <input type="text" placeholder="search" className="search pl-6" />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(); // prevent default form behavior
+                if (authUser) {
+                  handleSearch(e); // or just handleSearch() if not using event
+                } else {
+                  toast.error("Please login to search books");
+                }
+              }}
+              className="flex"
+            >
+              <input
+                type="text"
+                placeholder="Search books..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-4  border rounded-l-md focus:outline-none lg:max-w-40 md:max-w-20"
+              />
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-4 rounded-r-md hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </form>
           </li>
           <li>
             <i>

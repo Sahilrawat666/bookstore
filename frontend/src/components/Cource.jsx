@@ -26,10 +26,10 @@ function Cource() {
             <span className=" text-pink-500">here...!</span>
           </h1>
           <p className=" mt-12">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-            iste illo sequi dicta praesentium, officiis, officia, debitis
-            nostrum eligendi magnam voluptas iusto. Doloribus accusamus eaque
-            nam vitae consequuntur odit quis.
+            Discover a world of knowledge and imagination at your fingertips.
+            Whether you're a curious learner, a passionate reader, or a
+            knowledge seeker, our collection has something just for you. Dive
+            into your next favorite book and let the journey begin.
           </p>
           <Link to="/">
             <button className=" bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-700 duration-300 mt-6 cursor-pointer">

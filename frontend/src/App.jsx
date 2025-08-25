@@ -9,6 +9,7 @@ import Contact from "./contact/Contact.jsx";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthProvider.jsx";
 import BookDetails from "./components/BookDetails.jsx";
+import SearchResults from "./components/SearchResults";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -29,7 +30,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/book/:id" element={<BookDetails />} />
-        {/* <Route path="/book" element={<BookDetails />} /> */}
+        <Route path="/search" element={<SearchResults />} />
       </Routes>
       <Toaster />
     </>

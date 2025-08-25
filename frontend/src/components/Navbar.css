@@ -61,10 +61,7 @@ nav {
   font-size: x-large;
   margin: 0px 15px;
 }
-.menu {
-  display: none;
-  cursor: pointer;
-}
+
 .menu-links {
   position: absolute;
   background: grey;
@@ -99,16 +96,19 @@ nav {
     color: #fff;
     font-size: large;
   }
+  .logo {
+    font-size: larger;
+  }
   nav {
     padding: 0px 28px;
   }
   .nav-links {
     display: none;
   }
-  .menu {
+  /* .menu {
     display: block;
     float: right;
-  }
+  } */
   nav {
     display: flex;
     align-items: center;

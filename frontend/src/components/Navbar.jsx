@@ -83,9 +83,7 @@ function Navbar() {
   return (
     <>
       <nav className=" sticky top-0 left-0 bg-white/30 backdrop-blur-md shadow-md dark:bg-slate-900 dark:text-white dark:border-white ">
-        <label htmlFor="" className="logo text-black dark:text-white">
-          Book Store
-        </label>
+        <label className="logo text-black dark:text-white ">Book Store</label>
         <ul className="nav-links">
           <li>
             <a href="/">Home</a>
@@ -160,30 +158,75 @@ function Navbar() {
         </ul>
         <div className=" flex items-center lg:hidden  float-right">
           <i className="search-icon   cursor-pointer  ">
-            <MdSearch className="text-2xl " />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(); // prevent default form behavior
+                if (authUser) {
+                  handleSearch(e); // or just handleSearch() if not using event
+                } else {
+                  toast.error("Please login to search books");
+                }
+              }}
+              className="flex"
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                // value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-2 text-sm border rounded-l-md border-black/20 
+ focus:outline-none max-w-15"
+              />
+              <button
+                type="submit"
+                className="bg-slate-200 w-4 rounded-r-md hover:bd-slate-700"
+              >
+                <MdSearch className=" " />
+              </button>
+            </form>
           </i>
 
-          <i className="menu text-2xl " onClick={toggleMenu}>
+          <i className="menu text-xl " onClick={toggleMenu}>
             <IoMenuSharp />
           </i>
-          <ul className={isMenuOpen ? "menu-links active" : "menu-links "}>
+          <ul
+            className={`absolute top-16 left-1/2 transform -translate-x-1/2 
+  bg-white shadow-md z-50 w-[90vw] 
+  flex flex-col items-center justify-center gap-6 py-8
+  transition-all duration-500 ease-in-out rounded-xl
+  ${
+    isMenuOpen
+      ? "opacity-100 translate-y-0 visible"
+      : "opacity-0 -translate-y-10 invisible"
+  }`}
+          >
             <li>
-              <a href="/">Home</a>
+              <a href="/" className="text-lg font-medium">
+                Home
+              </a>
             </li>
             <li>
-              <a href="/course">Cource</a>
+              <a href="/course" className="text-lg font-medium">
+                Course
+              </a>
             </li>
             <li>
-              <a href="/contact">Contact</a>
+              <a href="/contact" className="text-lg font-medium">
+                Contact
+              </a>
             </li>
             <li>
-              <a href="">About</a>
+              <a href="/about" className="text-lg font-medium">
+                About
+              </a>
             </li>
             {authUser ? (
               <Logout />
             ) : (
               <li>
-                <a href="/login">Login</a>
+                <a href="/login" className="text-lg font-medium">
+                  Login
+                </a>
               </li>
             )}
           </ul>

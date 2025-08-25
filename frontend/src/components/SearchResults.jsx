@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import Cards from "./Cards";
 
 function SearchResults() {
   const location = useLocation();
@@ -43,16 +44,8 @@ function SearchResults() {
         <p>No books found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {results.map((book) => (
-            <div key={book._id} className="p-4 border rounded shadow">
-              <img
-                src={book.image}
-                alt={book.name}
-                className="w-full h-40 object-cover mb-2"
-              />
-              <h3 className="font-bold text-lg">{book.name}</h3>
-              <p>{book.title}</p>
-            </div>
+          {results.map((item) => (
+            <Cards key={item._id} item={item} />
           ))}
         </div>
       )}

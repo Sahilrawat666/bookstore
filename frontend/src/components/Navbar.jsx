@@ -82,7 +82,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className=" sticky top-0 left-0 bg-gray-300 dark:bg-slate-900 dark:text-white dark:border-white ">
+      <nav className=" sticky top-0 left-0 bg-white/30 backdrop-blur-md shadow-md dark:bg-slate-900 dark:text-white dark:border-white ">
         <label htmlFor="" className="logo text-black dark:text-white">
           Book Store
         </label>
@@ -158,30 +158,36 @@ function Navbar() {
             )}
           </span>
         </ul>
-        <i className="menu" onClick={toggleMenu}>
-          <IoMenuSharp />
-        </i>
-        <ul className={isMenuOpen ? "menu-links active" : "menu-links "}>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/course">Cource</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
-          <li>
-            <a href="">About</a>
-          </li>
-          {authUser ? (
-            <Logout />
-          ) : (
+        <div className=" flex items-center lg:hidden  float-right">
+          <i className="search-icon   cursor-pointer  ">
+            <MdSearch className="text-2xl " />
+          </i>
+
+          <i className="menu text-2xl " onClick={toggleMenu}>
+            <IoMenuSharp />
+          </i>
+          <ul className={isMenuOpen ? "menu-links active" : "menu-links "}>
             <li>
-              <a href="/login">Login</a>
+              <a href="/">Home</a>
             </li>
-          )}
-        </ul>
+            <li>
+              <a href="/course">Cource</a>
+            </li>
+            <li>
+              <a href="/contact">Contact</a>
+            </li>
+            <li>
+              <a href="">About</a>
+            </li>
+            {authUser ? (
+              <Logout />
+            ) : (
+              <li>
+                <a href="/login">Login</a>
+              </li>
+            )}
+          </ul>
+        </div>
       </nav>
     </>
   );

@@ -28,7 +28,7 @@ function Signup() {
         if (res.data) {
           toast.success("signup successfully");
           Navigate("/");
-          // window.location.reload();
+          window.location.reload();
         }
         localStorage.setItem("User", JSON.stringify(res.data.user));
       })

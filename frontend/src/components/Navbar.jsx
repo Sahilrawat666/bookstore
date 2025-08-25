@@ -172,7 +172,7 @@ function Navbar() {
               <input
                 type="text"
                 placeholder="Search"
-                // value={searchTerm}
+                value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="px-2 text-sm border rounded-l-md border-black/20 
  focus:outline-none max-w-15"

@@ -30,8 +30,11 @@ function Hero() {
           </p>
           {!authUser ? (
             <p>
-              {" "}
-              <button className="secondary">Get started</button>{" "}
+              <button>
+                <a href="/login" className="secondary">
+                  Get started
+                </a>
+              </button>
             </p>
           ) : null}
         </div>

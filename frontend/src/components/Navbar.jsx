@@ -84,7 +84,7 @@ function Navbar() {
     <>
       <nav className=" sticky top-0 left-0 bg-white/30 backdrop-blur-md shadow-md dark:bg-slate-900 dark:text-white dark:border-white ">
         <label className="logo text-black dark:text-white ">Book Store</label>
-        <ul className="nav-links">
+        <ul className="nav-links ">
           <li>
             <a href="/">Home</a>
           </li>
@@ -97,9 +97,6 @@ function Navbar() {
           <li>
             <a href="">About</a>
           </li>
-          {/* toast.success("loggedin successfully");
-{authUser?{handleSearch}: } */}
-          {/* {authUser ? (handleSearch()) : toast.success("please login first")} */}
 
           <li className="flex items-center ">
             <form
@@ -118,11 +115,11 @@ function Navbar() {
                 placeholder="Search books..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="px-4  border rounded-l-md focus:outline-none lg:max-w-40 md:max-w-20"
+                className="px-4  border rounded-l-md focus:outline-none  sm:w-30 sm:text-sm"
               />
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 rounded-r-md hover:bg-blue-700"
+                className="bg-blue-600 text-white sm:w-15 sm:text-sm  rounded-r-md hover:bg-blue-700"
               >
                 Search
               </button>
@@ -143,20 +140,28 @@ function Navbar() {
               )}
             </i>
           </li>
-          <span className="my-1.5">
+          <span className="my-1.5 flex gap-2">
             {authUser ? (
               <Logout />
             ) : (
-              <a
-                className=" bg-black px-1 py-1 rounded-md text-white dark:bg-slate-950 dark:hover:bg-slate-800 "
-                href="/login"
-              >
-                Login
-              </a>
+              <>
+                <a
+                  href="/login"
+                  className="px-3 py-1 sm:text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition"
+                >
+                  Login
+                </a>
+                <a
+                  href="/signup"
+                  className="px-3 py-1 sm:text-sm text-white bg-green-600 rounded-md hover:bg-green-700 dark:bg-green-800 dark:hover:bg-green-700 transition"
+                >
+                  Signup
+                </a>
+              </>
             )}
           </span>
         </ul>
-        <div className=" flex items-center lg:hidden  float-right">
+        <div className=" flex items-center sm:hidden float-right">
           <i className="search-icon   cursor-pointer  ">
             <form
               onSubmit={(e) => {

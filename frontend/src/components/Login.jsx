@@ -92,12 +92,12 @@ function Login() {
             </div>
             {/* button--------------- */}
             <div className="flex justify-around items-center mt-4">
-              <button className="bg-pink-500 cursor-pointer text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200">
+              <button className="px-3 py-1 sm:text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition">
                 Login
               </button>
 
               <p className="text-sm">
-                Not registered?
+                Not registered
                 <Link
                   to="/signup"
                   className=" underline text-blue-500 cursor-pointer"

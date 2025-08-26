@@ -23,6 +23,7 @@ nav {
   align-items: center;
   margin-top: 5px;
   list-style: none;
+  /* max-width: 400px; */
 }
 .nav-links li a {
   padding: 2px 3px;
@@ -88,7 +89,7 @@ nav {
   background-color: rgb(83, 83, 83);
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 639px) {
   .nav-links ul li a {
     padding: 3px 5px;
     margin: 0px 5px;

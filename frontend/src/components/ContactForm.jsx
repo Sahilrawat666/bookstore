@@ -11,10 +11,6 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 function ContactForm() {
-  //   const openSignupModal = () => {
-  //     const modal = document.querySelector("#signup_modal");
-  //     modal?.showModal();
-  //   };
   const {
     register,
     handleSubmit,

@@ -25,7 +25,7 @@ function Hero() {
             <input
               type="text"
               placeholder="Enter your email to sign in and start reading"
-              className="email pl-6 py-1"
+              className="email text-xs pl-6 py-1"
             />
           </p>
           {!authUser ? (

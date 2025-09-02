@@ -8,22 +8,6 @@ import { IoMenuSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 
 function Navbar() {
-  // const [theme, setTheme] = useState(
-  //   localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  // );
-  // const element = document.documentElement;
-  // useEffect(() => {
-  //   if (theme === "dark") {
-  //     element.classList.add("dark");
-  //     localStorage.setItem("theme", "dark");
-  //     document.body.classList.add("dark");
-  //   } else {
-  //     element.classList.remove("dark");
-  //     localStorage.setItem("theme", "light");
-  //     document.body.classList.remove("dark");
-  //   }
-  // }, [theme]);
-
   const [darkMode, SetDarkmode] = useState(false);
   const switchTheme = async () => {
     SetDarkmode(!darkMode);
@@ -50,14 +34,12 @@ function Navbar() {
   }, []);
 
   const [authUser, setAuthUser] = useAuth();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const [top, setTop] = useState(true);
-
   useEffect(() => {
     const scrollHandler = () => {
       setTop(window.scrollY <= 10);
@@ -67,28 +49,28 @@ function Navbar() {
   }, [top]);
 
   // search book
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // 👈 new state
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
-
     if (searchTerm.trim() !== "") {
       navigate(`/search?query=${searchTerm}`);
       setSearchTerm("");
+      setIsSearchOpen(false); // 👈 auto-close after search
     }
   };
 
   return (
     <>
-      <nav className=" sticky top-0 left-0 bg-white/30 backdrop-blur-md shadow-md dark:bg-slate-700 dark:text-white dark:border-white ">
-        <label className=" text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
+      <nav className="sticky top-0 left-0 bg-white/30 backdrop-blur-md shadow-md dark:bg-slate-700 dark:text-white dark:border-white">
+        <label className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
           Book Store
         </label>
-        <div className=" flex ">
-          <ul className="nav-links ">
-            <li className="sm:hidden md:flex ">
+        <div className="flex">
+          <ul className="nav-links">
+            <li className="sm:hidden md:flex">
               <a
                 href="/"
                 className="px-3 py-1 rounded-md hover:bg-slate-100 transition-all duration-200"
@@ -121,12 +103,13 @@ function Navbar() {
               </a>
             </li>
 
-            <li className="flex items-center ">
+            {/* ----------- Desktop Search ------------ */}
+            <li className="flex items-center">
               <form
                 onSubmit={(e) => {
-                  e.preventDefault(); // prevent default form behavior
+                  e.preventDefault();
                   if (authUser) {
-                    handleSearch(e); // or just handleSearch() if not using event
+                    handleSearch(e);
                   } else {
                     toast.error("Please login to search books");
                   }
@@ -138,16 +121,18 @@ function Navbar() {
                   placeholder="Search books..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-3  border rounded-l-md focus:outline-none sm:ml-2 sm:w-25 sm:px-1 sm:text-xs"
+                  className="px-3 border rounded-l-md focus:outline-none sm:ml-2 sm:w-25 sm:px-1 sm:text-xs"
                 />
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white sm:w-15 sm:text-sm  rounded-r-md hover:bg-blue-700"
+                  className="bg-blue-600 text-white sm:w-15 sm:text-sm rounded-r-md hover:bg-blue-700"
                 >
                   Search
                 </button>
               </form>
             </li>
+
+            {/* ----------- Theme Toggle ------------ */}
             <li>
               <i>
                 {darkMode ? (
@@ -157,16 +142,17 @@ function Navbar() {
                   />
                 ) : (
                   <MdDarkMode
-                    className="night cursor-pointer "
+                    className="night cursor-pointer"
                     onClick={switchTheme}
                   />
                 )}
               </i>
             </li>
-            <span className="my-1.5  gap-2 hidden md:flex">
+
+            {/* ----------- Login/Signup ------------ */}
+            <span className="my-1.5 gap-2 hidden md:flex">
               {authUser ? (
                 <i>
-                  {" "}
                   <Logout />
                 </i>
               ) : (
@@ -187,52 +173,68 @@ function Navbar() {
               )}
             </span>
           </ul>
-          <div className=" flex items-center  float-right">
-            <i className="search-icon  sm:hidden cursor-pointer  ">
+
+          <div className="flex items-center float-right">
+            {/* ----------- Mobile Search with Icon ------------ */}
+            <div className="relative sm:hidden">
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className="p-2 rounded-full hover:bg-slate-200"
+              >
+                <MdSearch size={20} />
+              </button>
+
               <form
                 onSubmit={(e) => {
-                  e.preventDefault(); // prevent default form behavior
+                  e.preventDefault();
                   if (authUser) {
-                    handleSearch(e); // or just handleSearch() if not using event
+                    handleSearch(e);
                   } else {
                     toast.error("Please login to search books");
                   }
                 }}
-                className="flex"
+                className="absolute  right-0 top-10"
               >
                 <input
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-2 text-xs border rounded-l-md border-black/20 
-                             focus:outline-none w-20"
+                  className={`transition-all w-100  duration-200 border border-black/20 rounded-md px-2 text-sm focus:outline-none
+                    ${
+                      isSearchOpen
+                        ? "w-40 opacity-100"
+                        : "w-0 opacity-0 pointer-events-none"
+                    }`}
                 />
-                <button
-                  type="submit"
-                  className="bg-slate-200 w-4 rounded-r-md hover:bd-slate-700"
-                >
-                  <MdSearch className=" " />
-                </button>
+                <button type="submit" className="hidden" />
               </form>
-            </i>
+            </div>
 
+            {authUser ? null : (
+              <button className="px-3 py-1  md:hidden text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition">
+                <a href="/login">login</a>
+              </button>
+            )}
+            {/* ----------- Mobile Menu ------------ */}
             <i
-              className="menu text-md sm:text-xl  md:hidden cursor-pointer "
+              className="menu ml-2 text-md sm:text-xl md:hidden cursor-pointer"
               onClick={toggleMenu}
             >
               <IoMenuSharp />
             </i>
+            {/* ----------- Dropdown Menu ------------ */}
             <ul
               className={`absolute top-16 dark:bg-slate-800 left-1/2 transform -translate-x-1/2 
-  bg-white shadow-md z-50 w-[90vw] 
-  flex flex-col items-center justify-center gap-6 py-8
-  transition-all duration-500 ease-in-out rounded-xl
-  ${
-    isMenuOpen
-      ? "opacity-100 translate-y-0 visible"
-      : "opacity-0 -translate-y-10 invisible"
-  }`}
+                bg-white shadow-md z-50 w-[90vw] 
+                flex flex-col items-center justify-center gap-6 py-8
+                transition-all duration-500 ease-in-out rounded-xl
+                ${
+                  isMenuOpen
+                    ? "opacity-100 translate-y-0 visible"
+                    : "opacity-0 -translate-y-10 invisible"
+                }`}
             >
               <li>
                 <a href="/" className="text-lg font-medium">

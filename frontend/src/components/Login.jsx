@@ -37,7 +37,7 @@ function Login() {
       .catch((err) => {
         if (err.response) {
           console.log(err);
-          toast.error("Error:" + err.response.data.message);
+          toast.error("invalid username or password");
         }
       });
   };

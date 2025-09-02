@@ -20,7 +20,7 @@ function ContactForm() {
   const onSubmit = (data) => console.log(data);
   return (
     <>
-      <div className="flex h-screen justify-center items-center  dark:bg-slate-900 dark:text-white">
+      <div className="flex h-screen  justify-center items-center  dark:bg-slate-900 dark:text-white">
         <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-100">
           <div className="">
             <form onSubmit={handleSubmit(onSubmit)} method="div">

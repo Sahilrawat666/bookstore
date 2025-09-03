@@ -1,2 +1,4 @@
 /.env
 .vercel
+# Frontend build output
+frontend/dist/

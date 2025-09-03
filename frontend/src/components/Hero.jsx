@@ -1,5 +1,4 @@
 import React from "react";
-// import "./Hero.css";
 import { MdMail } from "react-icons/md";
 import { useAuth } from "../context/AuthProvider.jsx";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Hero.css";
+// import "./Hero.css";
 import { MdMail } from "react-icons/md";
 import { useAuth } from "../context/AuthProvider.jsx";
 
@@ -8,35 +8,48 @@ function Hero() {
 
   return (
     <>
-      <div className="herosection">
-        <div className="herotext">
+      <div className=" flex absolute inset-0 bg-black/50 h-screen  items-center justify-center h-4/5 ">
+        <div className="w-full  text-center">
           <h2>
             {/* Hello, Welcome here to learn something <span>new everyday!!!</span> */}
           </h2>
-          <p>
-            Discover a world of stories, ideas, and learning at your fingertips.
-            Explore our wide collection of free books across genres like
-            fiction, education, and self-help. Save your favourites, learn
-            anytime, and enhance your reading journey — all in one simple,
-            user-friendly platform.
+          <p className=" text-white text-2xl text-bold my-2 sm:text-3xl md:text:4xl">
+            ONLINE BOOKSTORE
           </p>
-          <p className=" flex items-center ">
+          <h1 className="text-4xl text-white my-2 font-bold sm:text-6xl">
+            Living Word eBook
+          </h1>
+          {/* <p className=" flex items-center rounded-lg bg-white/50 py-1 px-3 sm:px-4 sm:py-3 ">
             <MdMail className="absolute items-center ml-1 " />
             <input
               type="text"
               placeholder="Enter your email to sign in and start reading"
-              className="email text-xs pl-6 py-1"
+              className=" text-sm pl-6  w-full "
             />
-          </p>
-          {!authUser ? (
+          </p> */}
+          {authUser ? (
             <p>
               <button>
-                <a href="/login" className="secondary">
+                <a
+                  href="/course"
+                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-4xl "
+                >
+                  Browse Books
+                </a>
+              </button>
+            </p>
+          ) : (
+            <p>
+              <button>
+                <a
+                  href="/login"
+                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-4xl "
+                >
                   Get started
                 </a>
               </button>
             </p>
-          ) : null}
+          )}
         </div>
         <div className="booksimg ">
           {/* <img className="  dark:mix-blend-lighten" src={book} alt="img" /> */}

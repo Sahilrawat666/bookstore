@@ -8,7 +8,7 @@ function Cards({ item }) {
   return (
     <div
       onClick={() => navigate(`/book/${item._id}`)}
-      className="relative mx-auto mb-4 mt-4 w-64 cursor-pointer overflow-hidden rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-slate-900"
+      className="relative mx-auto mb-4 mt-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-slate-900"
     >
       {/* Cart Icon */}
       <MdOutlineShoppingCart className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white" />

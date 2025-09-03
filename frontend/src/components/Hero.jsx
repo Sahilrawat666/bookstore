@@ -8,7 +8,7 @@ function Hero() {
 
   return (
     <>
-      <div className=" flex absolute inset-0 bg-black/50 h-screen  items-center justify-center h-4/5 ">
+      <div className=" flex absolute inset-0 bg-black/50 dark:bg-black/70  h-screen  items-center justify-center h-4/5 ">
         <div className="w-full  text-center">
           <h2>
             {/* Hello, Welcome here to learn something <span>new everyday!!!</span> */}

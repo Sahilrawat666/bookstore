@@ -1,4 +1,6 @@
 {
   "version": 2,
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  "outputDirectory": "dist",
+
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }

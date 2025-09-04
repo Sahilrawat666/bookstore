@@ -60,24 +60,26 @@ function Freebook() {
   };
   return (
     <>
-      <div className="freebooks">
-        <div className="freebook-heading">
-          <h1 className=" dark:text-white">free offered cources</h1>
-          <p>
-            Explore a curated selection of free courses designed to boost your
-            knowledge and skills. From storytelling and general knowledge to
-            sports facts and beyond — start learning today with engaging books
-            and resources that inform, inspire, and empower your personal
-            growth.
-          </p>
-        </div>
-        <div>
-          {" "}
-          <Slider {...settings}>
-            {book.map((item) => (
-              <Cards item={item} key={item.id} />
-            ))}
-          </Slider>
+      <div className="w-full bg-slate-100 dark:bg-[#161616]">
+        <div className="freebooks  m-auto  ">
+          <div className="freebook-heading">
+            <h1 className=" dark:text-white">free offered cources</h1>
+            <p>
+              Explore a curated selection of free courses designed to boost your
+              knowledge and skills. From storytelling and general knowledge to
+              sports facts and beyond — start learning today with engaging books
+              and resources that inform, inspire, and empower your personal
+              growth.
+            </p>
+          </div>
+          <div>
+            {" "}
+            <Slider {...settings}>
+              {book.map((item) => (
+                <Cards item={item} key={item.id} />
+              ))}
+            </Slider>
+          </div>
         </div>
       </div>
     </>

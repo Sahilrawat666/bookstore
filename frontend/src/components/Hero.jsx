@@ -7,8 +7,8 @@ function Hero() {
 
   return (
     <>
-      <div className=" flex absolute inset-0 bg-black/50 dark:bg-black/70  h-screen  items-center justify-center h-4/5 ">
-        <div className="w-full  text-center">
+      <div className="    w-full dark:bg-black/70  h-screen  bg-[url('https://books.livingword.ph/wp-content/uploads/2021/08/livingword-online-bookstore-header-1920-2-min.jpg')] bg-cover bg-center">
+        <div className=" flex flex-col justify-center w-full h-screen mx-auto inset-1 bg-black/40 dark:bg-black/50 text-center">
           <h2>
             {/* Hello, Welcome here to learn something <span>new everyday!!!</span> */}
           </h2>
@@ -31,7 +31,7 @@ function Hero() {
               <button>
                 <a
                   href="/course"
-                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-4xl "
+                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-3xl "
                 >
                   Browse Books
                 </a>
@@ -42,16 +42,13 @@ function Hero() {
               <button>
                 <a
                   href="/login"
-                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-4xl "
+                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-3xl "
                 >
                   Get started
                 </a>
               </button>
             </p>
           )}
-        </div>
-        <div className="booksimg ">
-          {/* <img className="  dark:mix-blend-lighten" src={book} alt="img" /> */}
         </div>
       </div>
     </>

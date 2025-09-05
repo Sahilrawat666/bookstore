@@ -18,9 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 dotenv.config();
-// app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = bookstore - sr.vercel.app || 4000;
+const PORT = process.env.PORT || 4000;
 const URI = process.env.MONGODB_URI;
 
 //connect to mongodb

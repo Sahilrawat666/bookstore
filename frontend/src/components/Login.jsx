@@ -20,7 +20,7 @@ function Login() {
       password: data.password,
     };
     await axios
-      .post(`${window.location.origin}/user/login`, userInfo)
+      .post(`https://bookstore-sr.vercel.app/user/login`, userInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data) {

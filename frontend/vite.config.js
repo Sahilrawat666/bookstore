@@ -11,10 +11,10 @@ export default defineConfig({
     outDir: "dist",
   },
 
-  // Make asset paths relative for deployment
-  base: "./", // 👈 important for Vercel
+  // ✅ Use absolute asset paths for Vercel
+  base: "/",
 
-  // Dev server proxy (local development)
+  // Dev server proxy (only for local development)
   server: {
     proxy: {
       "/user": "http://localhost:4001",

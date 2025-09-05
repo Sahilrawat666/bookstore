@@ -119,7 +119,7 @@ function BookDetails() {
             </h1>
 
             <div className="mb-4">
-              <span className="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+              <span className="inline-block  bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
                 {book.category}
               </span>
             </div>

@@ -64,41 +64,41 @@ function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 px-10  w-full  z-50  bg-[#e0e0e0] backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
-        <div className="  max-w-[1440px] m-auto h-10 sm:h-12 lg:h-16 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 px-10  w-full  z-50 bg-[#ebebeb]  backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
+        <div className="  max-w-[1440px] m-auto h-13 sm:h-15 lg:h-17 flex items-center justify-between">
           <label className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
             Book-Store
           </label>
           <div className="flex">
-            <ul className="nav-links">
-              <li className="sm:hidden md:flex">
+            <ul className="nav-links ">
+              <li className="sm:hidden lg:flex">
                 <a
                   href="/"
-                  className="px-3 py-1 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
                 >
                   Home
                 </a>
               </li>
-              <li className="sm:hidden md:flex">
+              <li className="sm:hidden lg:flex content-center">
                 <a
                   href="/course"
-                  className="px-3 py-1 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
                 >
                   Cource
                 </a>
               </li>
-              <li className="sm:hidden md:flex">
+              <li className="sm:hidden lg:flex">
                 <a
                   href="/contact"
-                  className="px-3 py-1 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
                 >
                   Contact
                 </a>
               </li>
-              <li className="sm:hidden md:flex">
+              <li className="sm:hidden lg:flex">
                 <a
                   href=""
-                  className="px-3 py-1 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
                 >
                   About
                 </a>
@@ -106,7 +106,7 @@ function Navbar() {
 
               {/* ----------- Desktop Search ------------ */}
               <li className="flex items-center">
-                <form
+                {/* <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (authUser) {
@@ -130,6 +130,60 @@ function Navbar() {
                   >
                     Search
                   </button>
+                </form> */}
+
+                <form
+                  className="max-w-md mx-auto"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (authUser) {
+                      handleSearch(e);
+                    } else {
+                      toast.error("Please login to search books");
+                    }
+                  }}
+                >
+                  <label
+                    for="default-search"
+                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                  >
+                    Search
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg
+                        className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                      </svg>
+                    </div>
+
+                    <input
+                      type="search"
+                      // id="default-search"
+                      className="block w-full px-4 py-1 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Search books... "
+                      onChange={(e) => setSearchTerm(e.target.value)}
+
+                      // required
+                    />
+                    <button
+                      type="submit"
+                      className="text-white absolute end-0 top-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Search
+                    </button>
+                  </div>
                 </form>
               </li>
 
@@ -151,7 +205,7 @@ function Navbar() {
               </li>
 
               {/* ----------- Login/Signup ------------ */}
-              <span className="my-1.5 gap-2 hidden lg:flex">
+              <span className="my-1.5 gap-2 hidden md:flex">
                 {authUser ? (
                   <i>
                     <Logout />
@@ -160,15 +214,9 @@ function Navbar() {
                   <>
                     <a
                       href="/login"
-                      className="px-3 py-1  lg:text-xl  text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition"
+                      className="px-3 py-1  lg:text-lg   text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition"
                     >
-                      Login
-                    </a>
-                    <a
-                      href="/signup"
-                      className="px-3 py-1 lg:text-xl text-white bg-green-600 rounded-md hover:bg-green-700 dark:bg-green-800 dark:hover:bg-green-700 transition"
-                    >
-                      Signup
+                      Login/Signup
                     </a>
                   </>
                 )}
@@ -195,14 +243,14 @@ function Navbar() {
                       toast.error("Please login to search books");
                     }
                   }}
-                  className="absolute  right-0 top-10"
+                  className="absolute right-0 top-10  "
                 >
                   <input
                     type="text"
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`transition-all w-60 text-white  duration-200 border-2 border-white/20 rounded-md px-2 text-sm focus:outline-none
+                    className={`fixed left-0 top-15   right-0 h-[50px] w-auto bg-white   transition-all  text-black   duration-200 border-2 border-white/20 rounded-md px-2 text-sm focus:outline-none
                     ${
                       isSearchOpen
                         ? "w-40 opacity-100"
@@ -214,13 +262,13 @@ function Navbar() {
               </div>
 
               {authUser ? null : (
-                <button className="px-3 py-1  lg:hidden text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition">
+                <button className="px-3 py-1 flex items-center h-6  sm:hidden text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition">
                   <a href="/login">login</a>
                 </button>
               )}
               {/* ----------- Mobile Menu ------------ */}
               <i
-                className="menu ml-2 text-md sm:text-xl md:hidden cursor-pointer"
+                className="menu ml-2 text-lg sm:text-2xl lg:hidden cursor-pointer"
                 onClick={toggleMenu}
               >
                 <IoMenuSharp />

@@ -12,13 +12,7 @@
   list-style: none;
   /* max-width: 400px; */
 }
-.nav-links li a {
-  padding: 2px;
-  margin: 0px 6px;
-  border-radius: 5px;
-  text-decoration: none;
-  /* font-size: large; */
-}
+
 .nav-links a:hover {
   background-color: rgb(168, 168, 168);
   transition: 0.2s;
@@ -55,12 +49,6 @@
   background-color: rgb(83, 83, 83);
 }
 @media screen and (max-width: 1023px) {
-  .nav-links ul li a {
-    /* padding: 3px 3px; */
-    /* border-radius: 5px; */
-    color: #fff;
-    font-size: large;
-  }
 }
 
 @media screen and (max-width: 639px) {

@@ -70,7 +70,7 @@ function BookDetails() {
 
   if (!book) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen">
+      <div className="flex flex-col justify-center items-center  min-h-screen">
         <div className="text-xl mb-4">Book not found</div>
         <button
           onClick={() => navigate(-1)}

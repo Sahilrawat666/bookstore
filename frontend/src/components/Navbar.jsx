@@ -139,7 +139,7 @@ function Navbar() {
                     if (authUser) {
                       handleSearch(e);
                     } else {
-                      toast.error("Please login to search books");
+                      toast.error("Please login first");
                     }
                   }}
                 >
@@ -214,7 +214,7 @@ function Navbar() {
                   <>
                     <a
                       href="/login"
-                      className="px-3 py-1  lg:text-lg   text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition"
+                      className="px-3 py-1   lg:text-lg   text-white bg-blue-600 rounded-md hover:bg-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 transition"
                     >
                       Login/Signup
                     </a>
@@ -240,7 +240,7 @@ function Navbar() {
                     if (authUser) {
                       handleSearch(e);
                     } else {
-                      toast.error("Please login to search books");
+                      toast.error("Please login first");
                     }
                   }}
                   className="absolute right-0 top-10  "
@@ -275,8 +275,8 @@ function Navbar() {
               </i>
               {/* ----------- Dropdown Menu ------------ */}
               <ul
-                className={`absolute top-16 dark:bg-slate-800 left-1/2 transform -translate-x-1/2 
-                bg-white shadow-md z-50 w-[90vw] 
+                className={`absolute top-16 dark:bg-slate-800 left-1/2 transform -translate-x-1/2
+                bg-white shadow-md z-50 w-[90vw]
                 flex flex-col items-center justify-center gap-6 py-8
                 transition-all duration-500 ease-in-out rounded-xl
                 ${

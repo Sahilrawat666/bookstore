@@ -19,19 +19,22 @@ function Login() {
       email: data.email,
       password: data.password,
     };
+
     await axios
       .post(`${window.location.origin}/user/login`, userInfo)
       .then((res) => {
         console.log(res.data);
+
         if (res.data) {
           toast.success("loggedin successfully");
-
           Navigate("/");
+          // localStorage.setItem("token", response.data.token);
 
           window.location.reload();
 
           // document.getElementById("my-model").close();
         }
+
         localStorage.setItem("User", JSON.stringify(res.data.user));
       })
       .catch((err) => {

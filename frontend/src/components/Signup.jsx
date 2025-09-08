@@ -25,11 +25,14 @@ function Signup() {
       .post(`${window.location.origin}/user/signup`, userInfo)
       .then((res) => {
         console.log(res.data);
+        // localStorage.setItem("token", response.data.token);
+
         if (res.data) {
           toast.success("signup successfully");
           Navigate("/");
           window.location.reload();
         }
+
         localStorage.setItem("User", JSON.stringify(res.data.user));
       })
       .catch((err) => {

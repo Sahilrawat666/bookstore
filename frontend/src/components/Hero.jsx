@@ -7,7 +7,7 @@ function Hero() {
 
   return (
     <>
-      <div className="    w-full dark:bg-black/70  h-dvh  bg-[url('https://books.livingword.ph/wp-content/uploads/2021/08/livingword-online-bookstore-header-1920-2-min.jpg')] bg-cover bg-center">
+      <div className="w-full dark:bg-black/70  h-dvh  bg-[url('https://books.livingword.ph/wp-content/uploads/2021/08/livingword-online-bookstore-header-1920-2-min.jpg')] bg-cover bg-center">
         <div className=" flex flex-col justify-center w-full h-screen mx-auto inset-1 bg-black/40 dark:bg-black/50 text-center">
           <h2>
             {/* Hello, Welcome here to learn something <span>new everyday!!!</span> */}

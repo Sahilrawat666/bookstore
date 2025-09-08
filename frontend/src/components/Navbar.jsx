@@ -250,7 +250,7 @@ function Navbar() {
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`fixed left-0 top-15   right-0 h-[50px] w-auto bg-white   transition-all  text-black   duration-200 border-2 border-white/20 rounded-md px-2 text-sm focus:outline-none
+                    className={`fixed left-0 top-15   right-0 h-[50px] w-auto bg-white shadow-md  transition-all  text-black   duration-200 border-2 border-white/20 rounded-md px-2 text-sm focus:outline-none
                     ${
                       isSearchOpen
                         ? "w-40 opacity-100"

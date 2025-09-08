@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Cards from "./Cards";
+import Navbar from "./Navbar";
 
 function SearchResults() {
   const location = useLocation();
@@ -35,21 +36,24 @@ function SearchResults() {
   }, [searchQuery]);
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">
-        Search Results for: "{searchQuery}"
-      </h2>
+    <>
+      <Navbar />
+      <div className="p-6 mt-13 md:mt-15 lg:mt-17">
+        <h2 className="text-2xl font-bold mb-4  place-self-center">
+          Search Results for: "{searchQuery}"
+        </h2>
 
-      {Array.isArray(results) && results.length === 0 ? (
-        <p>No books found.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {results.map((item) => (
-            <Cards key={item._id} item={item} />
-          ))}
-        </div>
-      )}
-    </div>
+        {Array.isArray(results) && results.length === 0 ? (
+          <p>No books found.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {results.map((item) => (
+              <Cards key={item._id} item={item} />
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

@@ -13,7 +13,7 @@ function Cards({ item }) {
   // add to favourite
   const addToFavourite = async (bookId) => {
     try {
-      await axios.post("http://localhost:4001/user/favourite", {
+      await axios.post("${window.location.origin}/user/favourite", {
         userId: authUser._id,
         bookId: bookId,
       });
@@ -25,7 +25,7 @@ function Cards({ item }) {
   // add to cart
   const addToCart = async (bookId) => {
     try {
-      await axios.post("http://localhost:4001/user/cart", {
+      await axios.post("${window.location.origin}/user/cart", {
         userId: authUser._id,
         bookId: bookId,
       });

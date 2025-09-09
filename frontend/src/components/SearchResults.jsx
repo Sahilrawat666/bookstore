@@ -15,8 +15,8 @@ function SearchResults() {
     const fetchSearchResults = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4001/book/search?query=${searchQuery}`
-          // `http://localhost:4001/user/login`
+          `${window.location.origin}/book/search?query=${searchQuery}`
+          // `${window.location.origin}/user/login`
         );
 
         if (Array.isArray(res.data)) {

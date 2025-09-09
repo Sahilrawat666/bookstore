@@ -11,7 +11,7 @@ function FavouriteBooks({ userId }) {
     const fetchFavourites = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4001/user/favourites/${userId}`
+          `${window.location.origin}/user/favourites/${userId}`
         );
         setFavourites(res.data); // ✅ directly set array
       } catch (err) {

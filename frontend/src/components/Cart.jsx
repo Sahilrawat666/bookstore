@@ -11,7 +11,7 @@ function Cart({ userId }) {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4001/user/carts/${userId}`
+          `${window.location.origin}/user/carts/${userId}`
         );
         setCarts(res.data); // ✅ directly set array
       } catch (err) {

@@ -19,7 +19,7 @@ app.use(express.json());
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 const URI = process.env.MONGODB_URI;
 
 //connect to mongodb
@@ -38,6 +38,7 @@ try {
 //defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
+// app.use("/favourite", userRoute);
 
 // app.get("/book/:id", async (req, res) => {
 //   const id = req.params.id;

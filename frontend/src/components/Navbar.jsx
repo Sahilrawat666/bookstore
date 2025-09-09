@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
 import { IoMenuSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import { FaCartPlus } from "react-icons/fa";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
@@ -74,7 +75,7 @@ function Navbar() {
               <li className="sm:hidden lg:flex">
                 <a
                   href="/"
-                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
                   Home
                 </a>
@@ -82,25 +83,27 @@ function Navbar() {
               <li className="sm:hidden lg:flex content-center">
                 <a
                   href="/course"
-                  className="px-1 flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  className="px-1 hover:underline flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
-                  Cource
+                  All Books
+                </a>
+              </li>
+
+              <li className="sm:hidden lg:flex">
+                <a
+                  href="/favourite"
+                  className="px-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
+                >
+                  Favourite
                 </a>
               </li>
               <li className="sm:hidden lg:flex">
                 <a
-                  href="/contact"
-                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
+                  href="/cart"
+                  className="px-1 gap-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
-                  Contact
-                </a>
-              </li>
-              <li className="sm:hidden lg:flex">
-                <a
-                  href=""
-                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md hover:bg-slate-100 transition-all duration-200"
-                >
-                  About
+                  Cart
+                  <FaCartPlus className="text-xl" />
                 </a>
               </li>
 
@@ -273,6 +276,7 @@ function Navbar() {
               >
                 <IoMenuSharp />
               </i>
+
               {/* ----------- Dropdown Menu ------------ */}
               <ul
                 className={`absolute top-16 dark:bg-slate-800 left-1/2 transform -translate-x-1/2
@@ -303,6 +307,20 @@ function Navbar() {
                 <li>
                   <a href="/about" className="text-lg font-medium">
                     About
+                  </a>
+                </li>
+                <li>
+                  <a href="/favourite" className="text-lg font-medium">
+                    Favourites
+                  </a>
+                </li>{" "}
+                <li>
+                  <a
+                    href="/cart"
+                    className="flex items-center gap-2 text-lg font-medium"
+                  >
+                    Cart
+                    <FaCartPlus className="text-xl" />
                   </a>
                 </li>
                 {authUser ? (

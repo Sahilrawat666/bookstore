@@ -46,21 +46,21 @@ router.get("/:id", async (req, res) => {
 });
 
 // add book to favourite
-router.put("/add_to_favourite", async (req, res) => {
-  try {
-    const { bookId, id } = req.headers;
-    const userData = await User.findById(id);
-    const isBookFavourite = userData.favourite.includes(bookId);
-    if (isBookFavourite) {
-      return res.status(200).json({ message: "book is already in favourite" });
-    }
-    await User.findByIdAndUpdate(id, {
-      $push: { favourite: bookId },
-    });
-    return res.status(200).json({ message: "book added to favourite" });
-  } catch (error) {
-    return res.status(500).json({ message: "internal server error" });
-  }
-});
+// router.put("/add_to_favourite", async (req, res) => {
+//   try {
+//     const { bookId, id } = req.headers;
+//     const userData = await User.findById(id);
+//     const isBookFavourite = userData.favourite.includes(bookId);
+//     if (isBookFavourite) {
+//       return res.status(200).json({ message: "book is already in favourite" });
+//     }
+//     await User.findByIdAndUpdate(id, {
+//       $push: { favourite: bookId },
+//     });
+//     return res.status(200).json({ message: "book added to favourite" });
+//   } catch (error) {
+//     return res.status(500).json({ message: "internal server error" });
+//   }
+// });
 
 export default router;

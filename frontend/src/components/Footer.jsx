@@ -15,12 +15,14 @@ function Footer() {
         <div className="footer m-auto w-full">
           <div>
             <ul>
-              <li className="cursor-pointer ">about us</li>
-              <Link to="/contact">
-                <li className="cursor-pointer ">contact</li>
+              <Link to="/about">
+                <li className="cursor-pointer hover:underline ">About Us</li>
               </Link>
-              <li className="cursor-pointer ">jobs</li>
-              <li className="cursor-pointer ">press kit</li>
+              <Link to="/contact">
+                <li className="cursor-pointer hover:underline ">Contact Us</li>
+              </Link>
+              <li className="cursor-pointer hover:underline ">Jobs</li>
+              <li className="cursor-pointer hover:underline">Press kit</li>
             </ul>
 
             <label className="footer-icons flex gap-4 ">

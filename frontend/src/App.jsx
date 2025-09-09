@@ -10,6 +10,8 @@ import { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthProvider.jsx";
 import BookDetails from "./components/BookDetails.jsx";
 import SearchResults from "./components/SearchResults";
+import FavouriteBooks from "./components/FavouriteBooks.jsx";
+import Cart from "./components/Cart.jsx";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -31,6 +33,22 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route
+          path="/favourite"
+          element={
+            authUser ? (
+              <FavouriteBooks userId={authUser._id} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            authUser ? <Cart userId={authUser._id} /> : <Navigate to="/login" />
+          }
+        />
       </Routes>
       <Toaster />
     </>

@@ -19,7 +19,7 @@ function BookDetails() {
       }
 
       try {
-        const url = `${window.location.origin}/book/${id}`;
+        const url = `http://localhost:4001/book/${id}`;
         console.log("Fetching from URL:", url);
 
         const response = await fetch(url);
@@ -87,7 +87,7 @@ function BookDetails() {
   };
   const handleFavourite = async () => {
     const response = await axios.get(
-      `${window.location.origin}/book/add_to_favourite`,
+      `http://localhost:4001/book/add_to_favourite`,
       {}
     );
     console.log(response);

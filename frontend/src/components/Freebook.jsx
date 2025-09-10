@@ -63,7 +63,7 @@ function Freebook() {
       <div className="w-full bg-slate-100 dark:bg-[#161616]">
         <div className="freebooks  m-auto  ">
           <div className="freebook-heading">
-            <h1 className=" dark:text-white">free offered cources</h1>
+            <h1 className="dark:text-white">free offered cources</h1>
             <p>
               Explore a curated selection of free courses designed to boost your
               knowledge and skills. From storytelling and general knowledge to

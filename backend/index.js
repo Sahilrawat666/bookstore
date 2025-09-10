@@ -6,11 +6,11 @@ import cors from "cors";
 import userRoute from "./route/user.route.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+// import { dirname } from "path";
 // import book from "./model/book.model.js";
-const __filename = fileURLToPath(import.meta.url);
+// const __filename = fileURLToPath(import.meta.url);
 
-const __dirname = dirname(__filename);
+// const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -47,10 +47,10 @@ app.use("/user", userRoute);
 //   res.send(result);
 // });
 
-app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
+// app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+app.get("/", (req, res) => {
+  res.redirect(process.env.FRONTEND_URL);
 });
 
 app.listen(PORT, () => {

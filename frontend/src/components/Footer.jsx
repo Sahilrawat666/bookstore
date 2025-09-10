@@ -25,7 +25,7 @@ function Footer() {
               <li className="cursor-pointer hover:underline">Press kit</li>
             </ul>
 
-            <label className="footer-icons flex gap-4 ">
+            <label className="footer-icons  flex gap-4 ">
               <FaFacebookSquare className="font-bold size-5 cursor-pointer " />
               <FaTwitterSquare className="font-bold size-5 cursor-pointer" />
               <FaInstagramSquare className="font-bold size-5 cursor-pointer" />

@@ -13,12 +13,18 @@ import userRoute from "./route/user.route.js";
 // const __dirname = dirname(__filename);
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 4000,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 const URI = process.env.MONGODB_URI;
 
 //connect to mongodb
@@ -42,6 +48,6 @@ app.get("/", (req, res) => {
   res.redirect(process.env.FRONTEND_URL);
 });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Example app listening on port ${PORT}`);
+// });

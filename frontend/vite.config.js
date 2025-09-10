@@ -6,19 +6,19 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
 
-  // Build output folder
-  build: {
-    outDir: "dist",
-  },
+  // // Build output folder
+  // build: {
+  //   outDir: "dist",
+  // },
 
-  // ✅ Use absolute asset paths for Vercel
-  base: "/",
+  // // ✅ Use absolute asset paths for Vercel
+  // base: "/",
 
-  // Dev server proxy (only for local development)
-  server: {
-    proxy: {
-      "/user": "http://localhost:4001",
-      "/book": "http://localhost:4001",
-    },
-  },
+  // // Dev server proxy (only for local development)
+  // server: {
+  //   proxy: {
+  //     "/user": "http://localhost:4001",
+  //     "/book": "http://localhost:4001",
+  //   },
+  // },
 });

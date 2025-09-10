@@ -15,8 +15,8 @@ function SearchResults() {
     const fetchSearchResults = async () => {
       try {
         const res = await axios.get(
-          `${window.location.origin}/book/search?query=${searchQuery}`
-          // `${window.location.origin}/user/login`
+          `${import.meta.env.VITE_BACKEND_URL}/book/search?query=${searchQuery}`
+          // `${import.meta.env.VITE_BACKEND_URL}/user/login`
         );
 
         if (Array.isArray(res.data)) {

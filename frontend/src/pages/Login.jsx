@@ -21,7 +21,7 @@ function Login() {
     };
 
     await axios
-      .post(`${window.location.origin}/user/login`, userInfo)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, userInfo)
       .then((res) => {
         console.log(res.data);
 

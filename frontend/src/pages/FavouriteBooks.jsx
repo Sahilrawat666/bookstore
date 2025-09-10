@@ -12,7 +12,7 @@ function FavouriteBooks({ userId }) {
     const fetchFavourites = async () => {
       try {
         const res = await axios.get(
-          `${window.location.origin}/user/favourites/${userId}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${userId}`
         );
         setFavourites(res.data); // ✅ directly set array
       } catch (err) {
@@ -26,7 +26,7 @@ function FavouriteBooks({ userId }) {
   // const removeFavourite = async (bookId) => {
   //   try {
   //     const res = await axios.delete(
-  //       `${window.location.origin}/user/favourites/${userId}/${bookId}`
+  //       `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${userId}/${bookId}`
   //     );
   //     setFavourites(res.data.favourites);
   //     toast.success("Removed from favourites");

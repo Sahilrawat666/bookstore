@@ -8,7 +8,7 @@ function Cource() {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get(`${window.location.origin}/book`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
         console.log(res.data);
         setBook(res.data);
       } catch (error) {

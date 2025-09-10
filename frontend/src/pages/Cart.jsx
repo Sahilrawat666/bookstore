@@ -16,7 +16,7 @@ function Cart({ userId }) {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          `${window.location.origin}/user/carts/${userId}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${userId}`
         );
         setCarts(res.data);
       } catch (err) {

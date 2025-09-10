@@ -22,7 +22,7 @@ function Signup() {
       password: data.password,
     };
     await axios
-      .post(`${window.location.origin}/user/signup`, userInfo)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, userInfo)
       .then((res) => {
         console.log(res.data);
         // localStorage.setItem("token", response.data.token);

@@ -23,7 +23,7 @@ function Cource() {
         <div className="   text-center">
           <h1 className="text-2xl  md:teat-4xl">
             We are delighted to have you{" "}
-            <span className=" text-pink-500">here...!</span>
+            <span className="text-pink-500">here...!</span>
           </h1>
           <p className=" mt-12">
             Discover a world of knowledge and imagination at your fingertips.

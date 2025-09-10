@@ -8,23 +8,17 @@ import userRoute from "./route/user.route.js";
 // import { fileURLToPath } from "url";
 // import { dirname } from "path";
 // import book from "./model/book.model.js";
-// const __filename = fileURLToPath(import.meta.url);
+// const __filename =  fileURLToPath(import.meta.url);
 
 // const __dirname = dirname(__filename);
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 dotenv.config();
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || 4000,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+const PORT = process.env.PORT || 4000;
 const URI = process.env.MONGODB_URI;
 
 //connect to mongodb
@@ -48,6 +42,6 @@ app.get("/", (req, res) => {
   res.redirect(process.env.FRONTEND_URL);
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Example app listening on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});

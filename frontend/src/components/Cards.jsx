@@ -4,20 +4,22 @@ import { MdFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
 import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 // import book from "../../../model/book.model";
 
 function Cards({ item }) {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
   console.log(authUser);
+
   // add to favourite
   const addToFavourite = async (bookId) => {
     try {
-      await axios.post("${window.location.origin}/user/favourite", {
+      await axios.post(`${window.location.origin}/user/favourite`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      alert("Book added to favourites!");
+      toast.success("Book added to favourites!");
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
@@ -25,11 +27,11 @@ function Cards({ item }) {
   // add to cart
   const addToCart = async (bookId) => {
     try {
-      await axios.post("${window.location.origin}/user/cart", {
+      await axios.post(`${window.location.origin}/user/cart`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      alert("Book added to carts!");
+      toast.success("Book added to carts!");
     } catch (error) {
       console.error(error.response?.data || error.message);
     }

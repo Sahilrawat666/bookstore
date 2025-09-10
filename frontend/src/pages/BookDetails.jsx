@@ -104,14 +104,7 @@ function BookDetails() {
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
           <div className="md:w-1/3">
-            <img
-              src={book.image}
-              className="w-full  object-cover"
-              // onError={(e) => {
-              //   e.target.src =
-              //     "https://via.placeholder.com/400x600?text=No+Image";
-              // }}
-            />
+            <img src={book.image} className="w-full  object-cover" />
           </div>
           <div className="md:w-2/3 p-8">
             <h1 className=" md:text-3xl text-3xl font-bold text-gray-800 mb-4">

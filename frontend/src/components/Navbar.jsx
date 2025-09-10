@@ -67,7 +67,7 @@ function Navbar() {
     <>
       <nav className="fixed top-0 left-0 px-10  w-full  z-50 bg-[#ebebeb]  backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
         <div className="  max-w-[1440px] m-auto h-13 sm:h-15 lg:h-17 flex items-center justify-between">
-          <label className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
+          <label className="text-xl  sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
             Book-Store
           </label>
           <div className="flex">
@@ -85,7 +85,7 @@ function Navbar() {
                   href="/course"
                   className="px-1 hover:underline flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
-                  All Books
+                  Books
                 </a>
               </li>
 
@@ -290,37 +290,52 @@ function Navbar() {
                 }`}
               >
                 <li>
-                  <a href="/" className="text-lg font-medium">
+                  <a
+                    href="/"
+                    className="text-lg font-medium hover:underline hover:decoration-2"
+                  >
                     Home
                   </a>
                 </li>
                 <li>
-                  <a href="/course" className="text-lg font-medium">
-                    Course
+                  <a
+                    href="/course"
+                    className="text-lg font-medium hover:underline hover:decoration-2"
+                  >
+                    Books
                   </a>
                 </li>
                 <li>
-                  <a href="/contact" className="text-lg font-medium">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="/about" className="text-lg font-medium">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="/favourite" className="text-lg font-medium">
+                  <a
+                    href="/favourite"
+                    className="text-lg font-medium hover:underline hover:decoration-2"
+                  >
                     Favourites
                   </a>
                 </li>{" "}
                 <li>
                   <a
                     href="/cart"
-                    className="flex items-center gap-2 text-lg font-medium"
+                    className="flex items-center gap-2 text-lg font-medium hover:underline hover:decoration-2"
                   >
                     Cart
                     <FaCartPlus className="text-xl" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    className="text-lg font-medium hover:underline hover:decoration-2"
+                  >
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/about"
+                    className="text-lg font-medium hover:underline hover:decoration-2"
+                  >
+                    About
                   </a>
                 </li>
                 {authUser ? (

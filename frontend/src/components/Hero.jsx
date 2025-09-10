@@ -31,7 +31,7 @@ function Hero() {
               <button>
                 <a
                   href="/course"
-                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3  sm:text-2xl md:text:3xl border-2 rounded-3xl "
+                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3   sm:text-lg border-2 rounded-3xl "
                 >
                   Browse Books
                 </a>

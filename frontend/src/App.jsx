@@ -1,17 +1,18 @@
 import React from "react";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "././home/Home.jsx";
-import Courses from "./courses/Courses.jsx";
+import Home from "./pages/Home.jsx";
+import Courses from "./pages/Courses.jsx";
 import Signup from "./components/Signup.jsx";
-import Login from "./components/Login.jsx";
-import Contact from "./contact/Contact.jsx";
+import Login from "./pages/Login.jsx";
+import Contact from "./pages/Contact.jsx";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthProvider.jsx";
-import BookDetails from "./components/BookDetails.jsx";
+import BookDetails from "./pages/BookDetails.jsx";
 import SearchResults from "./components/SearchResults";
-import FavouriteBooks from "./components/FavouriteBooks.jsx";
-import Cart from "./components/Cart.jsx";
+import FavouriteBooks from "./pages/FavouriteBooks.jsx";
+import Cart from "./pages/Cart.jsx";
+import toast from "react-hot-toast";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -19,6 +20,10 @@ import Cart from "./components/Cart.jsx";
 function App() {
   const [authUser, setAuthUser] = useAuth();
   console.log(authUser);
+  const LoginRedirect = () => {
+    toast.error("Please login first!");
+    return <Navigate to="/login" replace />;
+  };
 
   return (
     <>
@@ -39,14 +44,14 @@ function App() {
             authUser ? (
               <FavouriteBooks userId={authUser._id} />
             ) : (
-              <Navigate to="/login" />
+              <LoginRedirect />
             )
           }
         />
         <Route
           path="/cart"
           element={
-            authUser ? <Cart userId={authUser._id} /> : <Navigate to="/login" />
+            authUser ? <Cart userId={authUser._id} /> : <LoginRedirect />
           }
         />
       </Routes>

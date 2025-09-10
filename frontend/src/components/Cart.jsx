@@ -24,7 +24,7 @@ function Cart({ userId }) {
   return (
     <>
       <Navbar />
-      <div className="grid mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+      <div className="grid mt-10  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         {carts.length === 0 ? (
           <p>No books in your cart.</p>
         ) : (

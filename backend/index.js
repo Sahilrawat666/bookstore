@@ -1,11 +1,11 @@
-import express, { request } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bookRoute from "./route/book.route.js";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
-import path from "path";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import { fileURLToPath } from "url";
 // import { dirname } from "path";
 // import book from "./model/book.model.js";
 // const __filename = fileURLToPath(import.meta.url);
@@ -13,7 +13,6 @@ import { fileURLToPath } from "url";
 // const __dirname = dirname(__filename);
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -38,16 +37,6 @@ try {
 //defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
-// app.use("/favourite", userRoute);
-
-// app.get("/book/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const filter = { _id: new Object(id) };
-//   const result = await book.findOne(filter);
-//   res.send(result);
-// });
-
-// app.use(express.static(path.resolve(__dirname, "frontend", "dist")));
 
 app.get("/", (req, res) => {
   res.redirect(process.env.FRONTEND_URL);

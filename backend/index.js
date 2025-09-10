@@ -4,37 +4,32 @@ import mongoose from "mongoose";
 import bookRoute from "./route/book.route.js";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
-// import path from "path";
-// import { fileURLToPath } from "url";
-// import { dirname } from "path";
-// import book from "./model/book.model.js";
-// const __filename =  fileURLToPath(import.meta.url);
-
-// const __dirname = dirname(__filename);
-
-const app = express();
-app.use(cors());
-app.use(express.json());
 
 dotenv.config();
+
+const app = express();
+
+//  CORS setup
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MONGODB_URI;
 
-//connect to mongodb
-try {
-  mongoose.connect(URI);
-  //if using momgodb compass
-  // mongoose.connect(URI, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true,
-  // });
-  console.log("connected to mongodb");
-} catch (error) {
-  console.log("error:", error);
-}
+// connect to mongodb
+mongoose
+  .connect(URI)
+  .then(() => console.log("✅Connected to MongoDB"))
+  .catch((err) => console.error(" MongoDB connection error:", err));
 
-//defining routes
+// routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 
@@ -43,5 +38,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(` Server running on port ${PORT}`);
 });

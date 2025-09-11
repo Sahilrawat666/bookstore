@@ -18,10 +18,9 @@ app.use(express.json());
 
 dotenv.config();
 
-// const PORT = process.env.PORT || 4000;
+//connect to mongodb
 const URI = process.env.MONGODB_URI;
 
-//connect to mongodb
 try {
   mongoose.connect(URI);
   //if using momgodb compass
@@ -38,12 +37,16 @@ try {
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 
-app.get("/", (req, res) => {
-  res.redirect(process.env.FRONTEND_URL);
-});
-
-// app.listen(PORT, () => {
-//   console.log(`Example app listening on port ${PORT}`);
+// app.get("/", (req, res) => {
+//   res.redirect(process.env.FRONTEND_URL);
 // });
+
+// it will only run locally on this and vercel will ignore it
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
 
 export default app;

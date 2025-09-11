@@ -63,4 +63,36 @@ router.get("/:id", async (req, res) => {
 //   }
 // });
 
+// Get related books by category
+
+router.get("/related/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    //  Check if valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid book ID" });
+    }
+
+    //  Find current book
+    const currentBook = await book.findById(id);
+    if (!currentBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    //  Find other books in same category (excluding current one)
+    const relatedBooks = await book
+      .find({
+        category: currentBook.category,
+        _id: { $ne: currentBook._id },
+      })
+      .limit(6);
+
+    res.json(relatedBooks);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export default router;

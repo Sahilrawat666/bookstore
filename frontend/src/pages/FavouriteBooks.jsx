@@ -39,7 +39,7 @@ function FavouriteBooks({ userId }) {
   return (
     <>
       <Navbar />
-      <div className="w-full bg-slate-100">
+      <div className="w-full min-h-screen bg-slate-100">
         <div className="grid m-auto max-w-[1440px]  mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
           {favourites.length === 0 ? (
             <p>No favourite books yet.</p>

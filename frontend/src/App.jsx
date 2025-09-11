@@ -40,6 +40,10 @@ function App() {
         <Route path="/search" element={<SearchResults />} />
         <Route
           path="/favourite"
+          element={<FavouriteBooks userId={authUser?._id} />}
+        />
+        {/* <Route
+          path="/favourite"
           element={
             authUser ? (
               <FavouriteBooks userId={authUser._id} />
@@ -47,13 +51,8 @@ function App() {
               <LoginRedirect />
             )
           }
-        />
-        <Route
-          path="/cart"
-          element={
-            authUser ? <Cart userId={authUser._id} /> : <LoginRedirect />
-          }
-        />
+        />{" "} */}
+        <Route path="/cart" element={<Cart userId={authUser?._id} />} />
       </Routes>
       <Toaster />
     </>

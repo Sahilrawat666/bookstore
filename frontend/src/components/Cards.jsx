@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
 import axios from "axios";
@@ -10,22 +10,53 @@ import { useEffect } from "react";
 function Cards({ item }) {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
+  const [isFavourite, setIsFavourite] = useState(false);
   console.log(authUser);
+
+  // Check if this book is already in favourites on mount
+  // useEffect(() => {
+  //   if (authUser) {
+  //     axios
+  //       .get(
+  //         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
+  //       )
+  //       .then((res) => {
+  //         const favBooks = res.data.favourites || [];
+  //         setIsFavourite(favBooks.includes(item._id));
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
+  // }, [authUser, item._id]);
 
   // add to favourite
   const addToFavourite = async (bookId) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      return;
+    }
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
         userId: authUser._id,
         bookId: bookId,
       });
       toast.success("Book added to favourites!");
+      setIsFavourite(true);
     } catch (error) {
-      console.error(error.response?.data || error.message);
+      // Check if the backend indicates the book is already in favourites
+      if (error.response?.data?.message === "Book already in favourites") {
+        toast.error("Book already in favourites!");
+      } else {
+        toast.error("Something went wrong.");
+        console.error(error.response?.data || error.message);
+      }
     }
   };
   // add to cart
   const addToCart = async (bookId) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      return;
+    }
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
         userId: authUser._id,
@@ -33,7 +64,13 @@ function Cards({ item }) {
       });
       toast.success("Book added to carts!");
     } catch (error) {
-      console.error(error.response?.data || error.message);
+      // Check if the backend indicates the book is already in favourites
+      if (error.response?.data?.message === "Book already in carts") {
+        toast.error("Book already in cart!");
+      } else {
+        toast.error("Something went wrong.");
+        console.error(error.response?.data || error.message);
+      }
     }
   };
 
@@ -49,7 +86,12 @@ function Cards({ item }) {
       />
       {/* Favorite Icon */}
       <MdFavoriteBorder
-        className="absolute top-12 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white"
+        className={`absolute top-12 right-2 rounded-full border p-1 text-2xl 
+    ${
+      isFavourite
+        ? "bg-red-500 text-white"
+        : "text-black hover:bg-red-400 dark:text-white"
+    }`}
         onClick={() => addToFavourite(item._id)}
       />
       {/* Image */}

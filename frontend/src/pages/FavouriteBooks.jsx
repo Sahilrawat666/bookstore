@@ -44,14 +44,22 @@ function FavouriteBooks({ userId }) {
           {favourites.length === 0 ? (
             <p>No favourite books yet.</p>
           ) : (
-            favourites.map((book) => <Cards key={book.id} item={book} />)
+            favourites.map((book) => (
+              <Cards
+                key={book._id}
+                item={book}
+                onRemove={(bookId) => {
+                  setFavourites((prev) => prev.filter((b) => b._id !== bookId));
+                }}
+              />
+            ))
           )}
           {/* <button
-          onClick={() => removeFavourite(book._id)}
-          className="bg-red-500 text-white px-2 py-1 rounded"
-        >
-          Remove
-        </button> */}
+            onClick={() => removeFavourite(book._id)}
+            className="bg-red-500 text-white px-2 py-1 rounded"
+          >
+            Remove
+          </button> */}
         </div>
       </div>
       <Footer />

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { MdLightMode, MdDarkMode, MdSearch } from "react-icons/md";
+import { GoHeart } from "react-icons/go";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
@@ -59,7 +61,7 @@ function Navbar() {
     if (searchTerm.trim() !== "") {
       navigate(`/search?query=${searchTerm}`);
       setSearchTerm("");
-      setIsSearchOpen(false); // 👈 auto-close after search
+      setIsSearchOpen(false); // 👈 auto-close after searcha
     }
   };
 
@@ -71,21 +73,15 @@ function Navbar() {
             Book-Store
           </label>
           <div className="flex">
-            <ul className="nav-links ">
-              <li className="sm:hidden lg:flex">
-                {/* <a
-                  href="/"
-                  className="px-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
-                >
-                  Home
-                </a> */}
+            <ul className="nav-links  ">
+              <li className=" hidden sm:block">
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md 
      ${
        isActive
-         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
+         ? "underline underline-offset-4  "
          : "hover:underline underline-offset-4"
      }`
                   }
@@ -93,20 +89,14 @@ function Navbar() {
                   Home
                 </NavLink>
               </li>
-              <li className="sm:hidden lg:flex content-center">
-                {/* <a
-                  href="/course"
-                  className="px-1 hover:underline flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
-                >
-                  Books
-                </a> */}
+              <li className="hidden sm:block ">
                 <NavLink
                   to="/course"
                   className={({ isActive }) =>
                     `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
      ${
        isActive
-         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
+         ? "underline underline-offset-4 "
          : "hover:underline underline-offset-4"
      }`
                   }
@@ -115,65 +105,25 @@ function Navbar() {
                 </NavLink>
               </li>
 
-              <li className="sm:hidden lg:flex">
+              <li>
                 <NavLink
                   to="/favourite"
-                  className={({ isActive }) =>
-                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
-     ${
-       isActive
-         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
-         : "hover:underline underline-offset-4"
-     }`
-                  }
+                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 "
                 >
-                  Favourite
+                  <GoHeart className="text-2xl sm:text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95" />
                 </NavLink>
               </li>
-              <li className="sm:hidden lg:flex">
+              <li>
                 <NavLink
                   to="/cart"
-                  className={({ isActive }) =>
-                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
-     ${
-       isActive
-         ? "underline underline-offset-4 dark:text-white"
-         : "hover:underline underline-offset-4"
-     }`
-                  }
+                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 "
                 >
                   <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95" />
                 </NavLink>
               </li>
 
               {/* ----------- Desktop Search ------------ */}
-              <li className="flex items-center">
-                {/* <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (authUser) {
-                      handleSearch(e);
-                    } else {
-                      toast.error("Please login to search books");
-                    }
-                  }}
-                  className="flex"
-                >
-                  <input
-                    type="text"
-                    placeholder="Search books..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="px-3 border rounded-l-md focus:outline-none sm:ml-2 sm:w-25 sm:px-1 sm:text-xs"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white sm:w-15 sm:text-sm rounded-r-md hover:bg-blue-700"
-                  >
-                    Search
-                  </button>
-                </form> */}
-
+              <li className="flex items-center hidden sm:block">
                 <form
                   className="max-w-md mx-auto"
                   onSubmit={(e) => {
@@ -191,6 +141,7 @@ function Navbar() {
                   >
                     Search
                   </label>
+
                   <div className="relative">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                       <svg
@@ -230,16 +181,16 @@ function Navbar() {
               </li>
 
               {/* ----------- Theme Toggle ------------ */}
-              <li>
+              <li className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 ">
                 <i>
                   {darkMode ? (
                     <MdLightMode
-                      className="night cursor-pointer transform transition-transform duration-200 hover:scale-110 active:scale-95"
+                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
                       onClick={switchTheme}
                     />
                   ) : (
                     <MdDarkMode
-                      className="night cursor-pointer transform transition-transform duration-200 hover:scale-110 active:scale-95"
+                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
                       onClick={switchTheme}
                     />
                   )}
@@ -271,9 +222,9 @@ function Navbar() {
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className="p-2 rounded-full hover:bg-slate-200"
+                  className="p-2 rounded-full transform transition-transform duration-200 hover:scale-110 active:scale-95"
                 >
-                  <MdSearch size={20} />
+                  <MdSearch size={20} className="" />
                 </button>
 
                 <form
@@ -357,7 +308,7 @@ function Navbar() {
                     href="/cart"
                     className="flex items-center gap-2 text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
-                    Cart
+                    My Cart
                     <LiaCartPlusSolid className="text-xl" />
                   </a>
                 </li>

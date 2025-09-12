@@ -1,38 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdFavoriteBorder, MdOutlineShoppingCart } from "react-icons/md";
+import {
+  MdFavorite,
+  MdFavoriteBorder,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
 import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 // import book from "../../../model/book.model";
 
-function Cards({ item }) {
+function Cards({ item, onRemove }) {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+
   console.log(authUser);
 
   // Check if this book is already in favourites on mount
-  // useEffect(() => {
-  //   if (!authUser?._id) return;
+  useEffect(() => {
+    if (!authUser?._id) return;
 
-  //   const fetchFavourites = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
-  //       );
-  //       const favBooks = res.data.favourites || [];
+    const fetchFavourites = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
+        );
 
-  //       // mark red if book is in favourites
-  //       setIsFavourite(favBooks.includes(item._id));
-  //     } catch (err) {
-  //       console.error("Fav fetch error:", err);
-  //     }
-  //   };
+        const favBooks = res.data || []; // API returns array of books
+        const isBookFav = favBooks.some((book) => book._id === item._id);
 
-  //   fetchFavourites();
-  // }, [authUser?._id, item._id]);
+        setIsFavourite(isBookFav);
+      } catch (err) {
+        console.error("Fav fetch error:", err);
+      }
+    };
+
+    fetchFavourites();
+  }, [authUser?._id, item._id]);
 
   // add to favourite
   const addToFavourite = async (bookId) => {
@@ -57,6 +64,54 @@ function Cards({ item }) {
       }
     }
   };
+
+  //  Remove favourite API call
+  const removeFromFavourite = async (bookId) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      return;
+    }
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
+          authUser._id
+        }/${bookId}`
+      );
+      setIsFavourite(false);
+      toast.success("Removed from favourites");
+      // window.location.reload();
+      // 🔹 Notify parent if callback exists
+      if (typeof onRemove === "function") {
+        onRemove(bookId);
+      }
+    } catch (err) {
+      toast.error("Error removing book");
+      console.error(err);
+    }
+  };
+
+  // Check if this book is already in carts on mount
+  useEffect(() => {
+    if (!authUser?._id) return;
+
+    const fetchCarts = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`
+        );
+
+        const cartBooks = res.data || []; // API returns array of books
+        const isBookCart = cartBooks.some((book) => book._id === item._id);
+
+        setIsInCart(isBookCart);
+      } catch (err) {
+        console.error("Fav fetch error:", err);
+      }
+    };
+
+    fetchCarts();
+  }, [authUser?._id, item._id]);
+
   // add to cart
   const addToCart = async (bookId) => {
     if (!authUser) {
@@ -69,6 +124,7 @@ function Cards({ item }) {
         bookId: bookId,
       });
       toast.success("Book added to carts!");
+      setIsInCart(true);
     } catch (error) {
       // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in carts") {
@@ -80,26 +136,61 @@ function Cards({ item }) {
     }
   };
 
+  //  Remove from cart
+  const removeFromCart = async (bookId) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      return;
+    }
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${
+          authUser._id
+        }/${bookId}`
+      );
+      setIsInCart(false);
+      toast.success("Removed from carts");
+      // window.location.reload();
+      // 🔹 Notify parent if callback exists
+      if (typeof onRemove === "function") {
+        onRemove(bookId);
+      }
+    } catch (err) {
+      toast.error("Error removing book");
+      console.error(err);
+    }
+  };
+
   return (
     <div
       // onClick={() => navigate(`/book/${item._id}`)}
       className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700"
     >
-      {/* Cart Icon */}
-      <MdOutlineShoppingCart
-        className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white transform transition-transform duration-200 hover:scale-110 active:scale-95"
-        onClick={() => addToCart(item._id)}
-      />
-      {/* Favorite Icon */}
-      <MdFavoriteBorder
-        className={`absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95
-    ${
-      isFavourite
-        ? "bg-red-500 text-white"
-        : "text-black hover:bg-red-400 dark:text-white"
-    }`}
-        onClick={() => addToFavourite(item._id)}
-      />
+      {/* add and remove from cart icons */}
+      {isInCart ? (
+        <MdOutlineShoppingCart
+          className="absolute top-2 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
+          onClick={() => removeFromCart(item._id)}
+        />
+      ) : (
+        <MdOutlineShoppingCart
+          className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black dark:text-white hover:bg-green-400 transform transition-transform duration-200 hover:scale-110 active:scale-95"
+          onClick={() => addToCart(item._id)}
+        />
+      )}
+
+      {/* add and remove from favourite icons  */}
+      {isFavourite ? (
+        <MdFavorite
+          className="absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
+          onClick={() => removeFromFavourite(item._id)}
+        />
+      ) : (
+        <MdFavoriteBorder
+          className="absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
+          onClick={() => addToFavourite(item._id)}
+        />
+      )}
 
       <figure className="flex items-center justify-center p-2">
         <img

@@ -83,16 +83,16 @@ function Cards({ item }) {
   return (
     <div
       // onClick={() => navigate(`/book/${item._id}`)}
-      className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-slate-900"
+      className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700"
     >
       {/* Cart Icon */}
       <MdOutlineShoppingCart
-        className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white"
+        className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white transform transition-transform duration-200 hover:scale-110 active:scale-95"
         onClick={() => addToCart(item._id)}
       />
       {/* Favorite Icon */}
       <MdFavoriteBorder
-        className={`absolute top-12 right-2 rounded-full border p-1 text-2xl 
+        className={`absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95
     ${
       isFavourite
         ? "bg-red-500 text-white"
@@ -101,18 +101,6 @@ function Cards({ item }) {
         onClick={() => addToFavourite(item._id)}
       />
 
-      {/* {isFavourite ? (
-        <MdFavorite
-          className="absolute top-12 right-2 rounded-full border p-1 text-2xl bg-red-500 text-white"
-          onClick={() => addToFavourite(item._id)}
-        />
-      ) : (
-        <MdFavoriteBorder
-          className="absolute top-12 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white"
-          onClick={() => addToFavourite(item._id)}
-        />
-      )} */}
-      {/* Image */}
       <figure className="flex items-center justify-center p-2">
         <img
           src={item.image}

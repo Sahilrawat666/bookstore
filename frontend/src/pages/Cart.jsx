@@ -49,7 +49,7 @@ function Cart({ userId }) {
   return (
     <>
       <Navbar />
-      <div className=" min-h-screen sm:mt-13 md:mt-15 lg:mt-17 max-w-[1440px] mx-auto mt-20 px-10 pt-6 ">
+      <div className=" min-h-screen sm:mt-13 md:mt-15 lg:mt-17 max-w-[1440px] mx-auto mt-20 px-10 pt-6  ">
         <h1 className="text-3xl font-bold mb-6">My Cart</h1>
 
         {loading ? (

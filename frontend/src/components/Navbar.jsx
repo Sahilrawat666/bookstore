@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { MdLightMode, MdDarkMode, MdSearch } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
 import { IoMenuSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
-import { FaCartPlus } from "react-icons/fa";
+import { LiaCartPlusSolid } from "react-icons/lia";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
@@ -73,38 +73,77 @@ function Navbar() {
           <div className="flex">
             <ul className="nav-links ">
               <li className="sm:hidden lg:flex">
-                <a
+                {/* <a
                   href="/"
                   className="px-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
                   Home
-                </a>
+                </a> */}
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+     ${
+       isActive
+         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
+         : "hover:underline underline-offset-4"
+     }`
+                  }
+                >
+                  Home
+                </NavLink>
               </li>
               <li className="sm:hidden lg:flex content-center">
-                <a
+                {/* <a
                   href="/course"
                   className="px-1 hover:underline flex items-center  lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
                 >
                   Books
-                </a>
+                </a> */}
+                <NavLink
+                  to="/course"
+                  className={({ isActive }) =>
+                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+     ${
+       isActive
+         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
+         : "hover:underline underline-offset-4"
+     }`
+                  }
+                >
+                  Books
+                </NavLink>
               </li>
 
               <li className="sm:hidden lg:flex">
-                <a
-                  href="/favourite"
-                  className="px-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
+                <NavLink
+                  to="/favourite"
+                  className={({ isActive }) =>
+                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+     ${
+       isActive
+         ? "underline underline-offset-4 text-blue-600 dark:text-blue-400"
+         : "hover:underline underline-offset-4"
+     }`
+                  }
                 >
                   Favourite
-                </a>
+                </NavLink>
               </li>
               <li className="sm:hidden lg:flex">
-                <a
-                  href="/cart"
-                  className="px-1 gap-1 hover:underline flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md  transition-all duration-200"
+                <NavLink
+                  to="/cart"
+                  className={({ isActive }) =>
+                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+     ${
+       isActive
+         ? "underline underline-offset-4 dark:text-white"
+         : "hover:underline underline-offset-4"
+     }`
+                  }
                 >
-                  Cart
-                  <FaCartPlus className="text-xl" />
-                </a>
+                  <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                </NavLink>
               </li>
 
               {/* ----------- Desktop Search ------------ */}
@@ -195,12 +234,12 @@ function Navbar() {
                 <i>
                   {darkMode ? (
                     <MdLightMode
-                      className="night cursor-pointer"
+                      className="night cursor-pointer transform transition-transform duration-200 hover:scale-110 active:scale-95"
                       onClick={switchTheme}
                     />
                   ) : (
                     <MdDarkMode
-                      className="night cursor-pointer"
+                      className="night cursor-pointer transform transition-transform duration-200 hover:scale-110 active:scale-95"
                       onClick={switchTheme}
                     />
                   )}
@@ -274,7 +313,7 @@ function Navbar() {
                 className="menu ml-2 text-lg sm:text-2xl lg:hidden cursor-pointer"
                 onClick={toggleMenu}
               >
-                <IoMenuSharp />
+                <IoMenuSharp className="transform transition-transform duration-200 hover:scale-110 active:scale-95" />
               </i>
 
               {/* ----------- Dropdown Menu ------------ */}
@@ -292,7 +331,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/"
-                    className="text-lg font-medium hover:underline hover:decoration-2"
+                    className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Home
                   </a>
@@ -300,7 +339,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/course"
-                    className="text-lg font-medium hover:underline hover:decoration-2"
+                    className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Books
                   </a>
@@ -308,7 +347,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/favourite"
-                    className="text-lg font-medium hover:underline hover:decoration-2"
+                    className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Favourites
                   </a>
@@ -316,16 +355,16 @@ function Navbar() {
                 <li>
                   <a
                     href="/cart"
-                    className="flex items-center gap-2 text-lg font-medium hover:underline hover:decoration-2"
+                    className="flex items-center gap-2 text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Cart
-                    <FaCartPlus className="text-xl" />
+                    <LiaCartPlusSolid className="text-xl" />
                   </a>
                 </li>
                 <li>
                   <a
                     href="/contact"
-                    className="text-lg font-medium hover:underline hover:decoration-2"
+                    className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Contact
                   </a>
@@ -333,7 +372,7 @@ function Navbar() {
                 <li>
                   <a
                     href="/about"
-                    className="text-lg font-medium hover:underline hover:decoration-2"
+                    className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     About
                   </a>

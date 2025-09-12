@@ -3,7 +3,7 @@ import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Courses from "./pages/Courses.jsx";
-import Signup from "./components/Signup.jsx";
+import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
 import Contact from "./pages/Contact.jsx";
 import { Toaster } from "react-hot-toast";

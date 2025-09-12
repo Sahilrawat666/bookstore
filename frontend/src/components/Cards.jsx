@@ -15,18 +15,24 @@ function Cards({ item }) {
 
   // Check if this book is already in favourites on mount
   // useEffect(() => {
-  //   if (authUser) {
-  //     axios
-  //       .get(
+  //   if (!authUser?._id) return;
+
+  //   const fetchFavourites = async () => {
+  //     try {
+  //       const res = await axios.get(
   //         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
-  //       )
-  //       .then((res) => {
-  //         const favBooks = res.data.favourites || [];
-  //         setIsFavourite(favBooks.includes(item._id));
-  //       })
-  //       .catch((err) => console.error(err));
-  //   }
-  // }, [authUser, item._id]);
+  //       );
+  //       const favBooks = res.data.favourites || [];
+
+  //       // mark red if book is in favourites
+  //       setIsFavourite(favBooks.includes(item._id));
+  //     } catch (err) {
+  //       console.error("Fav fetch error:", err);
+  //     }
+  //   };
+
+  //   fetchFavourites();
+  // }, [authUser?._id, item._id]);
 
   // add to favourite
   const addToFavourite = async (bookId) => {
@@ -94,6 +100,18 @@ function Cards({ item }) {
     }`}
         onClick={() => addToFavourite(item._id)}
       />
+
+      {/* {isFavourite ? (
+        <MdFavorite
+          className="absolute top-12 right-2 rounded-full border p-1 text-2xl bg-red-500 text-white"
+          onClick={() => addToFavourite(item._id)}
+        />
+      ) : (
+        <MdFavoriteBorder
+          className="absolute top-12 right-2 rounded-full border p-1 text-2xl text-black hover:bg-red-400 dark:text-white"
+          onClick={() => addToFavourite(item._id)}
+        />
+      )} */}
       {/* Image */}
       <figure className="flex items-center justify-center p-2">
         <img

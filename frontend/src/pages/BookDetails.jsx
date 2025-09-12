@@ -5,9 +5,10 @@ import { FaStar, FaRegStar, FaCartPlus, FaHeart } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useAuth } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 function BookDetails() {
-  const authUser = useAuth();
+  const [authUser, setAuthUser] = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
@@ -54,39 +55,50 @@ function BookDetails() {
     }
   }, [id]);
 
-  // // add to favourite
-  // const addToFavourite = async (bookId) => {
-  //   if (!authUser) {
-  //     toast.error("Please login first!");
-  //     return;
-  //   }
-  //   try {
-  //     await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
-  //       // userId: authUser._id,
-  //       // bookId: bookId,
-  //     });
-  //     toast.success("Book added to favourites!");
-  //   } catch (error) {
-  //     console.error(error.response?.data || error.message);
-  //   }
-  // };
-  // // add to cart
-  // const addToCart = async (bookId) => {
-  //   if (!authUser) {
-  //     toast.error("Please login first!");
-  //     return;
-  //   }
-  //   try {
-  //     await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
-  //       userId: authUser._id,
-  //       bookId: bookId,
-  //     });
-  //     toast.success("Book added to carts!");
-  //   } catch (error) {
-  //     console.error(error.response?.data || error.message);
-  //   }
-  // };
+  // add to favourite
+  const addToFavourite = async (bookId) => {
+    if (!authUser?._id) {
+      toast.error("Please login first!");
+      return;
+    }
+    try {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
+        userId: authUser._id,
+        bookId: bookId,
+      });
+      toast.success("Book added to favourites!");
+    } catch (error) {
+      if (error.response?.data?.message === "Book already in favourites") {
+        toast.error("Book already in favourites!");
+      } else {
+        toast.error("Something went wrong.");
+        console.error(error.response?.data || error.message);
+      }
+    }
+  };
 
+  // add to cart
+  const addToCart = async (bookId) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      return;
+    }
+    try {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
+        userId: authUser._id,
+        bookId: bookId,
+      });
+      toast.success("Book added to carts!");
+    } catch (error) {
+      // Check if the backend indicates the book is already in favourites
+      if (error.response?.data?.message === "Book already in carts") {
+        toast.error("Book already in cart!");
+      } else {
+        toast.error("Something went wrong.");
+        console.error(error.response?.data || error.message);
+      }
+    }
+  };
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">

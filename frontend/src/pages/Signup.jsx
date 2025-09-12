@@ -1,10 +1,10 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
 
   const {
@@ -15,25 +15,26 @@ function Login() {
 
   const onSubmit = async (data) => {
     const userInfo = {
+      fullname: data.fullname,
       email: data.email,
       password: data.password,
     };
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/user/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/signup`,
         userInfo
       );
 
       if (res.data) {
-        toast.success("Logged in successfully ✅");
+        toast.success("Signup successful ✅");
         localStorage.setItem("User", JSON.stringify(res.data.user));
         navigate("/");
-        window.location.reload(); // refresh app state
+        window.location.reload();
       }
     } catch (err) {
       if (err.response) {
-        toast.error("Invalid username or password ❌");
+        toast.error("Error: " + err.response.data.message);
       } else {
         toast.error("Something went wrong!");
       }
@@ -41,10 +42,10 @@ function Login() {
   };
 
   return (
-    <div className=" py-3 sm:max-w-xl sm:mx-auto h-screen flex items-center ">
+    <div className=" py-3 sm:max-w-xl sm:mx-auto h-screen w-full flex items-center dark:bg-slate-900 ">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-md mx-auto  px-4 py-10 bg-white dark:bg-black dark:text-white  shadow rounded-3xl sm:p-10"
+        className="w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"
       >
         <Link
           to="/"
@@ -55,14 +56,30 @@ function Login() {
         {/* Title */}
         <div className="flex items-center justify-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            Book-Store
+            Create Account
           </h1>
         </div>
 
-        {/* Email */}
+        {/* Name */}
         <div className="mt-5">
           <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
-            E-mail
+            Full Name
+          </label>
+          <input
+            className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            type="text"
+            {...register("fullname", { required: true })}
+            placeholder="Enter your name"
+          />
+          {errors.fullname && (
+            <span className="text-xs text-red-500">Name is required</span>
+          )}
+        </div>
+
+        {/* Email */}
+        <div className="mt-4">
+          <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
+            Email
           </label>
           <input
             className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
@@ -91,40 +108,31 @@ function Login() {
           )}
         </div>
 
-        {/* Forgot password */}
-        <div className="text-right mb-4">
-          <a
-            className="text-xs font-display font-semibold text-gray-500 hover:text-gray-600 cursor-pointer"
-            href="#"
-          >
-            Forgot Password?
-          </a>
-        </div>
-
         {/* Submit button */}
         <div className="mt-5">
           <button
-            className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            className="py-2 px-4 bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
             type="submit"
           >
-            Log in
+            Sign up
           </button>
         </div>
 
-        {/* Signup link */}
-        <div className="flex items-center justify-between mt-4">
-          <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-          <a
-            className="text-xs text-gray-500 uppercase hover:underline"
-            href="/signup"
-          >
-            or sign up
-          </a>
-          <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+        {/* Login link */}
+        <div className="flex items-center justify-center mt-6">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="underline text-blue-500 hover:text-blue-700"
+            >
+              Login
+            </Link>
+          </p>
         </div>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Signup;

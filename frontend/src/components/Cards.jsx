@@ -16,7 +16,7 @@ function Cards({ item, onRemove, type }) {
   const [authUser, setAuthUser] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-
+  // const [setFavCount] = useAuth();
   console.log(authUser);
 
   // Check if this book is already in favourites on mount
@@ -53,6 +53,8 @@ function Cards({ item, onRemove, type }) {
         bookId: bookId,
       });
       toast.success("Book added to favourites!");
+      // setFavCount((prev) => prev + 1); //  Increment the count immediately
+
       setIsFavourite(true);
     } catch (error) {
       // Check if the backend indicates the book is already in favourites

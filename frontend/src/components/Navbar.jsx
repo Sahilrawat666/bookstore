@@ -12,6 +12,15 @@ import { LiaCartPlusSolid } from "react-icons/lia";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
+  const [
+    authUser,
+    setAuthUser,
+    cartCount,
+    setCartCount,
+    favCount,
+    setFavCount,
+  ] = useAuth();
+
   const switchTheme = async () => {
     SetDarkmode(!darkMode);
 
@@ -36,7 +45,7 @@ function Navbar() {
     }
   }, []);
 
-  const [authUser, setAuthUser] = useAuth();
+  // const [authUser, setAuthUser] = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -108,17 +117,27 @@ function Navbar() {
               <li>
                 <NavLink
                   to="/favourite"
-                  className="px-1 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 "
+                  className="px-1 flex relative items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 "
                 >
                   <GoHeart className="text-2xl sm:text-2xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
+                  {favCount > 0 && (
+                    <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                      {favCount}
+                    </span>
+                  )}
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/cart"
-                  className="px-1 flex items-center lg:text-xl  lg:mx-2 rounded-md transition-all duration-200 "
+                  className="px-1 relative flex items-center lg:text-xl  lg:mx-2 rounded-md transition-all duration-200 "
                 >
                   <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
                 </NavLink>
               </li>
 

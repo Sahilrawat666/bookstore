@@ -13,10 +13,16 @@ import { useEffect } from "react";
 
 function Cards({ item, onRemove, type }) {
   const navigate = useNavigate();
-  const [authUser, setAuthUser] = useAuth();
+  const [
+    authUser,
+    setAuthUser,
+    cartCount,
+    setCartCount,
+    favCount,
+    setFavCount,
+  ] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-  // const [setFavCount] = useAuth();
   console.log(authUser);
 
   // Check if this book is already in favourites on mount
@@ -53,9 +59,9 @@ function Cards({ item, onRemove, type }) {
         bookId: bookId,
       });
       toast.success("Book added to favourites!");
-      // setFavCount((prev) => prev + 1); //  Increment the count immediately
 
       setIsFavourite(true);
+      setFavCount((prev) => prev + 1);
     } catch (error) {
       // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in favourites") {
@@ -79,8 +85,11 @@ function Cards({ item, onRemove, type }) {
           authUser._id
         }/${bookId}`
       );
-      setIsFavourite(false);
       toast.success("Removed from favourites");
+      setIsFavourite(false);
+
+      setFavCount((prev) => (prev > 0 ? prev - 1 : 0));
+
       // window.location.reload();
       // 🔹 Notify parent if callback exists
       if (type === "favourite" && typeof onRemove === "function") {
@@ -127,6 +136,7 @@ function Cards({ item, onRemove, type }) {
       });
       toast.success("Book added to carts!");
       setIsInCart(true);
+      setCartCount((prev) => prev + 1);
     } catch (error) {
       // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in carts") {
@@ -150,8 +160,10 @@ function Cards({ item, onRemove, type }) {
           authUser._id
         }/${bookId}`
       );
-      setIsInCart(false);
       toast.success("Removed from carts");
+      setIsInCart(false);
+      setCartCount((prev) => (prev > 0 ? prev - 1 : 0)); // 🔹 decrement cart count
+
       // window.location.reload();
       // 🔹 Notify parent if callback exists
       if (type === "cart" && typeof onRemove === "function") {

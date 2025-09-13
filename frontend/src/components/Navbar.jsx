@@ -12,14 +12,7 @@ import { LiaCartPlusSolid } from "react-icons/lia";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
-  const [
-    authUser,
-    setAuthUser,
-    cartCount,
-    setCartCount,
-    favCount,
-    setFavCount,
-  ] = useAuth();
+  const [authUser, setAuthUser, cartCount, setCartCount, favCount] = useAuth();
 
   const switchTheme = async () => {
     SetDarkmode(!darkMode);
@@ -134,7 +127,7 @@ function Navbar() {
                 >
                   <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-0 -right-0.5  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                       {cartCount}
                     </span>
                   )}

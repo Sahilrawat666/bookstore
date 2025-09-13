@@ -9,7 +9,7 @@ import { useAuth } from "../context/AuthProvider.jsx";
 function Cart({ userId }) {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const authUser = useAuth();
+  const [authUser, setAuthUser, cartCount, setCartCount] = useAuth();
 
   // const Navigate = useNavigate();
 
@@ -70,8 +70,9 @@ function Cart({ userId }) {
 
       // Update UI instantly without reload
       setCarts((prev) => prev.filter((book) => book._id !== bookId));
-
       toast.success("Removed from cart");
+      // Update global cart count
+      setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
     } catch (err) {
       toast.error("Error removing book");
       console.error(err);

@@ -66,6 +66,14 @@ function Navbar() {
       setIsSearchOpen(false); // 👈 auto-close after searcha
     }
   };
+  // protect books route
+  const handleBookClick = (item) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      navigate("/login"); // redirect to login
+      return;
+    }
+  };
 
   return (
     <>
@@ -94,7 +102,7 @@ function Navbar() {
               </li>
               <li className="hidden sm:block ">
                 <NavLink
-                  to="/course"
+                  to="/books"
                   className={({ isActive }) =>
                     `relative px-1 flex items-center lg:text-xl mx-2 lg:mx-4 
      rounded-md transition-all duration-300
@@ -104,6 +112,7 @@ function Navbar() {
          : "after:w-0 after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300 hover:after:w-full"
      }`
                   }
+                  onClick={handleBookClick}
                 >
                   Books
                 </NavLink>
@@ -314,7 +323,7 @@ function Navbar() {
                 </li>
                 <li>
                   <a
-                    href="/course"
+                    href="/books"
                     className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
                     Books

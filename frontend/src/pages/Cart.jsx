@@ -93,7 +93,7 @@ function Cart({ userId }) {
               Start adding books to your cart and find your next favorite read!
             </p>
             <button
-              onClick={() => Navigate("/course")}
+              onClick={() => Navigate("/books")}
               className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 transition"
             >
               Browse Books
@@ -107,11 +107,9 @@ function Cart({ userId }) {
                 <div
                   key={book._id}
                   className="flex shadow-lg bg-white dark:bg-[#1f2937] dark:border dark:border-gray-700 items-center justify-between rounded-lg p-4 transition hover:shadow-xl"
+                  onClick={() => Navigate(`/book/${book._id}`)}
                 >
-                  <div
-                    className="flex items-center gap-4 cursor-pointer"
-                    onClick={() => Navigate(`/book/${book._id}`)}
-                  >
+                  <div className="flex items-center gap-4 cursor-pointer">
                     <img
                       src={book.image}
                       alt={book.name}
@@ -141,8 +139,7 @@ function Cart({ userId }) {
                 </div>
               ))}
             </div>
-
-            {/* Order Summary */}
+            {/* Order Summary
             <div className="rounded-lg p-6 shadow-md bg-gray-100 dark:bg-[#111827] dark:border dark:border-gray-700">
               <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
                 Order Summary
@@ -160,6 +157,68 @@ function Cart({ userId }) {
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
                 Secure checkout • 100% satisfaction guaranteed
               </p>
+            </div> */}
+            {/* Order Summary */}
+            <div className="rounded-xl p-6 shadow-lg bg-gray-100 dark:bg-[#111827] dark:border dark:border-gray-700 flex flex-col gap-6">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                Order Summary
+              </h2>
+
+              {/* Itemized Breakdown */}
+              <div className="space-y-2">
+                <p className="flex justify-between text-gray-700 dark:text-gray-300">
+                  <span>Subtotal</span>
+                  <span>${totalPrice.toFixed(2)}</span>
+                </p>
+                <p className="flex justify-between text-gray-700 dark:text-gray-300">
+                  <span>Tax (5%)</span>
+                  <span>${(totalPrice * 0.05).toFixed(2)}</span>
+                </p>
+                <p className="flex justify-between text-gray-700 dark:text-gray-300">
+                  <span>Shipping</span>
+                  <span>${totalPrice > 0 ? "5.00" : "0.00"}</span>
+                </p>
+                <hr className="border-gray-300 dark:border-gray-600 my-2" />
+                <p className="flex justify-between text-lg font-bold text-gray-800 dark:text-gray-200">
+                  <span>Total</span>
+                  <span>
+                    $
+                    {(
+                      totalPrice +
+                      totalPrice * 0.05 +
+                      (totalPrice > 0 ? 5 : 0)
+                    ).toFixed(2)}
+                  </span>
+                </p>
+              </div>
+
+              {/* Promo Code */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Promo code"
+                  className="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition">
+                  Apply
+                </button>
+              </div>
+
+              {/* Checkout Button */}
+              <button
+                className="w-full mt-2 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 font-semibold shadow-md transition-all duration-300"
+                onClick={() => toast.success("Proceeding to checkout...")}
+              >
+                Checkout
+              </button>
+
+              {/* Extra Info */}
+              <div className="text-center text-sm text-gray-500 dark:text-gray-400 space-y-1 mt-2">
+                <p>Secure checkout • 100% satisfaction guaranteed</p>
+                <p>Estimated delivery: 3-5 business days</p>
+                <p>Free returns within 14 days</p>
+                <p>Support available 24/7 for any order queries</p>
+              </div>
             </div>
           </div>
         )}

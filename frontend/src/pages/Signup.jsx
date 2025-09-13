@@ -42,7 +42,7 @@ function Signup() {
   };
 
   return (
-    <div className=" py-3 sm:max-w-xl sm:mx-auto h-screen w-full flex items-center dark:bg-slate-900 ">
+    <div className=" py-3 sm:max-w-xl sm:mx-auto h-screen w-full flex items-center justify-center dark:bg-slate-900 ">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"

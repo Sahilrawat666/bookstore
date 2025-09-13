@@ -23,7 +23,7 @@ function Cards({ item, onRemove, type }) {
   ] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-  console.log(authUser);
+  // console.log(authUser);
 
   // Check if this book is already in favourites on mount
   useEffect(() => {
@@ -176,10 +176,7 @@ function Cards({ item, onRemove, type }) {
   };
 
   return (
-    <div
-      // onClick={() => navigate(`/book/${item._id}`)}
-      className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700"
-    >
+    <div className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg hover:shadow-xl transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
       {/* add and remove from cart icons */}
       {isInCart ? (
         <MdOutlineShoppingCart
@@ -236,7 +233,7 @@ function Cards({ item, onRemove, type }) {
           {/* Buy Button */}
           {isInCart ? (
             <button
-              className="rounded-md border border-slate-400 px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white dark:bg-slate-900 dark:text-white"
+              className="rounded-md border border-slate-400 px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white"
               onClick={() => removeFromCart(item._id)}
             >
               Remove from cart

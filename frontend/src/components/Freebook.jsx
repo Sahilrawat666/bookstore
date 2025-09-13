@@ -61,7 +61,7 @@ function Freebook() {
   };
   return (
     <>
-      <div className="w-full bg-slate-100 dark:bg-[#161616] px-3 md:px-8">
+      <div className="w-full bg-slate-100 dark:bg-[#161616] px-3 md:px-8 pb-10">
         <div className="freebooks  m-auto  ">
           <div className="freebook-heading">
             <h1 className="dark:text-white">free offered cources</h1>

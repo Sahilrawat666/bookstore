@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Courses from "./pages/Courses.jsx";
 import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
 import Contact from "./pages/Contact.jsx";
@@ -13,6 +12,7 @@ import SearchResults from "./components/SearchResults";
 import FavouriteBooks from "./pages/FavouriteBooks.jsx";
 import Cart from "./pages/Cart.jsx";
 import toast from "react-hot-toast";
+import Books from "./pages/Books.jsx";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -29,10 +29,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/course"
-          element={authUser ? <Courses /> : <Navigate to="/Signup" />}
-        />
+        <Route path="/books" element={<Books />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
@@ -42,16 +39,6 @@ function App() {
           path="/favourite"
           element={<FavouriteBooks userId={authUser?._id} />}
         />
-        {/* <Route
-          path="/favourite"
-          element={
-            authUser ? (
-              <FavouriteBooks userId={authUser._id} />
-            ) : (
-              <LoginRedirect />
-            )
-          }
-        />{" "} */}
         <Route path="/cart" element={<Cart userId={authUser?._id} />} />
       </Routes>
       <Toaster />

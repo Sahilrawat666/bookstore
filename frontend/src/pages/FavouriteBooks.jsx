@@ -44,7 +44,7 @@ function FavouriteBooks({ userId }) {
       </div>
 
       {/* ✅ Books Section */}
-      <div className="w-full min-h-screen bg-slate-100 dark:bg-slate-900 px-3 md:px-8 py-12">
+      <div className="w-full  bg-slate-100 dark:bg-slate-900 px-3 md:px-8 py-12">
         <div className="grid m-auto max-w-[1440px] grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {loading ? (
             <div className="flex justify-center items-center col-span-full min-h-[300px]">

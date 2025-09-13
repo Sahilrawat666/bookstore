@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 function BookDetails() {
   const [authUser, setAuthUser] = useAuth();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
@@ -67,6 +68,7 @@ function BookDetails() {
         bookId: bookId,
       });
       toast.success("Book added to favourites!");
+      setFavCount((prev) => prev + 1);
     } catch (error) {
       if (error.response?.data?.message === "Book already in favourites") {
         toast.error("Book already in favourites!");
@@ -88,7 +90,8 @@ function BookDetails() {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to carts!");
+      toast.success("Book added to cart!");
+      setCartCount((prev) => prev + 1);
     } catch (error) {
       // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in carts") {

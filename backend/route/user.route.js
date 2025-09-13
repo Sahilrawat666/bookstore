@@ -107,7 +107,7 @@ router.post("/cart", async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: "Book added to carts",
+      message: "Book added to cart",
       carts: user.carts,
     });
   } catch (error) {
@@ -152,7 +152,7 @@ router.delete("/carts/user/:userId/:bookId", async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: "Book removed from carts",
+      message: "Book removed from cart!",
       carts: user.carts,
     });
   } catch (error) {

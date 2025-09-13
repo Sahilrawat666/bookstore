@@ -134,7 +134,7 @@ function Cards({ item, onRemove, type }) {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to carts!");
+      toast.success("Book added to cart!");
       setIsInCart(true);
       setCartCount((prev) => prev + 1);
     } catch (error) {
@@ -160,7 +160,7 @@ function Cards({ item, onRemove, type }) {
           authUser._id
         }/${bookId}`
       );
-      toast.success("Removed from carts");
+      toast.success("Book removed from cart!");
       setIsInCart(false);
       setCartCount((prev) => (prev > 0 ? prev - 1 : 0)); // 🔹 decrement cart count
 
@@ -188,7 +188,7 @@ function Cards({ item, onRemove, type }) {
         />
       ) : (
         <MdOutlineShoppingCart
-          className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black dark:text-white hover:bg-green-400 transform transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
           onClick={() => addToCart(item._id)}
         />
       )}
@@ -234,9 +234,27 @@ function Cards({ item, onRemove, type }) {
           </span>
 
           {/* Buy Button */}
-          <button className="rounded-md border border-slate-400 px-4 py-1 text-sm font-semibold text-gray-700 transition duration-200 hover:bg-pink-500 hover:text-white dark:border-white dark:bg-slate-900 dark:text-white">
-            Buy now
-          </button>
+          {isInCart ? (
+            <button
+              className="rounded-md border border-slate-400 px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white dark:bg-slate-900 dark:text-white"
+              onClick={() => removeFromCart(item._id)}
+            >
+              Remove from cart
+            </button>
+          ) : (
+            <button
+              className="rounded-md border border-slate-400 px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
+              onClick={() => addToCart(item._id)}
+            >
+              Add to cart
+            </button>
+          )}
+          {/* <button
+            className="rounded-md border border-slate-400 px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200 hover:bg-pink-500 hover:text-white dark:border-white dark:bg-slate-900 dark:text-white"
+            onClick={() => addToCart(item._id)}
+          >
+            Add to cart
+          </button> */}
         </div>
       </div>
     </div>

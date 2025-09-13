@@ -6,7 +6,7 @@ import { GoHeart } from "react-icons/go";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
-import { IoMenuSharp } from "react-icons/io5";
+import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { LiaCartPlusSolid } from "react-icons/lia";
 
@@ -80,11 +80,12 @@ function Navbar() {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md 
+                    `relative px-1 flex items-center lg:text-xl mx-2 lg:mx-4 
+     rounded-md transition-all duration-300
      ${
        isActive
-         ? "underline underline-offset-4  "
-         : "hover:underline underline-offset-4"
+         ? "after:w-full after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300"
+         : "after:w-0 after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300 hover:after:w-full"
      }`
                   }
                 >
@@ -95,11 +96,12 @@ function Navbar() {
                 <NavLink
                   to="/course"
                   className={({ isActive }) =>
-                    `px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 
+                    `relative px-1 flex items-center lg:text-xl mx-2 lg:mx-4 
+     rounded-md transition-all duration-300
      ${
        isActive
-         ? "underline underline-offset-4 "
-         : "hover:underline underline-offset-4"
+         ? "after:w-full after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300"
+         : "after:w-0 after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300 hover:after:w-full"
      }`
                   }
                 >
@@ -123,15 +125,21 @@ function Navbar() {
               <li>
                 <NavLink
                   to="/cart"
-                  className="px-1 relative flex items-center lg:text-xl  lg:mx-2 rounded-md transition-all duration-200 "
+                  className="px-2 relative flex items-center lg:text-xl  lg:mx-2  rounded-md transition-all duration-200 "
                 >
                   <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-0 -right-0.5  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                       {cartCount}
                     </span>
                   )}
                 </NavLink>
+              </li>
+              <li
+                className="sm:hidden p-2 rounded-full transform transition-transform duration-200 hover:scale-120 active:scale-95"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              >
+                <MdSearch size={23} className="" />
               </li>
 
               {/* ----------- Desktop Search ------------ */}
@@ -231,14 +239,6 @@ function Navbar() {
             <div className="flex items-center float-right">
               {/* ----------- Mobile Search with Icon ------------ */}
               <div className="relative sm:hidden">
-                <button
-                  type="button"
-                  onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className="p-2 rounded-full transform transition-transform duration-200 hover:scale-120 active:scale-95"
-                >
-                  <MdSearch size={20} className="" />
-                </button>
-
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -276,21 +276,34 @@ function Navbar() {
                 className="menu ml-2 text-lg sm:text-2xl lg:hidden cursor-pointer"
                 onClick={toggleMenu}
               >
-                <IoMenuSharp className="transform transition-transform duration-200 hover:scale-120 active:scale-95" />
+                {isMenuOpen ? (
+                  <IoCloseSharp className="transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                ) : (
+                  <IoMenuSharp className="transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                )}
               </i>
 
               {/* ----------- Dropdown Menu ------------ */}
+
               <ul
                 className={`absolute top-16 dark:bg-slate-800 left-1/2 transform -translate-x-1/2
-                bg-white shadow-md z-50 w-[90vw]
-                flex flex-col items-center justify-center gap-6 py-8
-                transition-all duration-500 ease-in-out rounded-xl
-                ${
-                  isMenuOpen
-                    ? "opacity-100 translate-y-0 visible"
-                    : "opacity-0 -translate-y-10 invisible"
-                }`}
+    bg-white shadow-md z-50 w-[90vw]
+    flex flex-col items-center justify-center gap-6 py-8
+    transition-all duration-500 ease-in-out rounded-xl
+    ${
+      isMenuOpen
+        ? "opacity-100 translate-y-0 visible"
+        : "opacity-0 -translate-y-10 invisible"
+    }`}
               >
+                {/* Close Icon */}
+                <button
+                  onClick={toggleMenu}
+                  className="absolute top-4 right-6 text-2xl text-gray-600 dark:text-gray-200 hover:text-red-500 transition-transform duration-200 hover:scale-110 active:scale-95"
+                >
+                  <IoCloseSharp />
+                </button>
+
                 <li>
                   <a
                     href="/"
@@ -314,7 +327,7 @@ function Navbar() {
                   >
                     Favourites
                   </a>
-                </li>{" "}
+                </li>
                 <li>
                   <a
                     href="/cart"

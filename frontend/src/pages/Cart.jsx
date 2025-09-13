@@ -10,8 +10,7 @@ function Cart({ userId }) {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [authUser, setAuthUser, cartCount, setCartCount] = useAuth();
-
-  // const Navigate = useNavigate();
+  const Navigate = useNavigate();
 
   useEffect(() => {
     if (!userId) return;
@@ -101,7 +100,7 @@ function Cart({ userId }) {
                 <div
                   key={book._id}
                   className="flex shadow-lg bg-slate-100 items-center justify-between  rounded-lg p-4 shadow-sm dark:bg-[#f4f4f430] dark:border-gray-700"
-                  // onClick={() => Navigate(`/book/${book._id}`)}
+                  onClick={() => Navigate(`/book/${book._id}`)}
                 >
                   <div className="flex items-center gap-4">
                     <img

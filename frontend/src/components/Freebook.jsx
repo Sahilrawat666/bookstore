@@ -25,6 +25,7 @@ function Freebook() {
 
   var settings = {
     dots: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -60,7 +61,7 @@ function Freebook() {
   };
   return (
     <>
-      <div className="w-full bg-slate-100 dark:bg-[#161616]">
+      <div className="w-full bg-slate-100 dark:bg-[#161616] px-3 md:px-8">
         <div className="freebooks  m-auto  ">
           <div className="freebook-heading">
             <h1 className="dark:text-white">free offered cources</h1>

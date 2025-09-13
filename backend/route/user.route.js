@@ -26,7 +26,6 @@ router.post("/favourite", async (req, res) => {
 
     if (user.favourites.includes(bookId)) {
       return res.status(400).json({ message: "Book already in favourites" });
-      toast.success("book already in favourites");
     }
 
     user.favourites.push(bookId);
@@ -108,8 +107,8 @@ router.post("/cart", async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: "Book added to favourites",
-      favourites: user.carts,
+      message: "Book added to carts",
+      carts: user.carts,
     });
   } catch (error) {
     console.error("Error adding cart:", error);
@@ -147,14 +146,14 @@ router.delete("/carts/user/:userId/:bookId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // remove book from favourites array
-    user.carts = user.carts.filter((fav) => fav.toString() !== bookId);
+    // remove book from cart array
+    user.carts = user.carts.filter((cart) => cart.toString() !== bookId);
 
     await user.save();
 
     res.status(200).json({
       message: "Book removed from carts",
-      favourites: user.favourites,
+      carts: user.carts,
     });
   } catch (error) {
     console.error("Error removing from cart:", error);

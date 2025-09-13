@@ -4,11 +4,14 @@ import Navbar from "../components/Navbar.jsx";
 import toast from "react-hot-toast";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider.jsx";
 
 function Cart({ userId }) {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const Navigate = useNavigate();
+  const authUser = useAuth();
+
+  // const Navigate = useNavigate();
 
   useEffect(() => {
     if (!userId) return;
@@ -30,17 +33,48 @@ function Cart({ userId }) {
     fetchCarts();
   }, [userId]);
 
-  // remove from cart
+  //  Remove from cart
+  // const removeFromCart = async (bookId) => {
+  //   if (!authUser) {
+  //     toast.error("Please login first!");
+  //     return;
+  //   }
+  //   try {
+  //     await axios.delete(
+  //       `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${
+  //         authUser._id
+  //       }/${bookId}`
+  //     );
+  //     // setIsInCart(false);
+  //     toast.success("Removed from carts");
+  //     // 🔹 Notify parent if callback exists
+  //     // if (type === "cart" && typeof onRemove === "function") {
+  //     //   onRemove(bookId);
+  //     // }
+  //   } catch (err) {
+  //     toast.error("Error removing book");
+  //     console.error(err);
+  //   }
+  // };
   const removeFromCart = async (bookId) => {
+    const id = authUser?._id || userId; // use logged-in user OR prop fallback
+    if (!id) {
+      toast.error("Please login first!");
+      return;
+    }
+
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/user/cart`, {
-        data: { userId, bookId },
-      });
-      setCarts((prev) => prev.filter((b) => b._id !== bookId));
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${id}/${bookId}`
+      );
+
+      // Update UI instantly without reload
+      setCarts((prev) => prev.filter((book) => book._id !== bookId));
+
       toast.success("Removed from cart");
     } catch (err) {
+      toast.error("Error removing book");
       console.error(err);
-      toast.error("Failed to remove book");
     }
   };
 
@@ -49,7 +83,7 @@ function Cart({ userId }) {
   return (
     <>
       <Navbar />
-      <div className=" min-h-screen sm:mt-13 md:mt-15 lg:mt-17 max-w-[1440px] mx-auto mt-20 px-10 pt-6  ">
+      <div className=" min-h-screen sm:mt-13 md:mt-15 lg:mt-17 max-w-[1440px] mx-auto mt-20 px-3 md:px-8 pt-6  ">
         <h1 className="text-3xl font-bold mb-6">My Cart</h1>
 
         {loading ? (
@@ -66,7 +100,7 @@ function Cart({ userId }) {
                 <div
                   key={book._id}
                   className="flex shadow-lg bg-slate-100 items-center justify-between  rounded-lg p-4 shadow-sm dark:bg-[#f4f4f430] dark:border-gray-700"
-                  onClick={() => Navigate(`/book/${book._id}`)}
+                  // onClick={() => Navigate(`/book/${book._id}`)}
                 >
                   <div className="flex items-center gap-4">
                     <img

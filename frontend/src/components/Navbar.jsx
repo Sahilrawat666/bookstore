@@ -67,7 +67,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 px-10  w-full  z-50 bg-[#ebebeb]  backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
+      <nav className="fixed top-0 left-0 px-3 md:px-8  w-full  z-50 bg-[#ebebeb]  backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
         <div className="  max-w-[1440px] m-auto h-13 sm:h-15 lg:h-17 flex items-center justify-between">
           <label className="text-xl  sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
             Book-Store
@@ -108,17 +108,17 @@ function Navbar() {
               <li>
                 <NavLink
                   to="/favourite"
-                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 "
+                  className="px-1 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 "
                 >
-                  <GoHeart className="text-2xl sm:text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                  <GoHeart className="text-2xl sm:text-2xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                 </NavLink>
               </li>
               <li>
                 <NavLink
                   to="/cart"
-                  className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 "
+                  className="px-1 flex items-center lg:text-xl  lg:mx-2 rounded-md transition-all duration-200 "
                 >
-                  <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                  <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                 </NavLink>
               </li>
 
@@ -181,16 +181,16 @@ function Navbar() {
               </li>
 
               {/* ----------- Theme Toggle ------------ */}
-              <li className="px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-200 ">
+              <li className="px-1 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 ">
                 <i>
                   {darkMode ? (
                     <MdLightMode
-                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
+                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95"
                       onClick={switchTheme}
                     />
                   ) : (
                     <MdDarkMode
-                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95"
+                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95"
                       onClick={switchTheme}
                     />
                   )}
@@ -222,7 +222,7 @@ function Navbar() {
                 <button
                   type="button"
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className="p-2 rounded-full transform transition-transform duration-200 hover:scale-110 active:scale-95"
+                  className="p-2 rounded-full transform transition-transform duration-200 hover:scale-120 active:scale-95"
                 >
                   <MdSearch size={20} className="" />
                 </button>
@@ -264,7 +264,7 @@ function Navbar() {
                 className="menu ml-2 text-lg sm:text-2xl lg:hidden cursor-pointer"
                 onClick={toggleMenu}
               >
-                <IoMenuSharp className="transform transition-transform duration-200 hover:scale-110 active:scale-95" />
+                <IoMenuSharp className="transform transition-transform duration-200 hover:scale-120 active:scale-95" />
               </i>
 
               {/* ----------- Dropdown Menu ------------ */}

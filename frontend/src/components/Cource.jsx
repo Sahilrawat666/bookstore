@@ -19,7 +19,7 @@ function Cource() {
   }, []);
   return (
     <>
-      <div className="max-w-screen-2xl container   mx-auto pt-38 md:px-20 px-4  ">
+      <div className="max-w-screen-2xl container   mx-auto pt-38 md:px-8 px-3  ">
         <div className="   text-center">
           <h1 className="text-2xl  md:teat-4xl">
             We are delighted to have you{" "}

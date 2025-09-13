@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 // import book from "../../../model/book.model";
 
-function Cards({ item, onRemove }) {
+function Cards({ item, onRemove, type }) {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
@@ -81,7 +81,7 @@ function Cards({ item, onRemove }) {
       toast.success("Removed from favourites");
       // window.location.reload();
       // 🔹 Notify parent if callback exists
-      if (typeof onRemove === "function") {
+      if (type === "favourite" && typeof onRemove === "function") {
         onRemove(bookId);
       }
     } catch (err) {
@@ -152,7 +152,7 @@ function Cards({ item, onRemove }) {
       toast.success("Removed from carts");
       // window.location.reload();
       // 🔹 Notify parent if callback exists
-      if (typeof onRemove === "function") {
+      if (type === "cart" && typeof onRemove === "function") {
         onRemove(bookId);
       }
     } catch (err) {

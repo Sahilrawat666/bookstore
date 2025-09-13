@@ -43,18 +43,3 @@
 .dark.menu-links ul li:hover {
   background-color: rgb(83, 83, 83);
 }
-@media screen and (max-width: 1023px) {
-}
-
-/* @media screen and (max-width: 639px) {
-  .nav-links {
-    display: none;
-  } */
-
-/* nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 28px;
-  } */
-/* } */

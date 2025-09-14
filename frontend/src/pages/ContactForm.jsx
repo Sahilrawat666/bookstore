@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function ContactForm() {
   const {
@@ -44,6 +46,7 @@ function ContactForm() {
 
   return (
     <>
+      <Navbar />
       <div className="flex h-screen justify-center items-center dark:bg-slate-900 dark:text-white">
         <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-100">
           <div className="">
@@ -114,6 +117,7 @@ function ContactForm() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

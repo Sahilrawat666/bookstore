@@ -3,6 +3,7 @@ import "./Footer.css";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
+  FaLinkedin,
   FaTwitterSquare,
 } from "react-icons/fa";
 import { MdCopyright } from "react-icons/md";
@@ -26,9 +27,15 @@ function Footer() {
             </ul>
 
             <label className="footer-icons  flex gap-4 ">
-              <FaFacebookSquare className="font-bold size-5 cursor-pointer " />
-              <FaTwitterSquare className="font-bold size-5 cursor-pointer" />
-              <FaInstagramSquare className="font-bold size-5 cursor-pointer" />
+              <a href="">
+                <FaFacebookSquare className="font-bold size-5 cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200 " />
+              </a>
+              <a href="https://www.linkedin.com/in/sahil-rawat25?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                <FaLinkedin className="font-bold size-5 cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200" />
+              </a>
+              <a href="https://www.instagram.com/_sahilrawat_099?igsh=MTFwaWpoNzV3OTN0bg==">
+                <FaInstagramSquare className="font-bold size-5 cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200" />
+              </a>
             </label>
 
             <p className="flex  items-center">

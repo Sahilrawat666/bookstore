@@ -3,24 +3,48 @@
  * information.
  * @returns The `ContactForm` component is being returned. It is a form component that allows users to
  * enter their name, email, and message for contacting. The form includes validation for the name and
- * email fields. When the form is submitted, the data is logged to the console. The form also has a
- * submit button for users to submit their information.
+ * email fields. When the form is submitted, the data is sent to backend API.
  */
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
 
 function ContactForm() {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const [authUser] = useAuth();
+
+  const onSubmit = async (data) => {
+    if (!authUser?._id) {
+      toast.error("You must be logged in to send a message");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/messages/${authUser._id}`,
+        data
+      );
+      if (res.data.message) {
+        toast.success("Message sent successfully!");
+        reset();
+      }
+    } catch (err) {
+      console.error("Error sending message:", err.response?.data || err);
+      toast.error(err.response?.data?.message || "Failed to send message");
+    }
+  };
+
   return (
     <>
-      <div className="flex h-screen  justify-center items-center  dark:bg-slate-900 dark:text-white">
+      <div className="flex h-screen justify-center items-center dark:bg-slate-900 dark:text-white">
         <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-100">
           <div className="">
             <form onSubmit={handleSubmit(onSubmit)} method="div">
@@ -48,7 +72,7 @@ function ContactForm() {
                   <span className="text-sm text-red-500 ">
                     This field is required
                   </span>
-                )}{" "}
+                )}
               </div>
               <div className="mt-4 ">
                 <span>Email</span>
@@ -71,8 +95,14 @@ function ContactForm() {
                 <textarea
                   type="text"
                   placeholder="Type your message"
-                  className="   px-3 h-28 w-full border rounded-md outline-none mt-1"
+                  className="px-3 h-28 w-full border rounded-md outline-none mt-1"
+                  {...register("message", { required: true })}
                 />
+                {errors.message && (
+                  <span className="text-sm text-red-500 ">
+                    This field is required
+                  </span>
+                )}
               </div>
               {/* button--------------- */}
               <div className="flex justify-around mt-4">

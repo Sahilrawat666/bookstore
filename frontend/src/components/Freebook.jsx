@@ -8,17 +8,21 @@ import axios from "axios";
 
 function Freebook() {
   const [book, setBook] = useState([]);
+  const [loading, setLoading] = useState(true); // 🔹 added loading state
+
   useEffect(() => {
     const getBook = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
-
         const data = res.data.filter((data) =>
           ["story", "GK"].includes(data.category)
         );
         console.log(data);
         setBook(data);
-      } catch (error) {}
+      } catch (error) {
+      } finally {
+        setLoading(false); // 🔹 stop loading after fetch
+      }
     };
     getBook();
   }, []);
@@ -73,14 +77,20 @@ function Freebook() {
               growth.
             </p>
           </div>
-          <div>
-            {" "}
+          {/* 🔹 Show loading until books are fetched */}
+          {loading ? (
+            <div className="text-center text-xl py-20 dark:text-white">
+              <p className="text-lg font-medium text-gray-700 dark:text-gray-300 animate-pulse">
+                Loading books...
+              </p>
+            </div>
+          ) : (
             <Slider {...settings}>
               {book.map((item) => (
-                <Cards item={item} key={item.id} />
+                <Cards item={item} key={item._id} />
               ))}
             </Slider>
-          </div>
+          )}
         </div>
       </div>
     </>

@@ -16,6 +16,14 @@ const userSchema = mongoose.Schema({
   },
   favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
   carts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
+  messages: [
+    {
+      name: { type: String, required: true },
+      email: { type: String, required: true },
+      message: { type: String, required: true },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
 });
 const User = mongoose.model("User", userSchema);
 

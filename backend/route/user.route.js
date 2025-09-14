@@ -161,4 +161,34 @@ router.delete("/carts/user/:userId/:bookId", async (req, res) => {
   }
 });
 
+// Submit contact message
+router.post("/messages/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res
+        .status(400)
+        .json({ message: "Name, email, and message are required" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.messages.push({ name, email, message });
+    await user.save();
+
+    res.status(200).json({
+      message: "Message saved successfully",
+      messages: user.messages,
+    });
+  } catch (error) {
+    console.error("Error saving message:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export default router;

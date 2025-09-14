@@ -213,9 +213,9 @@ function Cards({ item, onRemove, type }) {
       </figure>
       {/* Card Body */}
       <div className="p-4">
-        <h2 className="truncate mb-2 flex items-center gap-2 text-lg font-bold text-gray-800 dark:text-white">
-          {item.name}
-          <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
+        <h2 className=" mb-2 flex items-center justify-between gap-2 text-lg font-bold text-gray-800 dark:text-white">
+          <span className="truncate "> {item.name} </span>
+          <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
             {item.category}
           </span>
         </h2>

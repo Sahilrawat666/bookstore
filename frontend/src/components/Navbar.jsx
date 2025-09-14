@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { MdLightMode, MdDarkMode, MdSearch } from "react-icons/md";
 import { GoHeart } from "react-icons/go";
-
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
@@ -80,7 +79,7 @@ function Navbar() {
       <nav className="fixed top-0 left-0 px-3 md:px-8  w-full  z-50 bg-[#ebebeb]  backdrop-blur-md shadow-md  dark:bg-[#161616] dark:text-white dark:border-white ">
         <div className="  max-w-[1440px] m-auto h-13 sm:h-15 lg:h-17 flex items-center justify-between">
           <label className="text-xl  sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
-            Book-Store
+            book-store
           </label>
           <div className="flex">
             <ul className="nav-links  ">
@@ -351,7 +350,7 @@ function Navbar() {
                     href="/contact"
                     className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
                   >
-                    Contact
+                    Contact Us
                   </a>
                 </li>
                 <li>

@@ -88,7 +88,7 @@ function Books() {
               <h2 className="text-2xl md:text-3xl font-extrabold mb-6 capitalize text-gray-800 dark:text-white border-b-2 border-pink-500 inline-block pb-2">
                 {category}
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 {groupedBooks[category].map((item) => (
                   <div
                     key={item._id}

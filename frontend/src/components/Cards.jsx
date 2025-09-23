@@ -183,7 +183,7 @@ function Cards({ item, onRemove, type }) {
   };
 
   return (
-    <div className="relative sm:p-2 whitespace-nowrap mx-auto w-47 sm:w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
+    <div className="relative sm:p-2 whitespace-nowrap mx-2  max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
       {/* add and remove from cart icons */}
       {isInCart ? (
         <MdOutlineShoppingCart
@@ -214,40 +214,37 @@ function Cards({ item, onRemove, type }) {
         <img
           src={item.image}
           alt={item.name}
-          className=" px-3 sm:px-10 py-3 h-40 sm:h-70   sm:max-w-70 "
+          className=" px-3 sm:px-10 py-3 h-40 sm:h-70 w-30  sm:w-65 "
           onClick={() => navigate(`/book/${item._id}`)}
         />
       </figure>
       {/* Card Body */}
       <div className=" p-3 sm:p-4">
-        <h2 className=" mb-2 flex items-center justify-between gap-2 text-lg font-bold text-gray-800 dark:text-white">
+        <h2 className=" mb-2 flex items-center justify-between gap-2 text:sm sm:text-lg font-bold text-gray-800 dark:text-white">
           <span className="truncate "> {item.name} </span>
           <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
             {item.category}
           </span>
         </h2>
 
-        <p className=" truncate  mb-3 text-sm text-gray-600 dark:text-gray-300">
+        <p className=" truncate  mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
           {item.title}
         </p>
 
         <div className="flex items-center justify-between">
           {/* Price */}
-          <span className="rounded-md border border-slate-400 px-2 sm:px-3 py-1 text-sm font-medium text-gray-700 dark:border-white dark:bg-slate-900 dark:text-white">
+          <span className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5 sm:py-1 text-sm font-medium text-gray-700 dark:border-white dark:bg-slate-900 dark:text-white">
             ${item.price}
           </span>
 
           {/* Buy Button */}
           {isInCart ? (
-            <button
-              className="rounded-md border border-slate-400 px-2 sm:px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white"
-              onClick={() => removeFromCart(item._id)}
-            >
-              Remove from cart
+            <button className="rounded-md border border-slate-400 px-2 sm:px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white">
+              <a href="/cart"> Go to cart</a>
             </button>
           ) : (
             <button
-              className="rounded-md border border-slate-400 px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
+              className="rounded-md border border-slate-400 px-2 sm:px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
               onClick={() => addToCart(item._id)}
             >
               Add to cart

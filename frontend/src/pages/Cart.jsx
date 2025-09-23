@@ -118,11 +118,15 @@ function Cart({ userId }) {
                       className="w-20 h-28 object-contain rounded-md border border-gray-200 dark:border-gray-600"
                     />
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      <h2 className="text:sm sm:text-lg font-bold text-gray-800 dark:text-white text-gray-800 dark:text-gray-200">
                         {book.name}
                       </h2>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+
+                      <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
                         {book.category}
+                      </span>
+                      <p className="   mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                        {book.title}
                       </p>
                       <span className="text-blue-600 font-medium">
                         ${book.price}
@@ -134,7 +138,7 @@ function Cart({ userId }) {
                       e.stopPropagation();
                       removeFromCart(book._id);
                     }}
-                    className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                    className=" px-2 sm:px-3 py-1 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 transition"
                   >
                     Remove
                   </button>

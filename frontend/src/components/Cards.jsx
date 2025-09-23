@@ -183,16 +183,16 @@ function Cards({ item, onRemove, type }) {
   };
 
   return (
-    <div className="relative mx-auto my-4  w-60  cursor-pointer  rounded-2xl bg-white shadow-lg hover:shadow-xl transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
+    <div className="relative sm:p-2 whitespace-nowrap mx-auto w-47 sm:w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
       {/* add and remove from cart icons */}
       {isInCart ? (
         <MdOutlineShoppingCart
-          className="absolute top-2 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
+          className="absolute top-2 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
           onClick={() => removeFromCart(item._id)}
         />
       ) : (
         <MdOutlineShoppingCart
-          className="absolute top-2 right-2 rounded-full border p-1 text-2xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="absolute top-2 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
           onClick={() => addToCart(item._id)}
         />
       )}
@@ -200,26 +200,26 @@ function Cards({ item, onRemove, type }) {
       {/* add and remove from favourite icons  */}
       {isFavourite ? (
         <MdFavorite
-          className="absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
+          className="absolute top-12 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
           onClick={() => removeFromFavourite(item._id)}
         />
       ) : (
         <MdFavoriteBorder
-          className="absolute top-12 right-2 rounded-full border p-1 text-2xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
+          className="absolute top-12 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
           onClick={() => addToFavourite(item._id)}
         />
       )}
 
-      <figure className="flex items-center justify-center p-2">
+      <figure className="flex items-center justify-center ">
         <img
           src={item.image}
           alt={item.name}
-          className="h-48 w-32 object-contain"
+          className=" px-3 sm:px-10 py-3 h-40 sm:h-70   sm:max-w-70 "
           onClick={() => navigate(`/book/${item._id}`)}
         />
       </figure>
       {/* Card Body */}
-      <div className="p-4">
+      <div className=" p-3 sm:p-4">
         <h2 className=" mb-2 flex items-center justify-between gap-2 text-lg font-bold text-gray-800 dark:text-white">
           <span className="truncate "> {item.name} </span>
           <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
@@ -233,14 +233,14 @@ function Cards({ item, onRemove, type }) {
 
         <div className="flex items-center justify-between">
           {/* Price */}
-          <span className="rounded-md border border-slate-400 px-3 py-1 text-sm font-medium text-gray-700 dark:border-white dark:bg-slate-900 dark:text-white">
+          <span className="rounded-md border border-slate-400 px-2 sm:px-3 py-1 text-sm font-medium text-gray-700 dark:border-white dark:bg-slate-900 dark:text-white">
             ${item.price}
           </span>
 
           {/* Buy Button */}
           {isInCart ? (
             <button
-              className="rounded-md border border-slate-400 px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white"
+              className="rounded-md border border-slate-400 px-2 sm:px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white"
               onClick={() => removeFromCart(item._id)}
             >
               Remove from cart
@@ -253,12 +253,6 @@ function Cards({ item, onRemove, type }) {
               Add to cart
             </button>
           )}
-          {/* <button
-            className="rounded-md border border-slate-400 px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200 hover:bg-pink-500 hover:text-white dark:border-white dark:bg-slate-900 dark:text-white"
-            onClick={() => addToCart(item._id)}
-          >
-            Add to cart
-          </button> */}
         </div>
       </div>
     </div>

@@ -255,7 +255,7 @@ function Navbar() {
                   to="/favourite"
                   className="px-1 flex relative items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 "
                 >
-                  <GoHeart className="text-2xl sm:text-2xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
+                  <GoHeart className="text-[21px] sm:text-[26px] transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                   {favCount > 0 && (
                     <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                       {favCount}
@@ -266,9 +266,9 @@ function Navbar() {
               <li>
                 <NavLink
                   to="/cart"
-                  className="px-2 relative flex items-center lg:text-xl  lg:mx-2  rounded-md transition-all duration-200 "
+                  className="px-1 flex relative items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 "
                 >
-                  <LiaCartPlusSolid className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95" />
+                  <LiaCartPlusSolid className="text-[21px] sm:text-[26px] transform transition-transform duration-200 hover:scale-120 active:scale-95" />
                   {cartCount > 0 && (
                     <span className="absolute -top-1 -right-1  bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                       {cartCount}
@@ -277,14 +277,14 @@ function Navbar() {
                 </NavLink>
               </li>
               <li
-                className="sm:hidden p-2 rounded-full transform transition-transform duration-200 hover:scale-120 active:scale-95"
+                className="sm:hidden px-3 rounded-full transform transition-transform duration-200 hover:scale-120 active:scale-95"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
               >
                 <MdSearch size={23} className="" />
               </li>
 
               {/* ----------- Desktop Search ------------ */}
-              <li className="flex items-center hidden sm:block">
+              <li className="flex px-3 items-center   hidden sm:block">
                 <form
                   className="max-w-md mx-auto"
                   onSubmit={(e) => {
@@ -342,16 +342,16 @@ function Navbar() {
               </li>
 
               {/* ----------- Theme Toggle ------------ */}
-              <li className="px-1 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 ">
+              <li className="pr-2 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 ">
                 <i>
                   {darkMode ? (
                     <MdLightMode
-                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95"
+                      className="text-[21px] sm:text-[26px] transform transition-transform duration-200 hover:scale-120 active:scale-95"
                       onClick={switchTheme}
                     />
                   ) : (
                     <MdDarkMode
-                      className="text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-120 active:scale-95"
+                      className="text-[21px] sm:text-[26px] transform transition-transform duration-200 hover:scale-120 active:scale-95"
                       onClick={switchTheme}
                     />
                   )}

@@ -53,18 +53,18 @@ function Freebook() {
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 640,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
         },
       },
     ],
   };
   return (
     <>
-      <div className="w-full h-auto bg-slate-100 dark:bg-[#161616] px-3 py-12   md:px-8 ">
+      <div className="w-full h-auto bg-slate-100 dark:bg-[#161616]  py-12  px-3 md:px-8 ">
         <div className="freebooks max-w-[1440px] mx-auto  ">
           <div className="freebook-heading    ">
             <h1 className="dark:text-white text-4xl font-bold mx-auto w-fit   ">

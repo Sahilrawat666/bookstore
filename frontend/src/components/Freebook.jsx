@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Freebook.css";
+// import "./Freebook.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -65,11 +65,13 @@ function Freebook() {
   };
   return (
     <>
-      <div className="w-full bg-slate-100 dark:bg-[#161616] px-3 md:px-8 pb-10">
-        <div className="freebooks  m-auto  ">
-          <div className="freebook-heading">
-            <h1 className="dark:text-white">free offered cources</h1>
-            <p>
+      <div className="w-full h-auto bg-slate-100 dark:bg-[#161616] px-3 py-12   md:px-8 ">
+        <div className="freebooks max-w-[1440px] mx-auto  ">
+          <div className="freebook-heading    ">
+            <h1 className="dark:text-white text-4xl font-bold mx-auto w-fit   ">
+              free offered books
+            </h1>
+            <p className="my-5 ">
               Explore a curated selection of free courses designed to boost your
               knowledge and skills. From storytelling and general knowledge to
               sports facts and beyond — start learning today with engaging books

@@ -40,14 +40,16 @@ function Cart({ userId }) {
       toast.error("Please login first!");
       return;
     }
-
+    const removeFromCartToastId = toast.loading(
+      "removing book from favouriite!"
+    );
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${id}/${bookId}`
       );
 
       setCarts((prev) => prev.filter((book) => book._id !== bookId));
-      toast.success("Removed from cart!");
+      toast.success("Removed from cart!", { id: removeFromCartToastId });
       setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
     } catch (err) {
       toast.error("Error removing book");

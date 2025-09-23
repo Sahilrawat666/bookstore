@@ -53,13 +53,15 @@ function Cards({ item, onRemove, type }) {
       toast.error("Please login first!");
       return;
     }
+    // 🔹 Show loading toast
+    const FavToastId = toast.loading("Adding book to favourites...");
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to favourites!");
-
+      // 🔹 Update success toast
+      toast.success("Book added to favourites!", { id: FavToastId });
       setIsFavourite(true);
       setFavCount((prev) => prev + 1);
     } catch (error) {
@@ -79,13 +81,14 @@ function Cards({ item, onRemove, type }) {
       toast.error("Please login first!");
       return;
     }
+    const removeFavToastId = toast.remove("Removing from favourite");
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
           authUser._id
         }/${bookId}`
       );
-      toast.success("Removed from favourites");
+      toast.success("Removed from favourites", { id: removeFavToastId });
       setIsFavourite(false);
 
       setFavCount((prev) => (prev > 0 ? prev - 1 : 0));
@@ -129,12 +132,13 @@ function Cards({ item, onRemove, type }) {
       toast.error("Please login first!");
       return;
     }
+    const addToCartToastId = toast.loading("Adding to cart");
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to cart!");
+      toast.success("Book added to cart!", { id: addToCartToastId });
       setIsInCart(true);
       setCartCount((prev) => prev + 1);
     } catch (error) {
@@ -154,13 +158,16 @@ function Cards({ item, onRemove, type }) {
       toast.error("Please login first!");
       return;
     }
+    const removeFromCartToastId = toast.loading(
+      "removing book from favouriite!"
+    );
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${
           authUser._id
         }/${bookId}`
       );
-      toast.success("Book removed from cart!");
+      toast.success("Book removed from cart!", { id: removeFromCartToastId });
       setIsInCart(false);
       setCartCount((prev) => (prev > 0 ? prev - 1 : 0)); // 🔹 decrement cart count
 

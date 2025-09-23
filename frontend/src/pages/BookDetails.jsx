@@ -49,34 +49,38 @@ function BookDetails() {
         .catch((err) => console.error("Error fetching related books:", err));
     }
   }, [id]);
-
+  //add to favourite
   const addToFavourite = async (bookId) => {
     if (!authUser?._id) {
       toast.error("Please login first!");
       return;
     }
+    const FavToastId = toast.loading("Adding book to favourites...");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to favourites!");
+      toast.success("Book added to favourites!", { id: FavToastId });
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong.");
     }
   };
-
+  //add to cart
   const addToCart = async (bookId) => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
+    const addToCartToastId = toast.loading("Adding to cart");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
         userId: authUser._id,
         bookId: bookId,
       });
-      toast.success("Book added to cart!");
+      toast.success("Book added to cart!", { id: addToCartToastId });
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong.");
     }

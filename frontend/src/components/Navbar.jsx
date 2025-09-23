@@ -192,7 +192,16 @@ function Navbar() {
                 </a>
               </li>
               {authUser ? (
-                <FiLogOut />
+                <li>
+                  <a
+                    href=""
+                    className="text-lg flex items-center gap-2 font-medium hover:underline underline-offset-4 hover:decoration-2"
+                    onClick={handleLogout}
+                  >
+                    <span>Logout</span>
+                    <FiLogOut />
+                  </a>
+                </li>
               ) : (
                 <li>
                   <a href="/login" className="text-lg font-medium ">

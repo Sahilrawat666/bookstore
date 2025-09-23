@@ -81,14 +81,14 @@ function Cards({ item, onRemove, type }) {
       toast.error("Please login first!");
       return;
     }
-    const removeFavToastId = toast.remove("Removing from favourite");
+    const removeFavToastId = toast.loading("Removing from favourite");
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
           authUser._id
         }/${bookId}`
       );
-      toast.success("Removed from favourites", { id: removeFavToastId });
+      toast.success("Removed from favourites.", { id: removeFavToastId });
       setIsFavourite(false);
 
       setFavCount((prev) => (prev > 0 ? prev - 1 : 0));

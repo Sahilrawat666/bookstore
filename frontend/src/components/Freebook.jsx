@@ -70,7 +70,7 @@ function Freebook() {
             <h1 className="dark:text-white text-4xl font-bold mx-auto w-fit   ">
               free offered books
             </h1>
-            <p className="my-5 ">
+            <p className="my-5 mx-auto w-fit text-center ">
               Explore a curated selection of free courses designed to boost your
               knowledge and skills. From storytelling and general knowledge to
               sports facts and beyond — start learning today with engaging books

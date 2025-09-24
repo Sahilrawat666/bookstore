@@ -22,7 +22,7 @@ router.get("/search", async (req, res) => {
   }
 });
 
-//get single book sdata
+//get single book data
 router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;

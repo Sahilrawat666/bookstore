@@ -46,7 +46,7 @@ function Footer() {
               </a>
             </label>
 
-            <p className="flex items-center text-xs whitespace-nowrap sm:text-sm">
+            <p className="flex items-center text-xs  sm:text-sm">
               copyright <MdCopyright /> 2025 - All right reserved by ACME
               industries Ltd
             </p>

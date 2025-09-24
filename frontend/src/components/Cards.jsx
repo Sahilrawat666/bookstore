@@ -239,12 +239,12 @@ function Cards({ item, onRemove, type }) {
 
           {/* Buy Button */}
           {isInCart ? (
-            <button className="rounded-md border border-slate-400 px-2 sm:px-4 py-1 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white">
+            <button className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white">
               <a href="/cart"> Go to cart</a>
             </button>
           ) : (
             <button
-              className="rounded-md border border-slate-400 px-2 sm:px-4 py-1  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
+              className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
               onClick={() => addToCart(item._id)}
             >
               Add to cart

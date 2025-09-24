@@ -36,12 +36,12 @@
   cursor: pointer;
 }
 @media screen and (max-width: 426px) {
-  .footer div p {
+  /* .footer div p {
     font-size: 14px;
-  }
+  } */
 }
 @media screen and (max-width: 321px) {
-  .footer div p {
+  /* .footer div p {
     font-size: 10px;
-  }
+  } */
 }

@@ -17,13 +17,21 @@ function Footer() {
           <div>
             <ul>
               <Link to="/about">
-                <li className="cursor-pointer hover:underline ">About Us</li>
+                <li className="cursor-pointer hover:underline text-sm sm:text-[15px] ">
+                  About Us
+                </li>
               </Link>
               <Link to="/contact">
-                <li className="cursor-pointer hover:underline ">Contact Us</li>
+                <li className="cursor-pointer hover:underline text-sm sm:text-[15px] ">
+                  Contact Us
+                </li>
               </Link>
-              <li className="cursor-pointer hover:underline ">Jobs</li>
-              <li className="cursor-pointer hover:underline">Press kit</li>
+              <li className="cursor-pointer hover:underline text-sm sm:text-[15px] ">
+                Jobs
+              </li>
+              <li className="cursor-pointer hover:underline text-sm sm:text-[15px]">
+                Press kit
+              </li>
             </ul>
 
             <label className="footer-icons  flex gap-4 ">
@@ -38,7 +46,7 @@ function Footer() {
               </a>
             </label>
 
-            <p className="flex  items-center">
+            <p className="flex items-center text-xs whitespace-nowrap sm:text-sm">
               copyright <MdCopyright /> 2025 - All right reserved by ACME
               industries Ltd
             </p>

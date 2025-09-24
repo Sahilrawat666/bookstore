@@ -220,14 +220,20 @@ function Cards({ item, onRemove, type }) {
       </figure>
       {/* Card Body */}
       <div className=" p-3 sm:p-4">
-        <h2 className=" mb-2 flex items-center justify-between gap-2 text:sm sm:text-lg font-bold text-gray-800 dark:text-white">
+        <h2
+          className=" mb-2 flex items-center justify-between gap-2 text:sm sm:text-lg font-bold text-gray-800 dark:text-white"
+          onClick={() => navigate(`/book/${item._id}`)}
+        >
           <span className="truncate "> {item.name} </span>
           <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
             {item.category}
           </span>
         </h2>
 
-        <p className=" truncate  mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+        <p
+          className=" truncate  mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300"
+          onClick={() => navigate(`/book/${item._id}`)}
+        >
           {item.title}
         </p>
 
@@ -239,12 +245,12 @@ function Cards({ item, onRemove, type }) {
 
           {/* Buy Button */}
           {isInCart ? (
-            <button className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white">
+            <button className="rounded-md active:scale-90 transition transform duration-150 border border-slate-400 px-1 sm:px-3 py-0.5 text-white  text-sm font-semibold text-gray-700 transition duration-200  bg-pink-500 dark:border-white  dark:text-white">
               <a href="/cart"> Go to cart</a>
             </button>
           ) : (
             <button
-              className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
+              className="rounded-md cursor-pointer hover:bg-gray-200 active:scale-90 transition transform duration-150 border border-slate-400 px-1 sm:px-3 py-0.5  text-sm font-semibold text-gray-700 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
               onClick={() => addToCart(item._id)}
             >
               Add to cart

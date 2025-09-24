@@ -56,7 +56,7 @@ function Books() {
 
           <div className="mt-6 flex justify-center items-center gap-4 flex-wrap">
             <Link to="/">
-              <button className="bg-pink-500 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300">
+              <button className="bg-pink-500 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg active:scale-90 transition transform duration-150">
                 Back to Home
               </button>
             </Link>
@@ -67,7 +67,7 @@ function Books() {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 
+                  className={`px-4 py-2 rounded-full font-medium cursor-pointer active:scale-90 transition transform duration-150 
                   ${
                     selectedCategory === cat
                       ? "bg-pink-500 text-white shadow-lg"

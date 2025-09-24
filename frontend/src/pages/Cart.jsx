@@ -96,7 +96,7 @@ function Cart({ userId }) {
             </p>
             <button
               onClick={() => Navigate("/books")}
-              className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 transition"
+              className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 active:scale-90 transition transform duration-150"
             >
               Browse Books
             </button>
@@ -138,7 +138,7 @@ function Cart({ userId }) {
                       e.stopPropagation();
                       removeFromCart(book._id);
                     }}
-                    className=" px-2 sm:px-3 py-1 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 transition"
+                    className=" px-2 sm:px-3 py-1 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 active:scale-90 transition transform duration-150"
                   >
                     Remove
                   </button>

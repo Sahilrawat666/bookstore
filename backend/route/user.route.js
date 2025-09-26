@@ -3,11 +3,27 @@ import { login, signup } from "../controller/user.controller.js";
 import User from "../model/user.model.js";
 import book from "../model/book.model.js";
 import mongoose from "mongoose";
+import { verifyToken } from "../middlewares/userAuth.js";
 
 const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
+
+// get user information
+router.get("/get-user-information", verifyToken, async (req, res) => {
+  try {
+    const userId = req.user.id; // <-- comes from JWT payload
+    const userData = await User.findById(userId).select("-password"); // exclude password
+    if (!userData) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Add book to favourites
 

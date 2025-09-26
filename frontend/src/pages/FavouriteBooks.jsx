@@ -15,6 +15,7 @@ function FavouriteBooks({ userId }) {
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${userId}`
         );
+
         setFavourites(res.data); // ✅ directly set array
       } catch (err) {
         console.error("Error fetching favourites:", err);

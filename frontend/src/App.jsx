@@ -13,6 +13,8 @@ import FavouriteBooks from "./pages/FavouriteBooks.jsx";
 import Cart from "./pages/Cart.jsx";
 import toast from "react-hot-toast";
 import Books from "./pages/Books.jsx";
+// import Dashboard from "./pages/Dashboard.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -40,6 +42,8 @@ function App() {
           element={<FavouriteBooks userId={authUser?._id} />}
         />
         <Route path="/cart" element={<Cart userId={authUser?._id} />} />
+        {/* <Route path="/user" element={<Dashboard />} /> */}
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       <Toaster />
     </>

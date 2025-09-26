@@ -4,13 +4,7 @@ import mongoose from "mongoose";
 import bookRoute from "./route/book.route.js";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
-// import path from "path";
-// import { fileURLToPath } from "url";
-// import { dirname } from "path";
-// import book from "./model/book.model.js";
-// const __filename =  fileURLToPath(import.meta.url);
-
-// const __dirname = dirname(__filename);
+import adminRoute from "./route/admin.route.js";
 
 const app = express();
 app.use(cors());
@@ -36,6 +30,7 @@ try {
 //defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
+app.use("/admin", adminRoute);
 
 // app.get("/", (req, res) => {
 //   res.redirect(process.env.FRONTEND_URL);

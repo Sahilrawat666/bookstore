@@ -374,6 +374,20 @@ function Navbar() {
               {/* <!-- Popup Window --> */}
               <nav className="absolute right-[-12px] md:right-[-20px] mt-[15px] sm:mt-[17px] lg:mt-[21px] w-20 sm:w-30 lg:w-40  p-1 bg-gray-200 font-[Poppins,sans-serif] rounded-md border border-gray-300 shadow-md transform scale-90 opacity-0 invisible transition-all duration-100 ease-in-out peer-checked:scale-100 peer-checked:opacity-100 peer-checked:visible">
                 <ul className="list-none  m-0 p-0 space-y-1">
+                  <li>
+                    <button className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
+                      <a href="/user" className="flex items-center gap-2">
+                        User
+                      </a>
+                    </button>
+                  </li>
+                  <li>
+                    <button className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
+                      <a href="/admin" className="flex items-center gap-2">
+                        Admin
+                      </a>
+                    </button>
+                  </li>
                   {!authUser ? (
                     <>
                       <li>
@@ -395,7 +409,7 @@ function Navbar() {
                   ) : (
                     <li>
                       <button
-                        className="  w-full  px-4 py-2 text-sm sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                        className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white"
                         onClick={handleLogout}
                       >
                         <a href="" className="flex items-center gap-2">

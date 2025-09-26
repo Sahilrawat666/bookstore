@@ -45,18 +45,30 @@ router.delete("/users/:id", verifyToken, verifyAdmin, async (req, res) => {
 //     res.status(500).json({ message: "Server error" });
 //   }
 // });
+// Get all books (Admin only)
+router.get("/books", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const books = await Book.find(); // fetch all books
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-// // Add a new book
-// router.post("/books", verifyAdmin, async (req, res) => {
-//   try {
-//     const { title, author, price } = req.body;
-//     const book = new Book({ title, author, price });
-//     await book.save();
-//     res.status(201).json(book);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+// Add a new book
+router.post("/books", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    const { name, title, price, category, image } = req.body;
+
+    const newBook = new Book({ name, title, price, category, image });
+    await newBook.save();
+
+    res.status(201).json(newBook);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Delete a book
 router.delete("/books/:id", verifyToken, verifyAdmin, async (req, res) => {
@@ -80,20 +92,26 @@ router.delete("/books/:id", verifyToken, verifyAdmin, async (req, res) => {
 });
 
 // // View messages
-// router.get("/messages", verifyAdmin, async (req, res) => {
-//   try {
-//     const users = await User.find().select("fullname email messages");
-//     const allMessages = users.flatMap((user) =>
-//       user.messages.map((msg) => ({
-//         ...msg.toObject(),
-//         user: user.fullname,
-//         email: user.email,
-//       }))
-//     );
-//     res.status(200).json(allMessages);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+// Get all user messages (admin only)
+router.get("/messages", verifyToken, verifyAdmin, async (req, res) => {
+  try {
+    // Fetch only messages from users
+    const users = await User.find().select("fullname email messages");
+
+    // Flatten messages with user info
+    const allMessages = users.flatMap((user) =>
+      user.messages.map((msg) => ({
+        ...msg.toObject(),
+        user: user.fullname,
+        email: user.email,
+      }))
+    );
+
+    res.status(200).json(allMessages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 export default router;

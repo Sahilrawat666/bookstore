@@ -20,11 +20,14 @@ const Books = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/admin/books", {
-          headers: authUser
-            ? { Authorization: `Bearer ${authUser.token}` }
-            : {},
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/admin/books`,
+          {
+            headers: authUser
+              ? { Authorization: `Bearer ${authUser.token}` }
+              : {},
+          }
+        );
         setBooks(res.data);
       } catch (err) {
         console.error(err);
@@ -39,9 +42,12 @@ const Books = () => {
     if (!window.confirm("Are you sure you want to delete this book?")) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/books/${id}`, {
-        headers: { Authorization: `Bearer ${authUser.token}` },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/admin/books/${id}`,
+        {
+          headers: { Authorization: `Bearer ${authUser.token}` },
+        }
+      );
       setBooks(books.filter((b) => b._id !== id));
       toast.success("Book deleted successfully!");
     } catch (err) {
@@ -63,7 +69,7 @@ const Books = () => {
 
     try {
       const res = await axios.post(
-        "${import.meta.env.VITE_BACKEND_URL}/admin/books",
+        `${import.meta.env.VITE_BACKEND_URL}/admin/books`,
         newBook,
         {
           headers: { Authorization: `Bearer ${authUser.token}` },

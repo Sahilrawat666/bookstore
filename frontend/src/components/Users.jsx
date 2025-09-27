@@ -18,7 +18,7 @@ const Users = () => {
 
       try {
         const res = await axios.get(
-          "${import.meta.env.VITE_BACKEND_URL}/admin/users",
+          `${import.meta.env.VITE_BACKEND_URL}/admin/users`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

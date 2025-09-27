@@ -16,7 +16,7 @@ const Messages = () => {
 
       try {
         const res = await axios.get(
-          "${import.meta.env.VITE_BACKEND_URL}/admin/messages",
+          `${import.meta.env.VITE_BACKEND_URL}/admin/messages`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

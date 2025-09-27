@@ -20,7 +20,7 @@ const Books = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:4001/admin/books", {
+        const res = await axios.get("${import.meta.env.VITE_BACKEND_URL}/admin/books", {
           headers: authUser
             ? { Authorization: `Bearer ${authUser.token}` }
             : {},
@@ -39,7 +39,7 @@ const Books = () => {
     if (!window.confirm("Are you sure you want to delete this book?")) return;
 
     try {
-      await axios.delete(`http://localhost:4001/admin/books/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/admin/books/${id}`, {
         headers: { Authorization: `Bearer ${authUser.token}` },
       });
       setBooks(books.filter((b) => b._id !== id));
@@ -63,7 +63,7 @@ const Books = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4001/admin/books",
+        "${import.meta.env.VITE_BACKEND_URL}/admin/books",
         newBook,
         {
           headers: { Authorization: `Bearer ${authUser.token}` },

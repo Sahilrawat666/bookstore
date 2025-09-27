@@ -17,11 +17,14 @@ const Users = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:4001/admin/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "${import.meta.env.VITE_BACKEND_URL}/admin/users",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setUsers(res.data);
       } catch (error) {
         console.error(error);
@@ -36,11 +39,14 @@ const Users = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      await axios.delete(`http://localhost:4001/admin/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/admin/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setUsers(users.filter((u) => u._id !== id));
       toast.success("User deleted successfully ✅");

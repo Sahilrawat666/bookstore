@@ -15,9 +15,12 @@ const Messages = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:4001/admin/messages", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          "${import.meta.env.VITE_BACKEND_URL}/admin/messages",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setMessages(res.data);
       } catch (err) {
         console.error(err);

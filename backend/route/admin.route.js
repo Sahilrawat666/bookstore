@@ -70,6 +70,28 @@ router.post("/books", verifyToken, verifyAdmin, async (req, res) => {
   }
 });
 
+// update book
+router.put("/books/:id", verifyToken, verifyAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { title, author, price, category, image } = req.body;
+
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(
+      id,
+      { title, author, price, category, image },
+      { new: true, runValidators: true } // return updated doc
+    );
+
+    if (!updatedBook)
+      return res.status(404).json({ message: "Book not found" });
+
+    res.status(200).json(updatedBook);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update book" });
+  }
+});
+
 // Delete a book
 router.delete("/books/:id", verifyToken, verifyAdmin, async (req, res) => {
   try {

@@ -21,7 +21,8 @@ const Messages = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setMessages(res.data);
+        // Reverse messages so newest are on top
+        setMessages(res.data.reverse());
       } catch (err) {
         console.error(err);
         toast.error(err.response?.data?.message || "Failed to fetch messages");
@@ -31,28 +32,38 @@ const Messages = () => {
     fetchMessages();
   }, [token]);
 
-  // Function to format date & time
+  // Format date & time
   const formatDateTime = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleString(); // formats as "MM/DD/YYYY, HH:MM:SS AM/PM"
+    return date.toLocaleString(); // "MM/DD/YYYY, HH:MM:SS AM/PM"
   };
 
   return (
-    <div>
-      <h3 className="text-xl font-semibold mb-2">User Messages</h3>
+    <div className="w-full">
+      <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        User Messages
+      </h3>
+
       {messages.length === 0 ? (
-        <p>No messages yet.</p>
+        <p className="text-gray-500 dark:text-gray-400">No messages yet.</p>
       ) : (
-        <ul>
+        <ul className="space-y-3">
           {messages.map((msg, i) => (
-            <li key={i} className="border p-2 rounded mb-2">
-              <div className="flex justify-between text-sm text-gray-600 mb-1">
-                <span>
-                  <strong>{msg.user}</strong> ({msg.email})
+            <li
+              key={i}
+              className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-all bg-white dark:bg-gray-800"
+            >
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  {msg.user} ({msg.email})
                 </span>
-                <span>{formatDateTime(msg.createdAt)}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  {formatDateTime(msg.createdAt)}
+                </span>
               </div>
-              <div>{msg.message}</div>
+              <div className="text-gray-700 dark:text-gray-300">
+                {msg.message}
+              </div>
             </li>
           ))}
         </ul>

@@ -88,7 +88,7 @@ function BookDetails() {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex  justify-center items-center min-h-screen">
         <div className="text-xl font-semibold text-gray-800 dark:text-gray-200">
           Loading...
         </div>

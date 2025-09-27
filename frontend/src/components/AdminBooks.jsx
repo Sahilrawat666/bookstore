@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Books = () => {
+const AdminBooks = () => {
   const [books, setBooks] = useState([]);
   const authUser = JSON.parse(localStorage.getItem("User")); // get logged-in user
   const [showForm, setShowForm] = useState(false);
@@ -189,4 +189,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default AdminBooks;

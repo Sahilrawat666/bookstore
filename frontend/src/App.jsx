@@ -12,7 +12,7 @@ import SearchResults from "./components/SearchResults";
 import FavouriteBooks from "./pages/FavouriteBooks.jsx";
 import Cart from "./pages/Cart.jsx";
 import toast from "react-hot-toast";
-import Books from "./components/Books.jsx";
+import Books from "./pages/Books.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 // import UserProfile from "./pages/UserProfile.jsx";
 

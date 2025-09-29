@@ -25,7 +25,7 @@ const Users = () => {
           }
         );
 
-        // ✅ Reverse array so newest is first
+        //  Reverse array so newest is first
         setUsers(res.data.reverse());
       } catch (error) {
         console.error(error);
@@ -51,7 +51,7 @@ const Users = () => {
       const updatedUsers = users.filter((u) => u._id !== id);
       setUsers(updatedUsers);
 
-      toast.success("User deleted successfully ✅");
+      toast.success("User deleted successfully ");
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to delete user");

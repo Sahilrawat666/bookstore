@@ -16,7 +16,7 @@ function FavouriteBooks({ userId }) {
           `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${userId}`
         );
 
-        setFavourites(res.data); // ✅ directly set array
+        setFavourites(res.data); //  directly set array
       } catch (err) {
         console.error("Error fetching favourites:", err);
       } finally {
@@ -33,7 +33,7 @@ function FavouriteBooks({ userId }) {
       {/*  Hero Section */}
       <div className="relative mt-13 sm:mt-15 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 dark:from-slate-800 dark:via-slate-900 dark:to-black py-12">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-800 dark:text-white flex items-center justify-center gap-3">
+          <h1 className="text-3xl md:text-5xl font-bold text-slate-800 dark:text-white flex items-center justify-center ">
             <FaHeart className="text-pink-500 animate-bounce" />
             Your Favourite Books
           </h1>
@@ -44,9 +44,9 @@ function FavouriteBooks({ userId }) {
         </div>
       </div>
 
-      {/* ✅ Books Section */}
+      {/*  Books Section */}
       <div className="w-full  bg-slate-100 dark:bg-slate-900 px-3 md:px-8 py-12">
-        <div className="grid m-auto max-w-[1440px] grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid m-auto max-w-[1440px] grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {loading ? (
             <div className="flex justify-center items-center col-span-full min-h-[300px]">
               <p className="text-lg font-medium text-gray-700 dark:text-gray-300 animate-pulse">

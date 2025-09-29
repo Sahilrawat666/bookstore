@@ -11,7 +11,7 @@ export default defineConfig({
   //   outDir: "dist",
   // },
 
-  // // ✅ Use absolute asset paths for Vercel
+  // //  Use absolute asset paths for Vercel
   // base: "/",
 
   // // Dev server proxy (only for local development)

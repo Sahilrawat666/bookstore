@@ -62,7 +62,7 @@ function Books() {
             </Link>
 
             {/* Category Pills */}
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center ">
               {categories.map((cat) => (
                 <button
                   key={cat}

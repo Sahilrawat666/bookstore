@@ -183,7 +183,7 @@ function Cards({ item, onRemove, type }) {
   };
 
   return (
-    <div className="relative sm:p-2 whitespace-nowrap mx-2  max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
+    <div className="relative sm:p-2 whitespace-nowrap mx-2 shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
       {/* add and remove from cart icons */}
       {isInCart ? (
         <MdOutlineShoppingCart

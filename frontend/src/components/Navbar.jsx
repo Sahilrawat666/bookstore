@@ -219,13 +219,11 @@ function Navbar() {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `relative px-1 flex items-center lg:text-xl mx-2 lg:mx-4 
-     rounded-md transition-all duration-300
-     ${
-       isActive
-         ? "after:w-full after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300"
-         : "after:w-0 after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300 hover:after:w-full"
-     }`
+                    `relative px-1 flex items-center lg:text-xl mx-2 lg:mx-4 rounded-md transition-all duration-300 ${
+                      isActive
+                        ? "after:w-full after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300"
+                        : "after:w-0 after:left-0 after:bottom-0 after:h-[2px] after:bg-black after:absolute after:transition-all after:duration-300 hover:after:w-full"
+                    }`
                   }
                 >
                   Home

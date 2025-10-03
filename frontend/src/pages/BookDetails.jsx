@@ -234,7 +234,7 @@ function BookDetails() {
     <>
       <Navbar />
       <div className="bg-slate-100 dark:bg-slate-900 min-h-screen">
-        <div className="max-w-[1440px] mx-auto p-4 sm:p-6">
+        <div className="max-w-[1440px] mx-auto p-4 sm:p-6 mt-13 sm:mt-15">
           {/* Book Card */}
           <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden flex flex-col md:flex-row md:gap-6">
             {/* Book Image */}
@@ -242,7 +242,7 @@ function BookDetails() {
               <img
                 src={book.image}
                 alt={book.name}
-                className="max-h-full max-w-full object-contain rounded-md"
+                className="max-h-full max-w-full object-contain rounded-md  "
               />
             </div>
 

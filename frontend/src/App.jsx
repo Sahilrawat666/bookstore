@@ -14,7 +14,7 @@ import Cart from "./pages/Cart.jsx";
 import toast from "react-hot-toast";
 import Books from "./pages/Books.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
-// import UserProfile from "./pages/UserProfile.jsx";
+import UserProfile from "./components/UserProfile.jsx";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -44,6 +44,7 @@ function App() {
         <Route path="/cart" element={<Cart userId={authUser?._id} />} />
         {/* <Route path="/user" element={<Dashboard />} /> */}
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/user" element={<UserProfile />} />
         {/* <Route path="/user" element={<UserProfile />} /> */}
       </Routes>
       <Toaster />

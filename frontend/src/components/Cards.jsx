@@ -9,6 +9,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { FaStar } from "react-icons/fa";
 // import book from "../../../model/book.model";
 
 function Cards({ item, onRemove, type }) {
@@ -183,16 +184,16 @@ function Cards({ item, onRemove, type }) {
   };
 
   return (
-    <div className="relative sm:p-2 whitespace-nowrap mx-2 shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200 hover:scale-105 dark:bg-[#f4f4f430] dark:border-gray-700">
+    <div className="relative sm:p-2 whitespace-nowrap mx-2  hover:scale-101  shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200  dark:bg-[#f4f4f430] dark:border-gray-700 group-hover:scale-105">
       {/* add and remove from cart icons */}
       {isInCart ? (
         <MdOutlineShoppingCart
-          className="absolute top-2 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
+          className="absolute top-2 z-1 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
           onClick={() => removeFromCart(item._id)}
         />
       ) : (
         <MdOutlineShoppingCart
-          className="absolute top-2 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="absolute top-2 z-1 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
           onClick={() => addToCart(item._id)}
         />
       )}
@@ -200,26 +201,45 @@ function Cards({ item, onRemove, type }) {
       {/* add and remove from favourite icons  */}
       {isFavourite ? (
         <MdFavorite
-          className="absolute top-12 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
+          className="absolute top-12 right-2 z-1 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
           onClick={() => removeFromFavourite(item._id)}
         />
       ) : (
         <MdFavoriteBorder
-          className="absolute top-12 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
+          className="absolute top-12 right-2 z-1 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
           onClick={() => addToFavourite(item._id)}
         />
       )}
 
-      <figure className="flex items-center justify-center ">
+      <figure className="flex items-center justify-center overflow-hidden ">
         <img
           src={item.image}
           alt={item.name}
-          className=" px-3 sm:px-10 py-3 h-40 sm:h-70 w-30  sm:w-65 "
+          className=" px-3 sm:px-10 py-3 h-40 sm:h-70 w-30   sm:w-65 transition duration-200 hover:brightness-85 hover:scale-105 "
           onClick={() => navigate(`/book/${item._id}`)}
         />
       </figure>
       {/* Card Body */}
       <div className=" p-3 sm:p-4">
+        {/* Rating */}
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, i) => (
+            <span
+              key={i}
+              className={
+                i < (item.rating || 4)
+                  ? "text-yellow-400 text-xs sm:text-sm"
+                  : "text-gray-300 dark:text-gray-500 text-xs sm:text-sm"
+              }
+            >
+              <FaStar />
+            </span>
+          ))}
+          <span className="ml-2 text-gray-500 dark:text-gray-300  text-xs sm:text-sm">
+            ({item.reviews || 0} reviews)
+          </span>
+        </div>
+
         <h2
           className=" mb-2 flex items-center justify-between gap-2 text:sm sm:text-lg font-bold text-gray-800 dark:text-white"
           onClick={() => navigate(`/book/${item._id}`)}
@@ -250,7 +270,7 @@ function Cards({ item, onRemove, type }) {
             </button>
           ) : (
             <button
-              className="rounded-md truncate cursor-pointer text-white bg-blue-600 hover:bg-blue-700 active:scale-90 transition transform duration-150  px-1 sm:px-3 py-1  text-sm font-semibold text-gray-500 transition duration-200   dark:border-white dark:bg-slate-900 dark:text-white"
+              className="rounded-md truncate cursor-pointer  active:scale-90 transition transform duration-150  px-1 sm:px-3 py-1  text-sm font-semibold   dark:border-white bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
               onClick={() => addToCart(item._id)}
             >
               Add to cart

@@ -40,9 +40,11 @@ export const signup = async (req, res) => {
         _id: createdUser._id,
         fullname: createdUser.fullname,
         email: createdUser.email,
+        favourites: createdUser.favourites,
+        carts: createdUser.carts,
         role: createdUser.role,
-        token: token,
       },
+      token: token,
     });
   } catch (error) {
     console.log("Error: " + error.message);
@@ -81,9 +83,11 @@ export const login = async (req, res) => {
         _id: user._id,
         fullname: user.fullname,
         email: user.email,
+        favourites: user.favourites,
+        carts: user.carts,
         role: user.role,
-        token: token,
       },
+      token,
     });
   } catch (error) {
     console.log("Error: " + error.message);

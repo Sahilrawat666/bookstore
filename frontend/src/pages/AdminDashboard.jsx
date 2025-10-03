@@ -16,9 +16,9 @@ const AdminDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="p-4 mt-[60px] sm:mt-[70px] lg:mt-[80px] max-w-7xl mx-auto">
+      <div className="p-4 mt-[52px] sm:mt-[60px] lg:mt-[67px] max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-4 mb-8">
           <h2 className="text-3xl font-extrabold text-gray-800 dark:text-white text-center md:text-left">
             Admin Dashboard
           </h2>

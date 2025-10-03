@@ -62,18 +62,18 @@ function UserProfile() {
   }
 
   return (
-    <div className="bg-[#f7fafd] min-h-screen">
+    <div className="bg-[#f7fafd] min-h-screen bg-gradient-to-r  dark:from-gray-800 dark:to-gray-900">
       <Navbar />
 
       {/* Profile Header */}
-      <div className="flex flex-col md:flex-row items-center p-8 mt-13 sm:mt-15 md:px-8 lg:px-16">
+      <div className="flex flex-col md:flex-row items-center p-8 mt-13 sm:mt-15 md:px-8 lg:px-16  ">
         <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center">
-          <span className="text-white text-3xl font-bold">
+          <span className="text-white text-3xl font-bold ">
             {user.fullname ? user.fullname[0].toUpperCase() : "U"}
           </span>
         </div>
         <div className="ml-0 md:ml-5 mt-4 md:mt-0 text-center md:text-left">
-          <h1 className="text-3xl font-semibold text-gray-800">
+          <h1 className="text-3xl font-semibold text-gray-800 dark:text-white">
             {user.fullname}
           </h1>
           {/* <p className="text-gray-500">Member since January 2023</p> */}
@@ -81,17 +81,17 @@ function UserProfile() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-8 lg:px-16">
+      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-8 lg:px-16 ">
         {/* Sidebar */}
         <div className="w-full lg:w-60 mb-8 lg:mb-0">
-          <div className="bg-white rounded-xl shadow-md mb-8">
-            <div className="divide-y">
+          <div className="bg-white rounded-xl shadow-md mb-8 dark:bg-gray-700 ">
+            <div className="divide-y ">
               <button
                 onClick={() => setActiveTab("profile")}
-                className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
                   // class="w-full flex items-center px-4 py-3 text-left rounded-lg  border-l-4 border-blue-600"
                   activeTab === "profile"
-                    ? " bg-blue-50 transition-all duration-300 text-blue-600"
+                    ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
@@ -99,9 +99,9 @@ function UserProfile() {
               </button>
               <button
                 onClick={() => setActiveTab("orders")}
-                className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
                   activeTab === "orders"
-                    ? "bg-blue-50 transition-all duration-300 text-blue-600"
+                    ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
@@ -110,9 +110,9 @@ function UserProfile() {
               </button>
               <button
                 onClick={() => setActiveTab("settings")}
-                className={`w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
                   activeTab === "settings"
-                    ? "bg-blue-50 transition-all duration-300 text-blue-600"
+                    ? " bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
@@ -122,7 +122,7 @@ function UserProfile() {
           </div>
 
           {/* User Insights */}
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="bg-white rounded-xl shadow-md p-6 dark:bg-gray-700 ">
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
               User Insights
             </h2>
@@ -148,9 +148,9 @@ function UserProfile() {
         </div>
 
         {/* Main Card */}
-        <div className="flex-1">
+        <div className="flex-1 dark:bg-gray-700 ">
           {activeTab === "profile" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700 ">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6">
                 Profile Information
               </h2>
@@ -192,7 +192,7 @@ function UserProfile() {
           )}
 
           {activeTab === "orders" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700 ">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6">
                 Order History
               </h2>
@@ -202,7 +202,7 @@ function UserProfile() {
           )}
 
           {activeTab === "settings" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700 ">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6">
                 Settings
               </h2>

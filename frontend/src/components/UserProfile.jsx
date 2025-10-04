@@ -81,7 +81,7 @@ function UserProfile() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-8 lg:px-16 ">
+      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-8 lg:px-16 pb-8">
         {/* Sidebar */}
         <div className="w-full lg:w-60 mb-8 lg:mb-0">
           <div className="bg-white rounded-xl shadow-md mb-8 dark:bg-gray-700 ">
@@ -92,7 +92,7 @@ function UserProfile() {
                   // class="w-full flex items-center px-4 py-3 text-left rounded-lg  border-l-4 border-blue-600"
                   activeTab === "profile"
                     ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-gray-50"
+                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
                 }`}
               >
                 <FiUser className="text-10 sm:text-[17px] mr-1" /> Profile
@@ -102,7 +102,7 @@ function UserProfile() {
                 className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
                   activeTab === "orders"
                     ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-gray-50"
+                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
                 }`}
               >
                 <FiShoppingCart className="text-10 sm:text-[17px] mr-1" />{" "}
@@ -113,7 +113,7 @@ function UserProfile() {
                 className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
                   activeTab === "settings"
                     ? " bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-gray-50"
+                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
                 }`}
               >
                 <FiSettings className="text-10 sm:text-[17px] mr-1" /> Settings
@@ -123,24 +123,24 @@ function UserProfile() {
 
           {/* User Insights */}
           <div className="bg-white rounded-xl shadow-md p-6 dark:bg-gray-700 ">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">
+            <h2 className="text-lg font-semibold text-gray-700 mb-4 dark:text-white">
               User Insights
             </h2>
-            <div className="flex justify-between items-center mb-2 text-gray-600">
+            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
               <span>Favorites</span>
               <span className="text-red-600">
                 {user.favourites?.length || 0}
               </span>
             </div>
-            <div className="flex justify-between items-center mb-2 text-gray-600">
+            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
               <span>Cart Items</span>
               <span className="text-blue-600">{user.carts?.length || 0}</span>
             </div>
-            <div className="flex justify-between items-center mb-2 text-gray-600">
+            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
               <span>Total Orders</span>
               <span className="text-gray-800 font-semibold">0</span>
             </div>
-            <div className="flex justify-between items-center mt-4 text-gray-600">
+            <div className="flex justify-between items-center mt-4 text-gray-600 dark:text-white">
               <span>Total Spent</span>
               <span className="text-green-600 font-semibold">0</span>
             </div>
@@ -151,25 +151,31 @@ function UserProfile() {
         <div className="flex-1 dark:bg-gray-700 ">
           {activeTab === "profile" && (
             <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700 ">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
                 Profile Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-gray-500 mb-1">Full Name</label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700">
+                  <label className="block text-gray-500 mb-1 dark:text-white">
+                    Full Name
+                  </label>
+                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
                     {user.fullname}
                   </p>
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Email</label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700">
+                  <label className="block text-gray-500 mb-1 dark:text-white">
+                    Email
+                  </label>
+                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
                     {user.email}
                   </p>
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Phone</label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700">
+                  <label className="block text-gray-500 mb-1 dark:text-white ">
+                    Phone
+                  </label>
+                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
                     {user.phone || "-"}
                   </p>
                 </div>
@@ -177,13 +183,15 @@ function UserProfile() {
                   <label className="block text-gray-500 mb-1">
                     Member Since
                   </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700">
+                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
                     January 2023
                   </p>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-gray-500 mb-1">Address</label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700">
+                  <label className="block text-gray-500 mb-1 dark:text-white">
+                    Address
+                  </label>
+                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
                     {user.address || "-"}
                   </p>
                 </div>
@@ -193,10 +201,10 @@ function UserProfile() {
 
           {activeTab === "orders" && (
             <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700 ">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-6">
+              <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
                 Order History
               </h2>
-              <p className="text-gray-600">No orders yet.</p>
+              <p className="text-gray-600 dark:text-white">No orders yet.</p>
               {/* Here you can map user.orders if available */}
             </div>
           )}
@@ -210,24 +218,24 @@ function UserProfile() {
               <div className="space-y-6">
                 {/* Change Password */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
                     Change Password
                   </h3>
                   <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                       type="password"
                       placeholder="Current Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100"
+                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 dark:bg-gray-700 dark:text-white"
                     />
                     <input
                       type="password"
                       placeholder="New Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100"
+                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 dark:bg-gray-700 dark:text-white"
                     />
                     <input
                       type="password"
                       placeholder="Confirm New Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 md:col-span-2"
+                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 md:col-span-2 dark:bg-gray-700 dark:text-white"
                     />
                     <button
                       type="submit"
@@ -240,7 +248,7 @@ function UserProfile() {
 
                 {/* Notification Preferences */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
                     Notification Preferences
                   </h3>
                   <div className="space-y-2">
@@ -249,25 +257,29 @@ function UserProfile() {
                         type="checkbox"
                         className="form-checkbox h-5 w-5 text-blue-500"
                       />
-                      <span className="text-gray-700">Email Notifications</span>
+                      <span className="text-gray-700 dark:text-white">
+                        Email Notifications
+                      </span>
                     </label>
                     <label className="flex items-center space-x-3">
                       <input
                         type="checkbox"
                         className="form-checkbox h-5 w-5 text-blue-500"
                       />
-                      <span className="text-gray-700">SMS Notifications</span>
+                      <span className="text-gray-700 dark:text-white">
+                        SMS Notifications
+                      </span>
                     </label>
                   </div>
                 </div>
 
                 {/* Account Deactivation */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
                     Account
                   </h3>
                   <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg">
-                    Deactivate Account
+                    Delete Account
                   </button>
                 </div>
               </div>

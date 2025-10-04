@@ -370,18 +370,30 @@ function Navbar() {
               </div>
 
               {/* <!-- Popup Window --> */}
-              <nav className="absolute right-[-12px] md:right-[-20px] mt-[15px] sm:mt-[17px] lg:mt-[21px] w-25 sm:w-30 lg:w-40  p-1 bg-gray-200 font-[Poppins,sans-serif] rounded-md border border-gray-300 shadow-md transform scale-90 opacity-0 invisible transition-all duration-100 ease-in-out peer-checked:scale-100 peer-checked:opacity-100 peer-checked:visible">
+              <nav className="absolute right-[-12px] md:right-[-20px] mt-[15px] sm:mt-[17px] lg:mt-[21px] w-25 sm:w-30 lg:w-40   font-semibold  border border-gray-300 shadow-md transform scale-90 opacity-0  transition-all duration-100 ease-in-out peer-checked:scale-100 bg-[#F6FBF4] peer-checked:opacity-100 peer-checked:visible">
                 <ul className="list-none  m-0 p-0 space-y-1">
                   <li>
-                    <button className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
-                      <a href="/user" className="flex items-center gap-2">
+                    <button
+                      className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
+                     hover:bg-gray-200 "
+                    >
+                      <a
+                        href="/user"
+                        className="flex items-center justify-center gap-1"
+                      >
                         User
                       </a>
                     </button>
                   </li>
                   <li>
-                    <button className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
-                      <a href="/admin" className="flex items-center gap-2">
+                    <button
+                      className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300  
+                    hover:bg-gray-200 "
+                    >
+                      <a
+                        href="/admin"
+                        className="flex items-center justify-center gap-1"
+                      >
                         Admin
                       </a>
                     </button>
@@ -389,28 +401,44 @@ function Navbar() {
                   {!authUser ? (
                     <>
                       <li>
-                        <button className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
-                          <a href="/login" className="flex items-center gap-2">
-                            Login
-                            <span>
-                              <FiLogIn />
-                            </span>
+                        <button
+                          className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300
+                        hover:bg-gray-200 "
+                        >
+                          <a
+                            href="/login"
+                            className="flex items-center justify-center gap-1"
+                          >
+                            <span>Login</span>
+                            <FiLogIn className="text-lg sm:text-xl" />
                           </a>
                         </button>
                       </li>
                       <li>
-                        <button className="flex items-center  w-full gap-2 px-2 py-1 text-sm sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white">
-                          <a href="/Signup">Sign Up</a>
+                        <button
+                          className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
+                         hover:bg-gray-200 "
+                        >
+                          <a
+                            href="/Signup"
+                            className="flex items-center justify-center gap-1"
+                          >
+                            Sign Up
+                          </a>
                         </button>
                       </li>
                     </>
                   ) : (
                     <li>
                       <button
-                        className="  w-full  px-2 py-1 text-sm  sm:text-[17px] text-gray-800 rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                        className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
+                         hover:bg-gray-200 "
                         onClick={handleLogout}
                       >
-                        <a href="" className="flex items-center gap-2">
+                        <a
+                          href=""
+                          className="flex items-center justify-center gap-1"
+                        >
                           <span>Logout</span>
                           <LuLogOut />
                         </a>

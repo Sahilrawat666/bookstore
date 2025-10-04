@@ -63,6 +63,12 @@ function FavouriteBooks({ userId }) {
                 Start adding books to your favourites and build your reading
                 list.
               </p>
+              <button
+                onClick={() => Navigate("/books")}
+                className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 active:scale-90 transition transform duration-150"
+              >
+                Browse Books
+              </button>
             </div>
           ) : (
             favourites.map((book) => (

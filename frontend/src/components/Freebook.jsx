@@ -67,10 +67,10 @@ function Freebook() {
       <div className="w-full h-auto bg-slate-100 dark:bg-[#161616]  py-12  px-3 md:px-8 ">
         <div className="freebooks max-w-[1440px] mx-auto  ">
           <div className="freebook-heading    ">
-            <h1 className="dark:text-white text-4xl font-bold mx-auto w-fit   ">
-              free offered books
+            <h1 className="dark:text-white text-4xl font-bold mx-auto w-fit font-semibold  ">
+              Featured Books{" "}
             </h1>
-            <p className="my-5 mx-auto w-fit text-center ">
+            <p className="my-5 mx-auto w-fit text-center font-semibold ">
               Explore a curated selection of free courses designed to boost your
               knowledge and skills. From storytelling and general knowledge to
               sports facts and beyond — start learning today with engaging books
@@ -93,6 +93,14 @@ function Freebook() {
             </Slider>
           )}
         </div>
+        <button className=" w-full mt-8 sm:mt-11 text-center">
+          <a
+            href="/books"
+            className="inline-flex items-center font-semibold  px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
+          >
+            view all books
+          </a>
+        </button>
       </div>
     </>
   );

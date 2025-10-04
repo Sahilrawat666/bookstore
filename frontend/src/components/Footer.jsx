@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <>
-      <footer className="w-full bg-slate-100 dark:bg-[#161616]">
+      <footer className="w-full bg-gradient-to-r from-[#0f172a]  to-[#334155] text-gray-300 py-10 px-6">
         <div className="footer m-auto w-full">
           <div>
             <ul>

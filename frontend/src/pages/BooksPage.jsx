@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Books from "./Books";
 import Footer from "../components/Footer";
+import NewsletterSection from "../components/NewsletterSection.jsx";
 
 function BooksPage() {
   return (
@@ -10,6 +11,7 @@ function BooksPage() {
       <div className="min-h-screen">
         <Books />
       </div>
+      <NewsletterSection />
       <Footer />
     </>
   );

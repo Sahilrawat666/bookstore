@@ -28,7 +28,7 @@ function Login() {
       if (res.data) {
         toast.success("Logged in successfully ");
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("User", JSON.stringify(res.data.user));
+        localStorage.setItem("User", JSON.stringify(res.data));
 
         navigate("/");
         window.location.reload(); // refresh app state

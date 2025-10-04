@@ -3,9 +3,6 @@ import Cards from "../components/Cards";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Footer from "../components/Footer";
-import NewsletterSection from "../components/NewsletterSection";
 
 function Books() {
   const [book, setBook] = useState([]);
@@ -103,9 +100,6 @@ function Books() {
           ))}
         </div>
       </div>
-      <NewsletterSection />
-
-      <Footer />
     </>
   );
 }

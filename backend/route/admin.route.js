@@ -36,15 +36,6 @@ router.delete("/users/:id", verifyToken, verifyAdmin, async (req, res) => {
   }
 });
 
-// // Get all books
-// router.get("/books", verifyAdmin, async (req, res) => {
-//   try {
-//     const books = await Book.find();
-//     res.status(200).json(books);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
 // Get all books (Admin only)
 router.get("/books", verifyToken, verifyAdmin, async (req, res) => {
   try {
@@ -114,7 +105,7 @@ router.delete("/books/:id", verifyToken, verifyAdmin, async (req, res) => {
 });
 
 // // View messages
-// Get all user messages (admin only)
+// Get all user messages
 router.get("/messages", verifyToken, verifyAdmin, async (req, res) => {
   try {
     // Fetch only messages from users

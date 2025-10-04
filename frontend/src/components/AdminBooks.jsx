@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 
 const AdminBooks = () => {
   const [books, setBooks] = useState([]);
-  const authUser = JSON.parse(localStorage.getItem("User"));
   const [showForm, setShowForm] = useState(false);
   const [editingBook, setEditingBook] = useState(null); // New state for editing
   const [newBook, setNewBook] = useState({
@@ -14,6 +13,7 @@ const AdminBooks = () => {
     category: "",
     image: "",
   });
+  const authUser = JSON.parse(localStorage.getItem("User"));
 
   // Fetch books
   useEffect(() => {
@@ -206,9 +206,7 @@ const AdminBooks = () => {
               <th className="px-4 py-3 font-semibold">Title</th>
               <th className="px-4 py-3 font-semibold">Category</th>
               <th className="px-4 py-3 font-semibold">Price</th>
-              {authUser?.role === "admin" && (
-                <th className="px-4 py-3 font-semibold">Actions</th>
-              )}
+              <th className="px-4 py-3 font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -221,22 +219,20 @@ const AdminBooks = () => {
                   <td className="px-4 py-3">{book.title}</td>
                   <td className="px-4 py-3">{book.category}</td>
                   <td className="px-4 py-3">{book.price}</td>
-                  {authUser?.role === "admin" && (
-                    <td className="px-4 py-3 flex gap-2">
-                      <button
-                        onClick={() => handleEdit(book)}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow-md transition"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(book._id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow-md transition"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  )}
+                  <td className="px-4 py-3 flex gap-2">
+                    <button
+                      onClick={() => handleEdit(book)}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow-md transition"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(book._id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow-md transition"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))
             ) : (

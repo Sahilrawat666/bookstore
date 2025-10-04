@@ -7,6 +7,10 @@ const Users = () => {
 
   // Read user from localStorage
   const authUser = JSON.parse(localStorage.getItem("User"));
+  console.log(authUser);
+
+  // const token = localStorage.getItem("token"); // get JWT token
+
   const token = authUser?.token;
 
   // Fetch users

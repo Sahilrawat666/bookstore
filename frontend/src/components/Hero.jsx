@@ -30,7 +30,7 @@ function Hero() {
               <button>
                 <a
                   href="/books"
-                  className="flex items-center justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3   sm:text-lg border-2 rounded-3xl active:scale-95 transition transform duration-100 "
+                  className="flex items-center hover:backdrop-blur-md justify-center h-12 my-4 leading-[3rem] text-white text-xl text-bold px-3   sm:text-lg border-2 rounded-3xl hover:scale-105 active:scale-95 ease-in-out transition transform duration-100 "
                 >
                   Browse Books
                 </a>

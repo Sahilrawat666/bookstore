@@ -76,6 +76,7 @@ const Users = () => {
               <th className="px-4 py-3 font-semibold">Name</th>
               <th className="px-4 py-3 font-semibold">Email</th>
               <th className="px-4 py-3 font-semibold">Role</th>
+              <th className="px-4 py-3 font-semibold">Created At</th>
               <th className="px-4 py-3 font-semibold">Actions</th>
             </tr>
           </thead>
@@ -98,6 +99,13 @@ const Users = () => {
                     >
                       {user.role}
                     </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    {new Date(user.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </td>
                   <td className="px-4 py-3">
                     <button

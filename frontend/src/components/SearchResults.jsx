@@ -47,7 +47,7 @@ function SearchResults() {
         {Array.isArray(results) && results.length === 0 ? (
           <p>No books found.</p>
         ) : (
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {results.map((item) => (
               <Cards key={item._id} item={item} />
             ))}

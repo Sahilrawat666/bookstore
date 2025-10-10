@@ -4,6 +4,7 @@ import Cards from "../components/Cards.jsx";
 import Navbar from "../components/Navbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { FaHeart } from "react-icons/fa";
+import { Link, Navigate } from "react-router-dom";
 
 function FavouriteBooks({ userId }) {
   const [favourites, setFavourites] = useState([]);
@@ -44,9 +45,9 @@ function FavouriteBooks({ userId }) {
         </div>
       </div>
 
-      {/*  Books Section */}
-      <div className="w-full  bg-slate-100 dark:bg-slate-900 px-3 md:px-8 py-12">
-        <div className="grid m-auto max-w-[1440px] grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+      {/* Books Section */}
+      <div className="w-full bg-slate-100 dark:bg-slate-900 px-3 md:px-8 py-12">
+        <div className="grid m-auto max-w-[1440px] grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {loading ? (
             <div className="flex justify-center items-center col-span-full min-h-[300px]">
               <p className="text-lg font-medium text-gray-700 dark:text-gray-300 animate-pulse">
@@ -63,24 +64,38 @@ function FavouriteBooks({ userId }) {
                 Start adding books to your favourites and build your reading
                 list.
               </p>
-              <button
-                onClick={() => Navigate("/books")}
+              <Link
+                to="/books"
                 className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 active:scale-90 transition transform duration-150"
               >
                 Browse Books
-              </button>
+              </Link>
             </div>
           ) : (
-            favourites.map((book) => (
-              <Cards
-                key={book._id}
-                item={book}
-                type="favourite"
-                onRemove={(bookId) =>
-                  setFavourites((prev) => prev.filter((b) => b._id !== bookId))
-                }
-              />
-            ))
+            <>
+              {favourites.map((book) => (
+                <Cards
+                  key={book._id}
+                  item={book}
+                  type="favourite"
+                  onRemove={(bookId) =>
+                    setFavourites((prev) =>
+                      prev.filter((b) => b._id !== bookId)
+                    )
+                  }
+                />
+              ))}
+
+              {/* Button below all cards */}
+              <div className="col-span-full flex justify-center mt-10">
+                <Link
+                  to="/books"
+                  className="bg-pink-500 text-white px-8 py-3 rounded-lg hover:bg-pink-600 active:scale-90 transition transform duration-150 font-semibold shadow-md"
+                >
+                  Browse More Books
+                </Link>
+              </div>
+            </>
           )}
         </div>
       </div>

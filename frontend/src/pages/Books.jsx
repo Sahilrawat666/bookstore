@@ -3,6 +3,7 @@ import Cards from "../components/Cards";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { motion } from "framer-motion";
 
 function Books() {
   const [book, setBook] = useState([]);
@@ -42,15 +43,25 @@ function Books() {
         {/* Hero Section */}
         <div className="relative text-center mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-3xl -z-10 blur-3xl opacity-30"></div>
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white font-semibold">
+          <motion.h1
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 1.5, ease: "easeOut" }}
+            className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white font-semibold"
+          >
             Welcome to Your Knowledge Hub{" "}
             <span className="text-pink-500">📚</span>
-          </h1>
-          <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-semibold">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1.2, ease: "easeOut" }}
+            className="mt-4 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-semibold"
+          >
             Discover a world of knowledge and imagination at your fingertips.
             Explore curated collections, stories, and guides that spark your
             curiosity and elevate your learning journey.
-          </p>
+          </motion.p>
 
           <div className="mt-6 flex justify-center items-center gap-4 flex-wrap">
             <Link to="/">

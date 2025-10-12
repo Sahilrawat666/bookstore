@@ -187,7 +187,7 @@ function Cards({ item, onRemove, type }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -40 }}
+      initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ ease: "easeOut", delay: 0.4, duration: 1.5 }}
       className="relative sm:p-2 whitespace-nowrap mx-2  hover:scale-101  shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200  dark:bg-[#f4f4f430] dark:border-gray-700 group-hover:scale-105"

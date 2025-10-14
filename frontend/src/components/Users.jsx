@@ -11,7 +11,7 @@ const Users = () => {
 
   // const token = localStorage.getItem("token"); // get JWT token
 
-  const token = authUser?.token;
+  const token = localStorage.getItem("token");
 
   // Fetch users
   useEffect(() => {

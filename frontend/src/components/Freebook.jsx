@@ -72,7 +72,7 @@ function Freebook() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
-              className="dark:text-white text-4xl font-bold mx-auto w-fit font-semibold  "
+              className="dark:text-white text-4xl  mx-auto w-fit font-semibold  "
             >
               Featured Books{" "}
             </motion.h1>
@@ -107,7 +107,7 @@ function Freebook() {
         <button className=" w-full mt-8 sm:mt-11 text-center">
           <a
             href="/books"
-            className="inline-flex items-center font-semibold  px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
+            className="inline-flex items-center font-semibold  px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white  rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl whitespace-nowrap"
           >
             view all books
           </a>

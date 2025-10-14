@@ -189,7 +189,7 @@ function Cards({ item, onRemove, type }) {
     <motion.div
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: "easeOut", delay: 0.4, duration: 1.5 }}
+      transition={{ ease: "easeOut", delay: 0.4, duration: 1 }}
       className="relative sm:p-2 whitespace-nowrap mx-2  hover:scale-101  shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200  dark:bg-[#f4f4f430] dark:border-gray-700 group-hover:scale-105"
     >
       {/* add and remove from cart icons */}
@@ -272,7 +272,7 @@ function Cards({ item, onRemove, type }) {
 
           {/* Buy Button */}
           {isInCart ? (
-            <button className="rounded-md truncate active:scale-90 transition transform duration-150  px-1 sm:px-3 py-1 text-white  text-sm font-semibold  transition duration-200  bg-blue-700 dark:border-white  dark:text-white">
+            <button className="rounded-md truncate active:scale-90   px-1 sm:px-3 py-1 text-white  text-sm font-semibold  transition duration-200  bg-blue-700 dark:border-white  dark:text-white">
               <a href="/cart"> Go to cart</a>
             </button>
           ) : (

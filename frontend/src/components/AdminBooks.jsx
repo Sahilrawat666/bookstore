@@ -14,6 +14,7 @@ const AdminBooks = () => {
     image: "",
   });
   const authUser = JSON.parse(localStorage.getItem("User"));
+  const token = localStorage.getItem("token");
 
   // Fetch books
   useEffect(() => {
@@ -22,9 +23,7 @@ const AdminBooks = () => {
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/admin/books`,
           {
-            headers: authUser
-              ? { Authorization: `Bearer ${authUser.token}` }
-              : {},
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
           }
         );
         setBooks(res.data.reverse());
@@ -43,7 +42,7 @@ const AdminBooks = () => {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/admin/books/${id}`,
         {
-          headers: { Authorization: `Bearer ${authUser.token}` },
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
         }
       );
       setBooks(books.filter((b) => b._id !== id));
@@ -72,7 +71,9 @@ const AdminBooks = () => {
         const res = await axios.put(
           `${import.meta.env.VITE_BACKEND_URL}/admin/books/${editingBook._id}`,
           newBook,
-          { headers: { Authorization: `Bearer ${authUser.token}` } }
+          {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          }
         );
         setBooks(books.map((b) => (b._id === editingBook._id ? res.data : b)));
         toast.success("Book updated successfully!");
@@ -81,7 +82,9 @@ const AdminBooks = () => {
         const res = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/admin/books`,
           newBook,
-          { headers: { Authorization: `Bearer ${authUser.token}` } }
+          {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          }
         );
         setBooks([res.data, ...books]);
         toast.success("Book added successfully!");

@@ -47,7 +47,7 @@ function Books() {
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 1.5, ease: "easeOut" }}
-            className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white font-semibold"
+            className="text-3xl md:text-5xl  text-gray-800 dark:text-white font-semibold"
           >
             Welcome to Your Knowledge Hub{" "}
             <span className="text-pink-500">📚</span>

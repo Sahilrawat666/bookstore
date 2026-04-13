@@ -17,12 +17,9 @@ const URI = process.env.MONGODB_URI;
 
 try {
   mongoose.connect(URI);
-  //if using momgodb compass
-  // mongoose.connect(URI, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true,
-  // });
+
   console.log("connected to mongodb");
+
 } catch (error) {
   console.log("error:", error);
 }

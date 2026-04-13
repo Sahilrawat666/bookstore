@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
+import image from "../assets/image.png";
 
 function Signup() {
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useAuth();
 
   const {
     register,
@@ -23,15 +26,15 @@ function Signup() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user/signup`,
-        userInfo
+        userInfo,
       );
 
       if (res.data) {
         toast.success("Signup successful ");
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("User", JSON.stringify(res.data.user));
+        setAuthUser(res.data.user);
         navigate("/");
-        window.location.reload();
       }
     } catch (err) {
       if (err.response) {
@@ -48,19 +51,23 @@ function Signup() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"
       >
-        <Link
-          to="/"
-          className="btn btn-sm btn-circle btn-ghost relative float-right  "
-        >
-          ✕
-        </Link>
-        {/* Title */}
-        <div className="flex items-center justify-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            Create Account
-          </h1>
+        <div className="flex items-center justify-between">
+          <div className=" w-30 md:w-35 lg:w-40  flex items-center justify-between overflow-hidden">
+            <Link to="/" className="flex items-center">
+              <img
+                src={image}
+                alt="ZenTask Logo"
+                className="h-full w-auto object-contain scale-110  "
+              />
+            </Link>
+          </div>
+          <Link
+            to="/"
+            className="btn btn-sm btn-circle btn-ghost relative float-right  "
+          >
+            ✕
+          </Link>
         </div>
-
         {/* Name */}
         <div className="mt-5">
           <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
@@ -112,7 +119,7 @@ function Signup() {
         {/* Submit button */}
         <div className="mt-5">
           <button
-            className="py-2 px-4 bg-pink-600 hover:bg-pink-700 focus:ring-pink-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            className="py-2 px-4 bg-pink-600 hover:bg-pink-700 cursor-pointer focus:ring-pink-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
             type="submit"
           >
             Sign up

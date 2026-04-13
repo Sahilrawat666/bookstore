@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
+import image from "../assets/image.png";
 
 function Login() {
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useAuth();
 
   const {
     register,
@@ -22,7 +25,7 @@ function Login() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user/login`,
-        userInfo
+        userInfo,
       );
 
       if (res.data) {
@@ -30,9 +33,8 @@ function Login() {
 
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("User", JSON.stringify(res.data.user));
-
+        setAuthUser(res.data.user);
         navigate("/");
-        window.location.reload(); // refresh app state
       }
     } catch (err) {
       if (err.response) {
@@ -49,17 +51,23 @@ function Login() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-md mx-auto  px-4 py-10 bg-white dark:bg-black dark:text-white  shadow rounded-3xl sm:p-10"
       >
-        <Link
-          to="/"
-          className="btn btn-sm btn-circle btn-ghost relative float-right  "
-        >
-          ✕
-        </Link>
         {/* Title */}
-        <div className="flex items-center justify-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            Book-Store
-          </h1>
+        <div className="flex items-center justify-between">
+          <div className=" w-30 md:w-35 lg:w-40  flex items-center justify-between overflow-hidden">
+            <Link to="/" className="flex items-center">
+              <img
+                src={image}
+                alt="ZenTask Logo"
+                className="h-full w-auto object-contain scale-110  "
+              />
+            </Link>
+          </div>
+          <Link
+            to="/"
+            className="btn btn-sm btn-circle btn-ghost relative float-right  "
+          >
+            ✕
+          </Link>
         </div>
 
         {/* Email */}
@@ -80,7 +88,7 @@ function Login() {
 
         {/* Password */}
         <div className="mt-4">
-          <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
+          <label className="font-semibold text-sm cursor-pointer text-gray-600 dark:text-gray-300 pb-1 block">
             Password
           </label>
           <input
@@ -107,7 +115,7 @@ function Login() {
         {/* Submit button */}
         <div className="mt-5">
           <button
-            className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            className="py-2 px-4 bg-blue-600 cursor-pointer hover:bg-blue-700 focus:ring-blue-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
             type="submit"
           >
             Log in
@@ -118,7 +126,7 @@ function Login() {
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
           <a
-            className="text-xs text-gray-500 uppercase hover:underline"
+            className="text-xs cursor-pointer text-gray-500 uppercase hover:underline"
             href="/signup"
           >
             or sign up

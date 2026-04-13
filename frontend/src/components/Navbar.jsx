@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { MdLightMode, MdDarkMode, MdSearch } from "react-icons/md";
 import { GoHeart } from "react-icons/go";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 // import Logout from "./Logout";
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { FiLogIn, FiLogOut, FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
+import image from "../assets/image.png";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
@@ -209,9 +210,16 @@ function Navbar() {
                 </li>
               )}
             </ul>
-            <label className="text-xl whitespace-nowrap sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blacck-600 dark:text-white tracking-wide">
-              book-store
-            </label>
+
+            <div className=" w-30 md:w-35 lg:w-40  flex items-center overflow-hidden">
+              <Link to="/" className="flex items-center">
+                <img
+                  src={image}
+                  alt="ZenTask Logo"
+                  className="h-full w-auto object-contain scale-110  "
+                />
+              </Link>
+            </div>
           </div>
           <div className="flex items-center">
             <ul className="nav-links  ">
@@ -281,7 +289,7 @@ function Navbar() {
               </li>
 
               {/* ----------- Desktop Search ------------ */}
-              <li className="flex px-3 items-center   hidden sm:block">
+              <li className=" px-3 items-center   hidden sm:block">
                 <form
                   className="max-w-md mx-auto"
                   onSubmit={(e) => {
@@ -364,7 +372,7 @@ function Navbar() {
               {/* <!-- Burger/User Icon --> */}
               <div
                 tabIndex="0"
-                className="flex items-center  justify-center  rounded-full  cursor-pointer overflow-hidden transition-all duration-100 ease-in-out outline outline-[2px] outline-transparent hover:scale-110 active:scale-95 peer-focus:outline-green-500"
+                className="flex items-center  justify-center  rounded-full  cursor-pointer overflow-hidden transition-all duration-100 ease-in-out  outline-[2px] outline-transparent hover:scale-110 active:scale-95 peer-focus:outline-green-500"
               >
                 <FiUser className="text-[21px] sm:text-[26px]" />
               </div>

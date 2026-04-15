@@ -19,7 +19,7 @@ function Cart({ userId }) {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${userId}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${userId}`,
         );
         setCarts(res.data);
       } catch (err) {
@@ -41,11 +41,11 @@ function Cart({ userId }) {
       return;
     }
     const removeFromCartToastId = toast.loading(
-      "removing book from favouriite!"
+      "removing book from favouriite!",
     );
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${id}/${bookId}`
+        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${id}/${bookId}`,
       );
 
       setCarts((prev) => prev.filter((book) => book._id !== bookId));
@@ -118,7 +118,7 @@ function Cart({ userId }) {
                       className="w-20 h-28 object-contain rounded-md border border-gray-200 dark:border-gray-600"
                     />
                     <div>
-                      <h2 className="text:sm sm:text-lg font-bold text-gray-800 dark:text-white text-gray-800 dark:text-gray-200">
+                      <h2 className="text:sm sm:text-lg font-bold  text-gray-800 dark:text-gray-200">
                         {book.name}
                       </h2>
 
@@ -145,25 +145,7 @@ function Cart({ userId }) {
                 </div>
               ))}
             </div>
-            {/* Order Summary
-            <div className="rounded-lg p-6 shadow-md bg-gray-100 dark:bg-[#111827] dark:border dark:border-gray-700">
-              <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-                Order Summary
-              </h2>
-              <p className="flex justify-between text-lg font-medium text-gray-700 dark:text-gray-300">
-                <span>Total:</span>
-                <span>${totalPrice.toFixed(2)}</span>
-              </p>
-              <button
-                className="w-full mt-6 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
-                onClick={() => toast.success("Proceeding to checkout...")}
-              >
-                Checkout
-              </button>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-                Secure checkout • 100% satisfaction guaranteed
-              </p>
-            </div> */}
+
             {/* Order Summary */}
             <div className="rounded-xl p-6 shadow-lg bg-gray-100 dark:bg-[#111827] dark:border dark:border-gray-700 flex flex-col gap-6">
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
@@ -213,7 +195,7 @@ function Cart({ userId }) {
               {/* Checkout Button */}
               <button
                 className="w-full mt-2 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 font-semibold shadow-md transition-all duration-300"
-                onClick={() => toast.success("Proceeding to checkout...")}
+                onClick={() => Navigate("/checkout")}
               >
                 Checkout
               </button>

@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Books from "./pages/Books.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import Checkout from "./pages/Checkout.jsx";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -45,6 +46,7 @@ function App() {
         {/* <Route path="/user" element={<Dashboard />} /> */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/user" element={<UserProfile />} />
+        <Route path="/checkout" element={<Checkout />} />
         {/* <Route path="/user" element={<UserProfile />} /> */}
       </Routes>
       <Toaster />

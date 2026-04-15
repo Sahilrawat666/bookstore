@@ -5,6 +5,9 @@ import bookRoute from "./route/book.route.js";
 import cors from "cors";
 import userRoute from "./route/user.route.js";
 import adminRoute from "./route/admin.route.js";
+import orderRoutes from "./route/order.route.js";
+
+// import orderRoutes from "./route/order.routes.js"
 
 const app = express();
 app.use(cors());
@@ -28,6 +31,7 @@ try {
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use("/admin", adminRoute);
+app.use("/orders", orderRoutes);
 
 // app.get("/", (req, res) => {
 //   res.redirect(process.env.FRONTEND_URL);

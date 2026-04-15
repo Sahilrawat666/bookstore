@@ -32,7 +32,7 @@ function ContactForm() {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user/messages/${authUser._id}`,
-        data
+        data,
       );
       if (res.data.message) {
         toast.success("Message sent successfully!");
@@ -48,7 +48,7 @@ function ContactForm() {
     <>
       <Navbar />
       <div className="flex h-screen justify-center items-center dark:bg-slate-900 dark:text-white">
-        <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-100">
+        <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-xs sm:w-md">
           <div className="">
             <form onSubmit={handleSubmit(onSubmit)} method="div">
               {/* if there is a button in form, it will close the modal */}

@@ -183,14 +183,7 @@ function Navbar() {
                   Contact Us
                 </a>
               </li>
-              <li>
-                <a
-                  href="/about"
-                  className="text-lg font-medium hover:underline underline-offset-4 hover:decoration-2"
-                >
-                  About
-                </a>
-              </li>
+
               {authUser ? (
                 <li>
                   <a

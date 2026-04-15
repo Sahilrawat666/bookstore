@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
+import NewsletterSection from "../components/NewsletterSection";
 
 function Books() {
   const [book, setBook] = useState([]);
@@ -65,7 +67,10 @@ function Books() {
 
           <div className="mt-6 flex justify-center items-center gap-4 flex-wrap">
             <Link to="/">
-              <button className="bg-pink-500 hover:bg-pink-700  text-white px-6 py-3 rounded-full font-semibold shadow-lg active:scale-90 transition transform duration-150">
+              <button
+                className="bg-pink-500 hover:bg-pink-700 cursor-pointer
+               text-white px-6 py-3 rounded-full font-semibold shadow-lg active:scale-90 transition transform duration-150"
+              >
                 Back to Home
               </button>
             </Link>
@@ -111,6 +116,9 @@ function Books() {
           ))}
         </div>
       </div>
+      <NewsletterSection />
+
+      <Footer />
     </>
   );
 }

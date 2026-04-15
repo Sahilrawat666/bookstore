@@ -5,10 +5,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 import image from "../assets/image.png";
+import { useState } from "react";
 
 function Signup() {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -17,11 +19,14 @@ function Signup() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    if (loading) return;
+
     const userInfo = {
       fullname: data.fullname,
       email: data.email,
       password: data.password,
     };
+    setLoading(true);
 
     try {
       const res = await axios.post(
@@ -42,6 +47,8 @@ function Signup() {
       } else {
         toast.error("Something went wrong!");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,7 +56,7 @@ function Signup() {
     <div className=" py-3 sm:max-w-xl sm:mx-auto h-screen w-full flex items-center justify-center dark:bg-slate-900 ">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"
+        className="w-xs sm:w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"
       >
         <div className="flex items-center justify-between">
           <div className=" w-30 md:w-35 lg:w-40  flex items-center justify-between overflow-hidden">
@@ -74,7 +81,7 @@ function Signup() {
             Full Name
           </label>
           <input
-            className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
             type="text"
             {...register("fullname", { required: true })}
             placeholder="Enter your name"
@@ -90,7 +97,7 @@ function Signup() {
             Email
           </label>
           <input
-            className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
             type="email"
             {...register("email", { required: true })}
             placeholder="Enter your email"
@@ -106,7 +113,7 @@ function Signup() {
             Password
           </label>
           <input
-            className="border rounded-lg px-3 py-2 mt-1 mb-2 text-sm w-full"
+            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
             type="password"
             {...register("password", { required: true })}
             placeholder="Enter your password"
@@ -119,10 +126,16 @@ function Signup() {
         {/* Submit button */}
         <div className="mt-5">
           <button
-            className="py-2 px-4 bg-pink-600 hover:bg-pink-700 cursor-pointer focus:ring-pink-500 text-white w-full transition ease-in duration-200 text-base font-semibold shadow-md focus:outline-none rounded-lg"
             type="submit"
+            disabled={loading}
+            className={`py-1 px-2 sm:py-2 sm:px-4 w-full text-white font-semibold rounded-lg
+    ${
+      loading
+        ? "bg-pink-400 cursor-not-allowed"
+        : "bg-pink-600 hover:bg-pink-700"
+    }`}
           >
-            Sign up
+            {loading ? "Signing up..." : "Sign up"}
           </button>
         </div>
 

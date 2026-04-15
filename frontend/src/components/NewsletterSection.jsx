@@ -17,7 +17,7 @@ const NewsletterSection = () => {
           placeholder="Enter your email"
           className="px-4 py-3 border shadow-md rounded-full w-72 md:w-96 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
         />
-        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300">
+        <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl cursor-pointer whitespace-nowrap">
           Subscribe
         </button>
       </div>

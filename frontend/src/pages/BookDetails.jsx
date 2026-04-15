@@ -68,7 +68,7 @@ function BookDetails() {
     const fetchFavourites = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`,
         );
         const favBooks = res.data || [];
         setIsFavourite(favBooks.some((b) => b._id === book._id));
@@ -87,7 +87,7 @@ function BookDetails() {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`,
         );
         const cartBooks = res.data || [];
         setIsInCart(cartBooks.some((b) => b._id === book._id));
@@ -135,7 +135,7 @@ function BookDetails() {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
           authUser._id
-        }/${book._id}`
+        }/${book._id}`,
       );
       toast.success("Removed from favourites.", { id: removeFavToastId });
       setIsFavourite(false);
@@ -182,7 +182,7 @@ function BookDetails() {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${authUser._id}/${
           book._id
-        }`
+        }`,
       );
       toast.success("Book removed from cart!", { id: removeFromCartToastId });
       setIsInCart(false);
@@ -331,7 +331,7 @@ function BookDetails() {
               <div className="flex flex-col sm:flex-row gap-4 w-full">
                 {/* Add/Remove Cart */}
                 <button
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="flex-1 px-6 py-3 cursor-pointer bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 whitespace-nowrap"
                   onClick={isInCart ? removeFromCart : addToCart}
                 >
                   <FaCartPlus /> {isInCart ? "Remove from Cart" : "Add to Cart"}
@@ -339,7 +339,7 @@ function BookDetails() {
 
                 {/* Add/Remove Favourite */}
                 <button
-                  className="flex-1 px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="flex-1 px-6 py-3 cursor-pointer bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2 whitespace-nowrap"
                   onClick={isFavourite ? removeFromFavourite : addToFavourite}
                 >
                   <FaHeart />{" "}
@@ -347,7 +347,7 @@ function BookDetails() {
                 </button>
 
                 {/* Buy / Read Now */}
-                <button className="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                <button className="flex-1 px-6 py-3 cursor-pointer bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 whitespace-nowrap">
                   {book.price === 0 ? "Read Now" : "Buy Now"}
                 </button>
               </div>

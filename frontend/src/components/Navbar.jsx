@@ -303,7 +303,7 @@ function Navbar() {
                 >
                   <label
                     htmlFor="default-search"
-                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                    className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white cursor-pointer"
                   >
                     Search
                   </label>
@@ -338,7 +338,7 @@ function Navbar() {
                     />
                     <button
                       type="submit"
-                      className="text-white absolute end-0 top-0 bottom-0 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      className="text-white absolute end-0 top-0 bottom-0 cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       Search
                     </button>
@@ -347,7 +347,7 @@ function Navbar() {
               </li>
 
               {/* ----------- Theme Toggle ------------ */}
-              <li className="pr-2 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 ">
+              <li className="pr-2 flex items-center lg:text-xl  lg:mx-4 rounded-md transition-all duration-200 cursor-pointer ">
                 <i>
                   {darkMode ? (
                     <MdLightMode

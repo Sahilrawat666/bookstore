@@ -229,6 +229,26 @@ function BookDetails() {
         </button>
       </div>
     );
+  // handle buy now btn
+  const handleBuyNow = (book) => {
+    if (!authUser) {
+      toast.error("Please login first!");
+      navigate("/login");
+      return;
+    }
+
+    const buyNowItem = {
+      _id: book._id,
+      name: book.name,
+      price: book.price,
+      quantity: 1,
+      image: book.image,
+    };
+
+    localStorage.setItem("buyNowItem", JSON.stringify(buyNowItem));
+
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -347,7 +367,10 @@ function BookDetails() {
                 </button>
 
                 {/* Buy / Read Now */}
-                <button className="flex-1 px-6 py-3 cursor-pointer bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 whitespace-nowrap">
+                <button
+                  className="flex-1 px-6 py-3 cursor-pointer bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 whitespace-nowrap"
+                  onClick={() => handleBuyNow(book)}
+                >
                   {book.price === 0 ? "Read Now" : "Buy Now"}
                 </button>
               </div>

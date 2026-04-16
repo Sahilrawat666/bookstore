@@ -96,7 +96,7 @@ function Cart({ userId }) {
             </p>
             <button
               onClick={() => Navigate("/books")}
-              className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md hover:bg-pink-600 active:scale-90 transition transform duration-150"
+              className="mt-6 bg-pink-500 text-white px-6 py-2 rounded-md cursor-pointer hover:bg-pink-600 active:scale-90 transition transform duration-150"
             >
               Browse Books
             </button>
@@ -138,7 +138,7 @@ function Cart({ userId }) {
                       e.stopPropagation();
                       removeFromCart(book._id);
                     }}
-                    className=" px-2 sm:px-3 py-1 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 active:scale-90 transition transform duration-150"
+                    className=" px-2 sm:px-3 py-1 cursor-pointer bg-red-500 text-white text-xs rounded-md hover:bg-red-600 active:scale-90 transition transform duration-150"
                   >
                     Remove
                   </button>
@@ -187,14 +187,14 @@ function Cart({ userId }) {
                   placeholder="Promo code"
                   className="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
-                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition">
+                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition cursor-pointer">
                   Apply
                 </button>
               </div>
 
               {/* Checkout Button */}
               <button
-                className="w-full mt-2 bg-green-600 text-white py-3 rounded-md hover:bg-green-700 font-semibold shadow-md transition-all duration-300"
+                className="w-full mt-2 bg-green-600 text-white py-3 rounded-md cursor-pointer hover:bg-green-700 font-semibold shadow-md transition-all duration-300"
                 onClick={() => Navigate("/checkout")}
               >
                 Checkout

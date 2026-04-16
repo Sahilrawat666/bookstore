@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     try {
-        const { userId, items, address, total } = req.body;
+        const { userId, items, address, total, mode } = req.body;
 
         if (!items || items.length === 0) {
             return res.status(400).json({ message: "Cart is empty" });
@@ -20,10 +20,12 @@ router.post("/", async (req, res) => {
             totalAmount: total,
         });
 
-        // 🔥 clear cart from user
-        await User.findByIdAndUpdate(userId, {
-            carts: [],
-        });
+        //  clear cart from user
+        if (mode === "cart") {
+            await User.findByIdAndUpdate(userId, {
+                carts: [],
+            });
+        }
 
         res.status(201).json(order);
     } catch (err) {

@@ -89,7 +89,7 @@ function UserProfile() {
             <div className="divide-y ">
               <button
                 onClick={() => setActiveTab("profile")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
                   // class="w-full flex items-center px-4 py-3 text-left rounded-lg  border-l-4 border-blue-600"
                   activeTab === "profile"
                     ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
@@ -100,7 +100,7 @@ function UserProfile() {
               </button>
               <button
                 onClick={() => setActiveTab("orders")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
                   activeTab === "orders"
                     ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
                     : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
@@ -111,7 +111,7 @@ function UserProfile() {
               </button>
               <button
                 onClick={() => setActiveTab("settings")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 ${
+                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
                   activeTab === "settings"
                     ? " bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
                     : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
@@ -201,7 +201,7 @@ function UserProfile() {
           )}
 
           {activeTab === "orders" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700  ">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700 cursor-pointer ">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
                 Order History
               </h2>
@@ -214,7 +214,7 @@ function UserProfile() {
           )}
 
           {activeTab === "settings" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700 ">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700  cursor-pointer">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6">
                 Settings
               </h2>

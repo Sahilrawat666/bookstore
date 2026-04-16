@@ -17,11 +17,20 @@ function Checkout() {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm();
+  const [isBuyNow, setIsBuyNow] = useState(false);
 
   // Fetch cart
   useEffect(() => {
     if (!authUser) {
       navigate("/login");
+      return;
+    }
+
+    const storedItem = JSON.parse(localStorage.getItem("buyNowItem"));
+
+    if (storedItem) {
+      setCarts([storedItem]);
+      setIsBuyNow(true); // ✅ lock mode
       return;
     }
 
@@ -33,6 +42,7 @@ function Checkout() {
           `${import.meta.env.VITE_BACKEND_URL}/user/carts/${userId}`,
         );
         setCarts(res.data);
+        setIsBuyNow(false); // ✅ normal cart flow
       } catch (err) {
         console.error(err);
         toast.error("Failed to load cart");
@@ -62,19 +72,26 @@ function Checkout() {
         image: item.image,
       }));
 
-      //  SEND ORDER
+      //  Place order
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
         userId,
         address: data,
         items: orderItems,
         total,
+        mode: isBuyNow ? "buyNow" : "cart",
       });
 
-      toast.success("Order placed successfully");
-      setCarts([]);
-      setCartCount(0);
+      //  Handle flow properly
+      if (isBuyNow) {
+        localStorage.removeItem("buyNowItem");
+      } else {
+        setCarts([]);
+        setCartCount(0);
+      }
 
-      navigate("/cart");
+      //  Success
+      toast.success("Order placed successfully");
+      navigate("/user"); // or /orders
     } catch (err) {
       console.error(err);
       toast.error("Order failed");
@@ -128,7 +145,7 @@ function Checkout() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-lg font-semibold text-white transition ${
+            className={`w-full py-3 rounded-lg font-semibold text-white transition cursor-pointer ${
               loading
                 ? "bg-green-400 cursor-not-allowed"
                 : "bg-green-600 hover:bg-green-700"

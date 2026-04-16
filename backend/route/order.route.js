@@ -1,6 +1,7 @@
 import express from "express";
 import Order from "../model/orderSchema.js";
 import User from "../model/user.model.js";
+import { verifyToken } from "../middlewares/userAuth.js";
 
 const router = express.Router();
 
@@ -28,6 +29,21 @@ router.post("/", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Order failed" });
+    }
+});
+
+// get user orders 
+
+router.get("/profileOrders", verifyToken, async (req, res) => {
+    try {
+        const userId = req.user._id; // comes from token
+
+        const orders = await Order.find({ userId })
+            .sort({ createdAt: -1 });
+
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to fetch orders" });
     }
 });
 

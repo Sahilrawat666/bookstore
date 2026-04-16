@@ -3,6 +3,7 @@ import { FiSettings, FiShoppingCart, FiUser } from "react-icons/fi";
 import Navbar from "./Navbar";
 import axios from "axios";
 import Footer from "./Footer";
+import ProfileOrders from "./ProfileOrders";
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ function UserProfile() {
           `${import.meta.env.VITE_BACKEND_URL}/user/get-user-information`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         setUser(res.data);
@@ -32,7 +33,7 @@ function UserProfile() {
         console.error("Error fetching user info:", error);
         if (error.response) {
           setErrorMsg(
-            error.response.data.message || "Failed to fetch user info"
+            error.response.data.message || "Failed to fetch user info",
           );
         } else {
           setErrorMsg("Server error. Try again later.");
@@ -200,11 +201,14 @@ function UserProfile() {
           )}
 
           {activeTab === "orders" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700 ">
+            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700  ">
               <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
                 Order History
               </h2>
-              <p className="text-gray-600 dark:text-white">No orders yet.</p>
+              <div className=" overflow-hidden overflow-y-auto h-100 ">
+                <ProfileOrders />
+              </div>
+              {/* <p className="text-gray-600 dark:text-white">No orders yet.</p> */}
               {/* Here you can map user.orders if available */}
             </div>
           )}

@@ -148,7 +148,7 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className={`py-1 px-2 sm:py-2 sm:px-4 w-full font-semibold rounded-lg text-white
+            className={`py-1 px-2 sm:py-2 sm:px-4 w-full font-semibold rounded-lg text-white cursor-pointer
     ${
       loading
         ? "bg-blue-400 cursor-not-allowed"

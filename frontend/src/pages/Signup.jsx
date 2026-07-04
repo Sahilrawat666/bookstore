@@ -153,7 +153,7 @@ function Signup() {
           <button
             type="submit"
             disabled={loading}
-            className={`py-1 px-2 sm:py-2 sm:px-4 w-full text-white font-semibold rounded-lg
+            className={`py-1 px-2 sm:py-2 sm:px-4 w-full text-white font-semibold rounded-lg cursor-pointer
     ${
       loading
         ? "bg-pink-400 cursor-not-allowed"

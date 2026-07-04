@@ -6,11 +6,36 @@ import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 import image from "../assets/image.png";
 import { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Signup() {
   const navigate = useNavigate();
   const [authUser, setAuthUser] = useAuth();
   const [loading, setLoading] = useState(false);
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user/google-login`,
+        {
+          credential: credentialResponse.credential,
+        },
+      );
+
+      toast.success("Logged in successfully", {
+        id: "google-login-success",
+      });
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("User", JSON.stringify(res.data.user));
+
+      setAuthUser(res.data.user);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast.error("Google Login Failed");
+    }
+  };
 
   const {
     register,
@@ -137,6 +162,16 @@ function Signup() {
           >
             {loading ? "Signing up..." : "Sign up"}
           </button>
+        </div>
+        {/* google ;ogin button*/}
+        <div className="mt-4 flex justify-center">
+          <GoogleLogin
+            text="signup_with"
+            onSuccess={handleGoogleSuccess}
+            onError={() => {
+              toast.error("Google Login Failed");
+            }}
+          />
         </div>
 
         {/* Login link */}

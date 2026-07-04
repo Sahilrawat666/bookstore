@@ -1,10 +1,24 @@
 import React from "react";
 import { FiShoppingCart, FiHeart, FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import ProfileOrders from "../components/ProfileOrders";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const authUser = JSON.parse(localStorage.getItem("User"));
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("profile");
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab");
+
+    if (tab === "orders") {
+      setActiveTab("orders");
+    }
+  }, [location.search]);
 
   if (!authUser) {
     navigate("/login");

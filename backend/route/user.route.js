@@ -1,5 +1,5 @@
 import express from "express";
-import { login, signup } from "../controller/user.controller.js";
+import { login, signup, googleLogin } from "../controller/user.controller.js";
 import User from "../model/user.model.js";
 import book from "../model/book.model.js";
 import mongoose from "mongoose";
@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
+router.post("/google-login", googleLogin);
 
 // get user information
 router.get("/get-user-information", verifyToken, async (req, res) => {

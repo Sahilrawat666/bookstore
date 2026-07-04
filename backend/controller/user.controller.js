@@ -2,7 +2,9 @@ import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { OAuth2Client } from "google-auth-library";
 dotenv.config();
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // SIGNUP
 export const signup = async (req, res) => {
@@ -94,3 +96,91 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+// google login 
+export const googleLogin = async (req, res) => {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({ message: "Google credential is required" });
+    }
+
+    // Verify Google token
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    const {
+      email,
+      name,
+      picture,
+      sub: googleId,
+    } = payload;
+
+    // Check if user already exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new Google user
+      user = new User({
+        fullname: name,
+        email,
+        googleId,
+        avatar: picture,
+      });
+
+      await user.save();
+    } else {
+      // Link Google account if it isn't already linked
+      if (!user.googleId) {
+        user.googleId = googleId;
+
+        if (!user.avatar) {
+          user.avatar = picture;
+        }
+
+        await user.save();
+      }
+    }
+
+    // Generate JWT
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.status(200).json({
+      message: "Google login successful",
+      user: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        favourites: user.favourites,
+        carts: user.carts,
+        role: user.role,
+        avatar: user.avatar,
+      },
+      token,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({
+      message: "Google authentication failed",
+    });
+  }
+};
+
+

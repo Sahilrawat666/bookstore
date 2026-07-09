@@ -208,7 +208,7 @@ function Navbar() {
               <Link to="/" className="flex items-center">
                 <img
                   src={image}
-                  alt="ZenTask Logo"
+                  alt="Logo"
                   className="h-full w-auto object-contain scale-110  "
                 />
               </Link>

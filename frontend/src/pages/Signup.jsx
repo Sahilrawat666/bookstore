@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 import image from "../assets/image.png";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from "@react-oauth/google";
 
 function Signup() {
@@ -84,7 +85,7 @@ function Signup() {
         className="w-xs sm:w-md mx-auto  px-6 py-10 bg-white dark:bg-slate-900 dark:text-white  md:mx-0 shadow rounded-3xl sm:p-10"
       >
         <div className="flex items-center justify-between">
-          <div className=" w-30 md:w-35 lg:w-40  flex items-center justify-between overflow-hidden">
+          <div className=" w-30 sm:w-40   flex items-center justify-between overflow-hidden">
             <Link to="/" className="flex items-center">
               <img
                 src={image}
@@ -100,52 +101,55 @@ function Signup() {
             ✕
           </Link>
         </div>
-        {/* Name */}
-        <div className="mt-5">
-          <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
-            Full Name
-          </label>
-          <input
-            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
-            type="text"
-            {...register("fullname", { required: true })}
-            placeholder="Enter your name"
-          />
-          {errors.fullname && (
-            <span className="text-xs text-red-500">Name is required</span>
-          )}
-        </div>
 
-        {/* Email */}
-        <div className="mt-4">
-          <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
-            Email
-          </label>
-          <input
-            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
-            type="email"
-            {...register("email", { required: true })}
-            placeholder="Enter your email"
-          />
-          {errors.email && (
-            <span className="text-xs text-red-500">Email is required</span>
-          )}
-        </div>
+        <div className="flex flex-col gap-0.5 sm:gap-2 mt-4 ">
+          {/* Name */}
+          <div>
+            <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
+              Full Name
+            </label>
+            <input
+              className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
+              type="text"
+              {...register("fullname", { required: true })}
+              placeholder="Enter your name"
+            />
+            {errors.fullname && (
+              <span className="text-xs text-red-500">Name is required</span>
+            )}
+          </div>
 
-        {/* Password */}
-        <div className="mt-4">
-          <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
-            Password
-          </label>
-          <input
-            className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
-            type="password"
-            {...register("password", { required: true })}
-            placeholder="Enter your password"
-          />
-          {errors.password && (
-            <span className="text-xs text-red-500">Password is required</span>
-          )}
+          {/* Email */}
+          <div>
+            <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
+              Email
+            </label>
+            <input
+              className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
+              type="email"
+              {...register("email", { required: true })}
+              placeholder="Enter your email"
+            />
+            {errors.email && (
+              <span className="text-xs text-red-500">Email is required</span>
+            )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="font-semibold text-sm text-gray-600 dark:text-gray-300 pb-1 block">
+              Password
+            </label>
+            <input
+              className="border rounded-lg py-1 px-2 sm:py-2 sm:px-4 mt-1 mb-2 text-sm w-full"
+              type="password"
+              {...register("password", { required: true })}
+              placeholder="Enter your password"
+            />
+            {errors.password && (
+              <span className="text-xs text-red-500">Password is required</span>
+            )}
+          </div>
         </div>
 
         {/* Submit button */}
@@ -163,15 +167,22 @@ function Signup() {
             {loading ? "Signing up..." : "Sign up"}
           </button>
         </div>
-        {/* google ;ogin button*/}
-        <div className="mt-4 flex justify-center">
-          <GoogleLogin
-            text="signup_with"
-            onSuccess={handleGoogleSuccess}
-            onError={() => {
-              toast.error("Google Login Failed");
-            }}
-          />
+        {/* google signup button*/}
+        <div className="group mt-4 relative rounded-lg">
+          <div className="absolute inset-0 opacity-0 z-10">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => toast.error("Google Login Failed")}
+            />
+          </div>
+
+          <button
+            type="button"
+            className="w-full flex items-center justify-center gap-3 py-1 px-2 sm:py-2 sm:px-4 border border-gray-300 rounded-lg bg-white transition group-hover:bg-gray-100"
+          >
+            <FcGoogle size={22} />
+            Continue with Google
+          </button>
         </div>
 
         {/* Login link */}

@@ -3,10 +3,12 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { OAuth2Client } from "google-auth-library";
+import sendEmail from "../utils/sendEmail.js";
+
 dotenv.config();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// SIGNUP
+// SIGNUP............................................................................
 export const signup = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
@@ -54,7 +56,7 @@ export const signup = async (req, res) => {
   }
 };
 
-// LOGIN with JWT
+// LOGIN with JWT..........................................................
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -98,7 +100,7 @@ export const login = async (req, res) => {
 };
 
 
-// google login 
+// google login .....................................................................
 export const googleLogin = async (req, res) => {
   try {
     const { credential } = req.body;
@@ -184,3 +186,134 @@ export const googleLogin = async (req, res) => {
 };
 
 
+
+// Forgot Password.....................................................
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email });
+
+    // Don't reveal whether the email exists
+    if (!user) {
+      return res.status(200).json({
+        message:
+          "If an account with that email exists, a password reset link has been sent.",
+      });
+    }
+
+    // Create reset token (valid for 15 minutes)
+    const resetToken = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
+    const html = `
+      <h2>Bookstore Password Reset</h2>
+
+      <p>Hello ${user.fullname},</p>
+
+      <p>You requested to reset your password.</p>
+
+      <p>
+        Click the button below to create a new password.
+      </p>
+
+      <a
+        href="${resetLink}"
+        style="
+          background:#2563eb;
+          color:white;
+          padding:12px 20px;
+          text-decoration:none;
+          border-radius:5px;
+          display:inline-block;
+        "
+      >
+        Reset Password
+      </a>
+
+      <p>This link will expire in <b>15 minutes</b>.</p>
+
+      <p>If you didn't request this, ignore this email.</p>
+    `;
+
+    await sendEmail(
+      user.email,
+      "Reset Your Bookstore Password",
+      html
+    );
+
+    res.status(200).json({
+      message: "Password reset link sent successfully.",
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+
+// Reset Password.................................................
+export const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({
+        message: "Password is required",
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Password reset successful.",
+    });
+
+  } catch (error) {
+
+    if (error.name === "TokenExpiredError") {
+      return res.status(400).json({
+        message: "Reset link has expired.",
+      });
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      return res.status(400).json({
+        message: "Invalid reset link.",
+      });
+    }
+
+    console.log(error);
+
+    res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};

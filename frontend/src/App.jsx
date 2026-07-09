@@ -16,6 +16,8 @@ import Books from "./pages/Books.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import Checkout from "./pages/Checkout.jsx";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 // import BookDescription from "./components/BookDescription.jsx";
 // import Details from "./components/details.jsx";
@@ -48,6 +50,9 @@ function App() {
         <Route path="/user" element={<UserProfile />} />
         <Route path="/checkout" element={<Checkout />} />
         {/* <Route path="/user" element={<UserProfile />} /> */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
       <Toaster />
     </>

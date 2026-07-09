@@ -1,5 +1,6 @@
+
+import "./config/env.js";
 import express from "express";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bookRoute from "./route/book.route.js";
 import cors from "cors";
@@ -13,7 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-dotenv.config();
+
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
+
 
 //connect to mongodb
 const URI = process.env.MONGODB_URI;

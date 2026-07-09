@@ -30,6 +30,7 @@
     "js": "^0.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1",
+    "nodemailer": "^9.0.3",
     "path": "^0.12.7"
   },
   "devDependencies": {

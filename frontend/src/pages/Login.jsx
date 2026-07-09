@@ -135,12 +135,12 @@ function Login() {
 
         {/* Forgot password */}
         <div className="text-right mb-4">
-          <a
-            className="text-xs font-display font-semibold text-gray-500 hover:text-gray-600 cursor-pointer"
-            href="#"
+          <Link
+            to="/forgot-password"
+            className="text-xs font-display font-semibold text-blue-600 hover:underline cursor-pointer"
           >
             Forgot Password?
-          </a>
+          </Link>
         </div>
 
         {/* Submit button */}

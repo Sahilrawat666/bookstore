@@ -17,7 +17,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       if (!token) {
-        toast.error("No token found. Please login.");
+        toast.error("No token found. Please login as admin.");
         return;
       }
 
@@ -26,7 +26,7 @@ const Users = () => {
           `${import.meta.env.VITE_BACKEND_URL}/admin/users`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         //  Reverse array so newest is first
@@ -49,7 +49,7 @@ const Users = () => {
         `${import.meta.env.VITE_BACKEND_URL}/admin/users/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       const updatedUsers = users.filter((u) => u._id !== id);

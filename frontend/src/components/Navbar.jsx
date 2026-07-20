@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthProvider";
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { LiaCartPlusSolid } from "react-icons/lia";
-import { FiLogIn, FiLogOut, FiUser } from "react-icons/fi";
+import { FiLogOut, FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
 import image from "../assets/image.png";
 
@@ -371,79 +371,58 @@ function Navbar() {
               </div>
 
               {/* <!-- Popup Window --> */}
-              <nav className="absolute right-[-12px] md:right-[-20px] mt-[15px] sm:mt-[17px] lg:mt-[21px] w-25 sm:w-30 lg:w-40   font-semibold  border border-gray-300 shadow-md transform scale-90 opacity-0  transition-all duration-100 ease-in-out peer-checked:scale-100 bg-[#F6FBF4] peer-checked:opacity-100 peer-checked:visible">
-                <ul className="list-none  m-0 p-0 space-y-1">
+              <nav className="absolute  dark:bg-gray-700  overflow-hidden right-[-11px] sm:right-[-12px] md:right-[-20px] mt-[15px] sm:mt-[17px] lg:mt-[21px] w-20 max-w-40 rounded-sm font-semibold border-gray-300 shadow-md transform scale-90 opacity-0  transition-all duration-100 ease-in-out peer-checked:scale-100 bg-[#F6FBF4] peer-checked:opacity-100 peer-checked:visible">
+                <ul className="list-none  m-0 p-0 space-y-1 ">
                   <li>
-                    <button
-                      className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
-                     hover:bg-gray-200 "
+                    <a
+                      href="/user"
+                      className="flex items-center justify-center gap-1   dark:text-white dark:hover:bg-gray-500  px-3 py-1 text-xs sm:text-[17px]  text-gray-800 bg-transparent transition-all duration-300
+                     hover:bg-slate-200 "
                     >
-                      <a
-                        href="/user"
-                        className="flex items-center justify-center gap-1"
-                      >
-                        User
-                      </a>
-                    </button>
+                      User
+                    </a>
                   </li>
                   <li>
-                    <button
-                      className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300  
-                    hover:bg-gray-200 "
+                    <a
+                      href="/admin"
+                      className="flex items-center justify-center gap-1 dark:text-white dark:hover:bg-gray-500 px-3 py-1 text-xs sm:text-[17px]  text-gray-800 bg-transparent transition-all duration-300
+                    hover:bg-slate-200 "
                     >
-                      <a
-                        href="/admin"
-                        className="flex items-center justify-center gap-1"
-                      >
-                        Admin
-                      </a>
-                    </button>
+                      Admin
+                    </a>
                   </li>
                   {!authUser ? (
                     <>
                       <li>
-                        <button
-                          className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300
-                        hover:bg-gray-200 "
+                        <a
+                          href="/login"
+                          className="flex items-center justify-center gap-1 dark:text-white dark:hover:bg-gray-500 px-3 py-1 text-xs sm:text-[17px]  text-gray-800 bg-transparent transition-all duration-300
+                        hover:bg-slate-200"
                         >
-                          <a
-                            href="/login"
-                            className="flex items-center justify-center gap-1"
-                          >
-                            <span>Login</span>
-                            <FiLogIn className="text-lg sm:text-xl" />
-                          </a>
-                        </button>
+                          <span>Login</span>
+                        </a>
                       </li>
                       <li>
-                        <button
-                          className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
+                        <a
+                          href="/Signup"
+                          className="flex items-center justify-center gap-1 dark:text-white dark:hover:bg-gray-500 whitespace-nowrap    px-3 py-1 text-xs sm:text-[17px]  text-gray-800 bg-transparent transition-all duration-300
                          hover:bg-gray-200 "
                         >
-                          <a
-                            href="/Signup"
-                            className="flex items-center justify-center gap-1"
-                          >
-                            Sign Up
-                          </a>
-                        </button>
+                          Sign Up
+                        </a>
                       </li>
                     </>
                   ) : (
                     <li>
-                      <button
-                        className="w-full flex items-center  gap-2 px-3 py-1 text-sm sm:text-[17px] font-medium text-gray-800 bg-transparent transition-all duration-300 
-                         hover:bg-gray-200 "
+                      <a
+                        href=""
                         onClick={handleLogout}
+                        className="flex items-center justify-center gap-1 dark:text-white dark:hover:bg-gray-500 px-3 py-1 text-xs sm:text-[17px]  text-gray-800 bg-transparent transition-all duration-300
+                         hover:bg-slate-200"
                       >
-                        <a
-                          href=""
-                          className="flex items-center justify-center gap-1"
-                        >
-                          <span>Logout</span>
-                          <LuLogOut />
-                        </a>
-                      </button>
+                        <span>Logout</span>
+                        <LuLogOut />
+                      </a>
                     </li>
                   )}
                 </ul>

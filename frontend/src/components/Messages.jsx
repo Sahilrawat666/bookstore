@@ -11,7 +11,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       if (!token) {
-        toast.error("No token found. Please login as admin.");
+        toast.error("Please login as admin.");
         return;
       }
 
@@ -20,7 +20,7 @@ const Messages = () => {
           `${import.meta.env.VITE_BACKEND_URL}/admin/messages`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
         // Reverse messages so newest are on top
         setMessages(res.data.reverse());

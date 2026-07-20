@@ -19,13 +19,18 @@ const AdminBooks = () => {
   // Fetch books
   useEffect(() => {
     const fetchBooks = async () => {
+      if (!token) {
+        toast.error("Please login as admin.");
+        return;
+      }
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/admin/books`,
           {
             headers: token ? { Authorization: `Bearer ${token}` } : {},
-          }
+          },
         );
+
         setBooks(res.data.reverse());
       } catch (err) {
         console.error(err);
@@ -43,7 +48,7 @@ const AdminBooks = () => {
         `${import.meta.env.VITE_BACKEND_URL}/admin/books/${id}`,
         {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
-        }
+        },
       );
       setBooks(books.filter((b) => b._id !== id));
       toast.success("Book deleted successfully!");
@@ -73,7 +78,7 @@ const AdminBooks = () => {
           newBook,
           {
             headers: token ? { Authorization: `Bearer ${token}` } : {},
-          }
+          },
         );
         setBooks(books.map((b) => (b._id === editingBook._id ? res.data : b)));
         toast.success("Book updated successfully!");
@@ -84,7 +89,7 @@ const AdminBooks = () => {
           newBook,
           {
             headers: token ? { Authorization: `Bearer ${token}` } : {},
-          }
+          },
         );
         setBooks([res.data, ...books]);
         toast.success("Book added successfully!");

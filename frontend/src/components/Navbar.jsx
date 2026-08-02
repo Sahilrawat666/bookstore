@@ -14,7 +14,7 @@ import image from "../assets/image.png";
 
 function Navbar() {
   const [darkMode, SetDarkmode] = useState(false);
-  const [authUser, setAuthUser, cartCount, setCartCount, favCount] = useAuth();
+  const [authUser, setAuthUser, cartCount, , favCount] = useAuth();
   // const useNavigate = N
   const switchTheme = async () => {
     SetDarkmode(!darkMode);
@@ -36,7 +36,7 @@ function Navbar() {
       document.body.classList.add("light");
     } else if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
-      SetDarkmode(!darkMode);
+      SetDarkmode(true);
     }
   }, []);
 
@@ -69,7 +69,7 @@ function Navbar() {
     }
   };
   // protect books route
-  const handleBookClick = (item) => {
+  const handleBookClick = () => {
     if (!authUser) {
       toast.error("Please login first!");
       navigate("/login"); // redirect to login

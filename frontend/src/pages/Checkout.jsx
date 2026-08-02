@@ -10,7 +10,7 @@ import { useAuth } from "../context/AuthProvider.jsx";
 
 function Checkout() {
   const navigate = useNavigate();
-  const [authUser, setAuthUser, cartCount, setCartCount] = useAuth();
+  const [authUser, , , setCartCount] = useAuth();
 
   const userId = authUser?._id;
   const [carts, setCarts] = useState([]);

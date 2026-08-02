@@ -15,11 +15,12 @@ function Freebook() {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
         const data = res.data.filter((data) =>
-          ["story", "GK"].includes(data.category)
+          ["story", "GK"].includes(data.category),
         );
         console.log(data);
         setBook(data);
       } catch (error) {
+        console.error(error);
       } finally {
         setLoading(false); // 🔹 stop loading after fetch
       }

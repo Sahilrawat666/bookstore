@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
-  const authUser = JSON.parse(localStorage.getItem("User")); // get logged-in admin
   const token = localStorage.getItem("token");
   // extract token
 

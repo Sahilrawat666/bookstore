@@ -8,14 +8,7 @@ import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 
 function BookDetails() {
-  const [
-    authUser,
-    setAuthUser,
-    cartCount,
-    setCartCount,
-    favCount,
-    setFavCount,
-  ] = useAuth();
+  const [authUser, , , setCartCount, , setFavCount] = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState(null);

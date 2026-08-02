@@ -10,7 +10,7 @@ import { FaShoppingCart } from "react-icons/fa";
 function Cart({ userId }) {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [authUser, setAuthUser, cartCount, setCartCount] = useAuth();
+  const [authUser, , , setCartCount] = useAuth();
   const Navigate = useNavigate();
 
   useEffect(() => {

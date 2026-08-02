@@ -11,19 +11,10 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { delay, easeOut } from "framer-motion";
-// import book from "../../../model/book.model";
 
 function Cards({ item, onRemove, type }) {
   const navigate = useNavigate();
-  const [
-    authUser,
-    setAuthUser,
-    cartCount,
-    setCartCount,
-    favCount,
-    setFavCount,
-  ] = useAuth();
+  const [authUser, , , setCartCount, , setFavCount] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
   // console.log(authUser);
@@ -35,7 +26,7 @@ function Cards({ item, onRemove, type }) {
     const fetchFavourites = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`,
         );
 
         const favBooks = res.data || []; // API returns array of books
@@ -89,7 +80,7 @@ function Cards({ item, onRemove, type }) {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
           authUser._id
-        }/${bookId}`
+        }/${bookId}`,
       );
       toast.success("Removed from favourites.", { id: removeFavToastId });
       setIsFavourite(false);
@@ -114,7 +105,7 @@ function Cards({ item, onRemove, type }) {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`,
         );
 
         const cartBooks = res.data || []; // API returns array of books
@@ -162,13 +153,13 @@ function Cards({ item, onRemove, type }) {
       return;
     }
     const removeFromCartToastId = toast.loading(
-      "removing book from favouriite!"
+      "removing book from favouriite!",
     );
     try {
       await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${
           authUser._id
-        }/${bookId}`
+        }/${bookId}`,
       );
       toast.success("Book removed from cart!", { id: removeFromCartToastId });
       setIsInCart(false);

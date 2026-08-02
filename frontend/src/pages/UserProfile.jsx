@@ -9,7 +9,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const authUser = JSON.parse(localStorage.getItem("User"));
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState("profile");
+  const [, setActiveTab] = useState("profile");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

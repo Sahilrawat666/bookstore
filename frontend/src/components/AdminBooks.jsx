@@ -13,7 +13,6 @@ const AdminBooks = () => {
     category: "",
     image: "",
   });
-  const authUser = JSON.parse(localStorage.getItem("User"));
   const token = localStorage.getItem("token");
 
   // Fetch books
@@ -38,7 +37,7 @@ const AdminBooks = () => {
       }
     };
     fetchBooks();
-  }, []);
+  }, [token]);
 
   // Delete book
   const handleDelete = async (id) => {

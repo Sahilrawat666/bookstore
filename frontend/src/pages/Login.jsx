@@ -11,7 +11,7 @@ import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
   const navigate = useNavigate();
-  const [authUser, setAuthUser] = useAuth();
+  const [, setAuthUser] = useAuth();
   const [loading, setLoading] = useState(false);
   const handleGoogleSuccess = async (credentialResponse) => {
     try {

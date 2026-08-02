@@ -11,7 +11,6 @@ import BookDetails from "./pages/BookDetails.jsx";
 import SearchResults from "./components/SearchResults";
 import FavouriteBooks from "./pages/FavouriteBooks.jsx";
 import Cart from "./pages/Cart.jsx";
-import toast from "react-hot-toast";
 import Books from "./pages/Books.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import UserProfile from "./components/UserProfile.jsx";
@@ -23,12 +22,8 @@ import ResetPassword from "./pages/ResetPassword";
 // import Details from "./components/details.jsx";
 
 function App() {
-  const [authUser, setAuthUser] = useAuth();
+  const [authUser] = useAuth();
   console.log(authUser);
-  const LoginRedirect = () => {
-    toast.error("Please login first!");
-    return <Navigate to="/login" replace />;
-  };
 
   return (
     <>

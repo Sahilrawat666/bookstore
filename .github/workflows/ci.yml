@@ -61,4 +61,4 @@ jobs:
         run: npm ci
 
       - name: Check backend syntax
-        run: node --check server.js
+        run: node --check index.js

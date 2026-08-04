@@ -11,7 +11,7 @@ on:
 
 jobs:
   frontend:
-    name: Frontend Checks
+    name: Frontend Build & Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,7 @@ jobs:
         working-directory: frontend
         run: npm ci
 
-      - name: Run ESLint
+      - name: Run frontend lint
         working-directory: frontend
         run: npm run lint
 
@@ -37,8 +37,23 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Pull Frontend Project
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
+
+      - name: Deploy Frontend
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
+
   backend:
-    name: Backend Checks
+    name: Backend Check & Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -60,46 +75,16 @@ jobs:
         working-directory: backend
         run: node --check index.js
 
-  deploy:
-    name: Deploy to Vercel
-    needs:
-      - frontend
-      - backend
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      # Frontend Deployment
-      - name: Pull Frontend Project
-        working-directory: frontend
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
-
-      - name: Deploy Frontend
-        working-directory: frontend
-        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
-
-      # Backend Deployment
       - name: Pull Backend Project
-        working-directory: backend
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
 
       - name: Deploy Backend
-        working-directory: backend
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

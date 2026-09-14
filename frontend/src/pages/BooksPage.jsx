@@ -7,12 +7,10 @@ import NewsletterSection from "../components/NewsletterSection.jsx";
 function BooksPage() {
   return (
     <>
-      <Navbar />
       <div className="min-h-screen">
         <Books />
       </div>
       <NewsletterSection />
-      <Footer />
     </>
   );
 }

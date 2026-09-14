@@ -1,298 +1,311 @@
-import React, { useEffect, useState } from "react";
-import { FiSettings, FiShoppingCart, FiUser } from "react-icons/fi";
-import Navbar from "./Navbar";
-import axios from "axios";
-import Footer from "./Footer";
+import { useEffect, useState } from "react";
+import {
+  FiBookOpen,
+  FiHeart,
+  FiLogOut,
+  FiShoppingBag,
+  FiShoppingCart,
+  FiUser,
+} from "react-icons/fi";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProfileOrders from "./ProfileOrders";
 
 function UserProfile() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [activeTab, setActiveTab] = useState("profile"); // track active tab
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState("profile");
+
+  const authUser = JSON.parse(localStorage.getItem("User"));
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token"); // get JWT token
-        if (!token) {
-          setErrorMsg("User not logged in");
-          setLoading(false);
-          return;
-        }
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab");
 
-        const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/get-user-information`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+    if (tab === "orders") {
+      setActiveTab("orders");
+    } else {
+      setActiveTab("profile");
+    }
+  }, [location.search]);
 
-        setUser(res.data);
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-        if (error.response) {
-          setErrorMsg(
-            error.response.data.message || "Failed to fetch user info",
-          );
-        } else {
-          setErrorMsg("Server error. Try again later.");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  useEffect(() => {
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, [authUser, navigate]);
 
-    fetchUser();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-[#f7fafd]">
-        <p className="text-gray-500 text-lg">Loading profile...</p>
-      </div>
-    );
+  if (!authUser) {
+    return null;
   }
 
-  if (errorMsg) {
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-[#f7fafd]">
-        <p className="text-red-500 text-lg">{errorMsg}</p>
-      </div>
-    );
-  }
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+
+    if (tab === "orders") {
+      navigate("/user?tab=orders");
+    } else {
+      navigate("/user");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("User");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const initials = authUser.fullname
+    ? authUser.fullname
+        .split(" ")
+        .map((name) => name.charAt(0))
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : "U";
 
   return (
-    <div className="bg-[#f7fafd] min-h-screen bg-gradient-to-r  dark:from-gray-800 dark:to-gray-900">
-      <Navbar />
-
-      {/* Profile Header */}
-      <div className="flex flex-col md:flex-row items-center p-8 mt-13 sm:mt-15 md:px-8 lg:px-16  ">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center">
-          <span className="text-white text-3xl font-bold ">
-            {user.fullname ? user.fullname[0].toUpperCase() : "U"}
-          </span>
-        </div>
-        <div className="ml-0 md:ml-5 mt-4 md:mt-0 text-center md:text-left">
-          <h1 className="text-3xl font-semibold text-gray-800 dark:text-white">
-            {user.fullname}
+    <main className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <div className="mb-8">
+          <p className="mb-2 text-sm font-medium uppercase tracking-[0.16em] text-[#315c4c] dark:text-[#6f9f8b]">
+            My account
+          </p>
+          <h1 className="text-2xl mt-3 font-semibold tracking-tight sm:text-4xl">
+            Welcome back, {authUser.fullname?.split(" ")[0] || "Reader"}
           </h1>
-          {/* <p className="text-gray-500">Member since January 2023</p> */}
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666666] dark:text-[#a3a3a3]">
+            Manage your profile, orders, cart, and saved books from one place.
+          </p>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-8 lg:px-16 pb-8">
-        {/* Sidebar */}
-        <div className="w-full lg:w-60 mb-8 lg:mb-0">
-          <div className="bg-white rounded-xl shadow-md mb-8 dark:bg-gray-700 ">
-            <div className="divide-y ">
+        <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
+          <aside className="border border-[#e5e5e5] bg-white dark:border-[#303030] dark:bg-[#181818]">
+            <div className="border-b border-[#e5e5e5] p-3 md:p-5 dark:border-[#303030]">
+              <div className="flex items-center gap-3">
+                {authUser.image ? (
+                  <img
+                    src={authUser.image}
+                    alt={authUser.fullname || "Profile"}
+                    className="h-11 w-11 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#315c4c] text-sm font-semibold text-white dark:bg-[#6f9f8b] dark:text-[#111111]">
+                    {initials}
+                  </div>
+                )}
+
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold">
+                    {authUser.fullname}
+                  </p>
+                  <p className="truncate text-xs text-[#666666] dark:text-[#a3a3a3]">
+                    {authUser.email}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <nav className="p-2" aria-label="Account navigation">
               <button
-                onClick={() => setActiveTab("profile")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
-                  // class="w-full flex items-center px-4 py-3 text-left rounded-lg  border-l-4 border-blue-600"
-                  activeTab === "profile"
-                    ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
-                }`}
+                type="button"
+                onClick={() => handleTabChange("profile")}
+                className={`flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium transition ${activeTab === "profile" ? "bg-[#f7f7f5] text-[#315c4c] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]" : "text-[#666666] hover:bg-[#f7f7f5] hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"}`}
               >
-                <FiUser className="text-10 sm:text-[17px] mr-1" /> Profile
+                <FiUser size={17} />
+                Profile
               </button>
+
               <button
-                onClick={() => setActiveTab("orders")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
-                  activeTab === "orders"
-                    ? "bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
-                }`}
+                type="button"
+                onClick={() => handleTabChange("orders")}
+                className={`flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium transition ${activeTab === "orders" ? "bg-[#f7f7f5] text-[#315c4c] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]" : "text-[#666666] hover:bg-[#f7f7f5] hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"}`}
               >
-                <FiShoppingCart className="text-10 sm:text-[17px] mr-1" />{" "}
+                <FiShoppingBag size={17} />
                 Orders
               </button>
+
               <button
-                onClick={() => setActiveTab("settings")}
-                className={`w-full flex items-center px-4 py-3 text-left dark:text-white rounded-lg transition-all duration-300 cursor-pointer ${
-                  activeTab === "settings"
-                    ? " bg-blue-50 dark:bg-gray-500 transition-all duration-300 text-blue-600 dark:text-gray-600"
-                    : "text-gray-700 hover:bg-blue-50 dark:hover:bg-gray-400 hover:text-black"
-                }`}
+                type="button"
+                onClick={() => navigate("/cart")}
+                className="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium text-[#666666] transition hover:bg-[#f7f7f5] hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"
               >
-                <FiSettings className="text-10 sm:text-[17px] mr-1" /> Settings
+                <FiShoppingCart size={17} />
+                My cart
               </button>
-            </div>
-          </div>
 
-          {/* User Insights */}
-          <div className="bg-white rounded-xl shadow-md p-6 dark:bg-gray-700 ">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4 dark:text-white">
-              User Insights
-            </h2>
-            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
-              <span>Favorites</span>
-              <span className="text-red-600">
-                {user.favourites?.length || 0}
-              </span>
-            </div>
-            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
-              <span>Cart Items</span>
-              <span className="text-blue-600">{user.carts?.length || 0}</span>
-            </div>
-            <div className="flex justify-between items-center mb-2 text-gray-600 dark:text-white">
-              <span>Total Orders</span>
-              <span className="text-gray-800 font-semibold">0</span>
-            </div>
-            <div className="flex justify-between items-center mt-4 text-gray-600 dark:text-white">
-              <span>Total Spent</span>
-              <span className="text-green-600 font-semibold">0</span>
-            </div>
-          </div>
-        </div>
+              <button
+                type="button"
+                onClick={() => navigate("/favourite")}
+                className="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium text-[#666666] transition hover:bg-[#f7f7f5] hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"
+              >
+                <FiHeart size={17} />
+                Favourites
+              </button>
 
-        {/* Main Card */}
-        <div className="flex-1 dark:bg-gray-700 ">
-          {activeTab === "profile" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700 ">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
-                Profile Information
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-500 mb-1 dark:text-white">
-                    Full Name
-                  </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
-                    {user.fullname}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-gray-500 mb-1 dark:text-white">
-                    Email
-                  </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
-                    {user.email}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-gray-500 mb-1 dark:text-white ">
-                    Phone
-                  </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
-                    {user.phone || "-"}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-gray-500 mb-1">
-                    Member Since
-                  </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
-                    January 2023
-                  </p>
-                </div>
-                <div className="md:col-span-2">
-                  <label className="block text-gray-500 mb-1 dark:text-white">
-                    Address
-                  </label>
-                  <p className="w-full bg-gray-100 rounded-lg px-4 py-2 border text-gray-700 dark:bg-gray-700 dark:text-white">
-                    {user.address || "-"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+              <div className="my-2 border-t border-[#e5e5e5] dark:border-[#303030]" />
 
-          {activeTab === "orders" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 h-full dark:bg-gray-700 cursor-pointer ">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-6 dark:text-white">
-                Order History
-              </h2>
-              <div className=" overflow-hidden overflow-y-auto h-100 ">
-                <ProfileOrders />
-              </div>
-              {/* <p className="text-gray-600 dark:text-white">No orders yet.</p> */}
-              {/* Here you can map user.orders if available */}
-            </div>
-          )}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/20"
+              >
+                <FiLogOut size={17} />
+                Logout
+              </button>
+            </nav>
+          </aside>
 
-          {activeTab === "settings" && (
-            <div className="bg-white rounded-xl shadow-md p-6 md:p-10 dark:bg-gray-700  cursor-pointer">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-6">
-                Settings
-              </h2>
-
+          <section className="min-w-0">
+            {activeTab === "profile" ? (
               <div className="space-y-6">
-                {/* Change Password */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
-                    Change Password
-                  </h3>
-                  <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                      type="password"
-                      placeholder="Current Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 dark:bg-gray-700 dark:text-white"
-                    />
-                    <input
-                      type="password"
-                      placeholder="New Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 dark:bg-gray-700 dark:text-white"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Confirm New Password"
-                      className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-blue-400 bg-gray-100 md:col-span-2 dark:bg-gray-700 dark:text-white"
-                    />
-                    <button
-                      type="submit"
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg mt-2 md:col-span-2"
-                    >
-                      Update Password
-                    </button>
-                  </form>
-                </div>
+                <div className="border border-[#e5e5e5] bg-white dark:border-[#303030] dark:bg-[#181818]">
+                  <div className="border-b border-[#e5e5e5] px-5 py-5 dark:border-[#303030] sm:px-6">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center bg-[#f7f7f5] text-[#315c4c] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]">
+                        <FiUser size={17} />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-semibold">
+                          Profile information
+                        </h2>
+                        <p className="text-xs text-[#666666] dark:text-[#a3a3a3]">
+                          Your account details
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-                {/* Notification Preferences */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
-                    Notification Preferences
-                  </h3>
-                  <div className="space-y-2">
-                    <label className="flex items-center space-x-3">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-5 w-5 text-blue-500"
-                      />
-                      <span className="text-gray-700 dark:text-white">
-                        Email Notifications
-                      </span>
-                    </label>
-                    <label className="flex items-center space-x-3">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-5 w-5 text-blue-500"
-                      />
-                      <span className="text-gray-700 dark:text-white">
-                        SMS Notifications
-                      </span>
-                    </label>
+                  <div className="grid gap-px bg-[#e5e5e5] dark:bg-[#303030] sm:grid-cols-2">
+                    <div className="bg-white p-5 dark:bg-[#181818]">
+                      <p className="mb-1 text-xs uppercase tracking-wider text-[#999999]">
+                        Full name
+                      </p>
+                      <p className="text-sm font-medium">
+                        {authUser.fullname || "Not available"}
+                      </p>
+                    </div>
+
+                    <div className="bg-white p-5 dark:bg-[#181818]">
+                      <p className="mb-1 text-xs uppercase tracking-wider text-[#999999]">
+                        Email
+                      </p>
+                      <p className="break-all text-sm font-medium">
+                        {authUser.email || "Not available"}
+                      </p>
+                    </div>
+
+                    <div className="bg-white p-5 dark:bg-[#181818]">
+                      <p className="mb-1 text-xs uppercase tracking-wider text-[#999999]">
+                        Account role
+                      </p>
+                      <p className="text-sm font-medium capitalize">
+                        {authUser.role || "User"}
+                      </p>
+                    </div>
+
+                    <div className="bg-white p-5 dark:bg-[#181818]">
+                      <p className="mb-1 text-xs uppercase tracking-wider text-[#999999]">
+                        Account status
+                      </p>
+                      <p className="flex items-center gap-2 text-sm font-medium">
+                        <span className="h-2 w-2 rounded-full bg-[#315c4c] dark:bg-[#6f9f8b]" />
+                        Active
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Account Deactivation */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-600 mb-2 dark:text-white">
-                    Account
-                  </h3>
-                  <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg">
-                    Delete Account
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/cart")}
+                    className="group border border-[#e5e5e5] bg-white p-5 text-left transition hover:border-[#315c4c] dark:border-[#303030] dark:bg-[#181818] dark:hover:border-[#6f9f8b]"
+                  >
+                    <FiShoppingCart
+                      className="mb-5 text-[#315c4c] dark:text-[#6f9f8b]"
+                      size={20}
+                    />
+                    <p className="text-sm font-semibold">My cart</p>
+                    <p className="mt-1 text-xs leading-5 text-[#666666] dark:text-[#a3a3a3]">
+                      Review items ready for checkout.
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => navigate("/favourite")}
+                    className="group border border-[#e5e5e5] bg-white p-5 text-left transition hover:border-[#315c4c] dark:border-[#303030] dark:bg-[#181818] dark:hover:border-[#6f9f8b]"
+                  >
+                    <FiHeart
+                      className="mb-5 text-[#315c4c] dark:text-[#6f9f8b]"
+                      size={20}
+                    />
+                    <p className="text-sm font-semibold">Favourites</p>
+                    <p className="mt-1 text-xs leading-5 text-[#666666] dark:text-[#a3a3a3]">
+                      Revisit the books you've saved.
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleTabChange("orders")}
+                    className="group border border-[#e5e5e5] bg-white p-5 text-left transition hover:border-[#315c4c] dark:border-[#303030] dark:bg-[#181818] dark:hover:border-[#6f9f8b]"
+                  >
+                    <FiShoppingBag
+                      className="mb-5 text-[#315c4c] dark:text-[#6f9f8b]"
+                      size={20}
+                    />
+                    <p className="text-sm font-semibold">Your orders</p>
+                    <p className="mt-1 text-xs leading-5 text-[#666666] dark:text-[#a3a3a3]">
+                      View your previous purchases.
+                    </p>
                   </button>
                 </div>
+
+                <div className="border border-[#e5e5e5] bg-[#f7f7f5] p-5 dark:border-[#303030] dark:bg-[#1d1d1d] sm:p-6">
+                  <div className="flex items-start gap-4">
+                    <FiBookOpen
+                      className="mt-0.5 shrink-0 text-[#315c4c] dark:text-[#6f9f8b]"
+                      size={20}
+                    />
+                    <div>
+                      <h3 className="text-sm font-semibold">Keep exploring</h3>
+                      <p className="mt-1 text-sm leading-6 text-[#666666] dark:text-[#a3a3a3]">
+                        Browse the collection and discover your next favourite
+                        book.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => navigate("/books")}
+                        className="mt-4 text-sm font-medium text-[#315c4c] hover:underline dark:text-[#6f9f8b]"
+                      >
+                        Browse books →
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div>
+                <div className="mb-6">
+                  <p className="mb-2 text-sm font-medium text-[#315c4c] dark:text-[#6f9f8b]">
+                    Account
+                  </p>
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    Your orders
+                  </h2>
+                  <p className="mt-1 text-sm text-[#666666] dark:text-[#a3a3a3]">
+                    Review your previous purchases and order status.
+                  </p>
+                </div>
+
+                <ProfileOrders />
+              </div>
+            )}
+          </section>
         </div>
       </div>
-      <Footer />
-    </div>
+    </main>
   );
 }
 

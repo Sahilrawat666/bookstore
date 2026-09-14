@@ -13,21 +13,64 @@ function Freebook() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
+    const checkImage = (imageUrl) => {
+      return new Promise((resolve) => {
+        if (!imageUrl || typeof imageUrl !== "string") {
+          resolve(false);
+          return;
+        }
+
+        const image = new Image();
+
+        image.onload = () => resolve(true);
+        image.onerror = () => resolve(false);
+
+        image.src = imageUrl;
+      });
+    };
+
     const getBook = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
-        const data = res.data.filter((item) =>
-          ["story", "GK"].includes(item.category),
+
+        const featuredBooks = (Array.isArray(res.data) ? res.data : []).filter(
+          (item) => ["story", "GK"].includes(item.category) && item.image,
         );
-        setBook(data);
+
+        const imageResults = await Promise.all(
+          featuredBooks.map(async (item) => ({
+            item,
+            isValid: await checkImage(item.image),
+          })),
+        );
+
+        const validBooks = imageResults
+          .filter(({ isValid }) => isValid)
+          .map(({ item }) => item);
+
+        if (isMounted) {
+          setBook(validBooks);
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching featured books:", error);
+
+        if (isMounted) {
+          setBook([]);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     getBook();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const settings = {
@@ -57,9 +100,9 @@ function Freebook() {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: book.length > 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: book.length > 2,
         },
       },
     ],
@@ -112,6 +155,7 @@ function Freebook() {
             <p className="text-sm font-medium text-[#171717] dark:text-[#f5f5f5]">
               No featured books available right now.
             </p>
+
             <p className="mt-2 text-sm text-[#666666] dark:text-[#a3a3a3]">
               Check the full collection for more books.
             </p>

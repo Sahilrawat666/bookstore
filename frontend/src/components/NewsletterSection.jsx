@@ -35,28 +35,29 @@ const NewsletterSection = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="mx-auto mt-7 flex max-w-xl flex-col gap-3 sm:flex-row"
+          className="mx-auto mt-6 flex w-full max-w-xl flex-col gap-2.5 sm:mt-7 sm:flex-row sm:gap-3"
         >
+          {" "}
           <label htmlFor="newsletter-email" className="sr-only">
-            Email address
-          </label>
-
+            {" "}
+            Email address{" "}
+          </label>{" "}
           <input
             id="newsletter-email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Enter your email address"
-            className="h-11 flex-1 rounded-md border border-[#d8d8d8] bg-white px-4 text-sm text-[#171717] outline-none transition-colors placeholder:text-[#888888] focus:border-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:placeholder:text-[#777777] dark:focus:border-[#6f9f8b]"
-          />
-
+            className="h-10 w-full min-w-0 rounded-md border border-[#d8d8d8] bg-white px-3.5 text-xs text-[#171717] outline-none transition-colors placeholder:text-[#888888] focus:border-[#315c4c] sm:h-11 sm:px-4 sm:text-sm dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:placeholder:text-[#777777] dark:focus:border-[#6f9f8b]"
+          />{" "}
           <button
             type="submit"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+            className="inline-flex h-10 w-full shrink-0 items-center justify-center gap-1.5 rounded-md bg-[#315c4c] px-4 text-xs font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-11 sm:w-auto sm:px-5 sm:text-sm dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
           >
-            Subscribe
-            <MdArrowForward size={18} />
-          </button>
+            {" "}
+            Subscribe{" "}
+            <MdArrowForward size={16} className="sm:size-[18px]" />{" "}
+          </button>{" "}
         </form>
 
         <p className="mt-4 text-xs text-[#888888] dark:text-[#777777]">

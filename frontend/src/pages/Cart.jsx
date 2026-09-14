@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar.jsx";
 import toast from "react-hot-toast";
-import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider.jsx";
 import {
@@ -73,8 +71,6 @@ function Cart({ userId }) {
 
   return (
     <>
-      <Navbar />
-
       <main className="min-h-screen bg-white pt-20 dark:bg-[#111111]">
         <section className="border-b border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#181818]">
           <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -271,8 +267,6 @@ function Cart({ userId }) {
           )}
         </section>
       </main>
-
-      <Footer />
     </>
   );
 }

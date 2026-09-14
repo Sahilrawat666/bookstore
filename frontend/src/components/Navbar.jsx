@@ -127,7 +127,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] lg:hidden"
+            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] lg:hidden"
             aria-label={
               isMenuOpen ? "Close navigation menu" : "Open navigation menu"
             }
@@ -167,7 +167,7 @@ function Navbar() {
           </NavLink>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2  sm:gap-3">
           <form onSubmit={handleSearch} className="hidden md:block">
             <div className="relative flex h-9 w-52 items-center overflow-hidden rounded-md border border-[#d6d6d6] bg-white dark:border-[#303030] dark:bg-[#1d1d1d] lg:w-60">
               <MdSearch
@@ -196,7 +196,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] md:hidden"
+            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] md:hidden"
             aria-label="Open search"
           >
             <MdSearch size={22} />
@@ -204,13 +204,13 @@ function Navbar() {
 
           <NavLink
             to="/favourite"
-            className="relative flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+            className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label="Favourite books"
           >
             <GoHeart size={21} />
 
             {favCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4  items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px font-semibold leading-none text-white">
                 {favCount}
               </span>
             )}
@@ -218,13 +218,13 @@ function Navbar() {
 
           <NavLink
             to="/cart"
-            className="relative flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+            className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label="Shopping cart"
           >
             <LiaCartPlusSolid size={23} />
 
             {cartCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
                 {cartCount}
               </span>
             )}
@@ -233,7 +233,7 @@ function Navbar() {
           <button
             type="button"
             onClick={switchTheme}
-            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+            className="flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label={
               darkMode ? "Switch to light mode" : "Switch to dark mode"
             }

@@ -4,7 +4,6 @@ import { FiBookOpen, FiMessageSquare, FiUsers } from "react-icons/fi";
 import Users from "../components/Users.jsx";
 import Books from "../components/AdminBooks.jsx";
 import Messages from "../components/Messages.jsx";
-import Navbar from "../components/Navbar.jsx";
 
 const tabs = [
   {
@@ -34,8 +33,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-7xl px-4 pb-10 pt-24 sm:px-6 lg:px-8">
         <motion.header
           initial={{ opacity: 0, y: 12 }}

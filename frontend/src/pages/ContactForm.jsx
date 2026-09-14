@@ -46,7 +46,6 @@ function ContactForm() {
 
   return (
     <>
-      <Navbar />
       <div className="flex h-screen justify-center items-center dark:bg-slate-900 dark:text-white">
         <div className=" border-[1px solid bg-gray-500] shadow-md p-5 rounded-md w-xs sm:w-md">
           <div className="">
@@ -117,7 +116,6 @@ function ContactForm() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

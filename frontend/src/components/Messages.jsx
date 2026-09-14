@@ -1,74 +1,136 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FiMail, FiMessageSquare } from "react-icons/fi";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const token = localStorage.getItem("token");
-  // extract token
 
   useEffect(() => {
     const fetchMessages = async () => {
       if (!token) {
         toast.error("Please login as admin.");
+        setLoading(false);
         return;
       }
 
       try {
+        setLoading(true);
+
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/admin/messages`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
         );
-        // Reverse messages so newest are on top
-        setMessages(res.data.reverse());
-      } catch (err) {
-        console.error(err);
-        toast.error(err.response?.data?.message || "Failed to fetch messages");
+
+        setMessages([...res.data].reverse());
+      } catch (error) {
+        console.error(error);
+        toast.error(
+          error.response?.data?.message || "Failed to fetch messages",
+        );
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMessages();
   }, [token]);
 
-  // Format date & time
   const formatDateTime = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString(); // "MM/DD/YYYY, HH:MM:SS AM/PM"
+    if (!dateString) {
+      return "Unknown date";
+    }
+
+    return new Date(dateString).toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   return (
-    <div className="w-full">
-      <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
-        User Messages
-      </h3>
+    <section className="w-full">
+      <div className="mb-5 flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center border border-[#e5e5e5] bg-[#f7f7f5] text-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]">
+          <FiMessageSquare aria-hidden="true" />
+        </div>
 
-      {messages.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">No messages yet.</p>
-      ) : (
-        <ul className="space-y-3">
-          {messages.map((msg, i) => (
-            <li
-              key={i}
-              className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-all bg-white dark:bg-gray-800"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-gray-800 dark:text-gray-200">
-                  {msg.user} ({msg.email})
-                </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {formatDateTime(msg.createdAt)}
-                </span>
-              </div>
-              <div className="text-gray-700 dark:text-gray-300">
-                {msg.message}
-              </div>
-            </li>
+        <div>
+          <h3 className="text-base font-semibold">Customer messages</h3>
+          <p className="text-sm text-[#666666] dark:text-[#a3a3a3]">
+            Review enquiries submitted through the store.
+          </p>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="space-y-3">
+          {[1, 2, 3].map((item) => (
+            <div
+              key={item}
+              className="h-28 animate-pulse border border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#1d1d1d]"
+            />
           ))}
-        </ul>
+        </div>
+      ) : messages.length === 0 ? (
+        <div className="border border-dashed border-[#e5e5e5] px-6 py-12 text-center dark:border-[#303030]">
+          <FiMail
+            className="mx-auto mb-3 text-2xl text-[#666666] dark:text-[#a3a3a3]"
+            aria-hidden="true"
+          />
+          <p className="font-medium">No messages yet</p>
+          <p className="mt-1 text-sm text-[#666666] dark:text-[#a3a3a3]">
+            Customer enquiries will appear here.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {messages.map((message, index) => (
+            <article
+              key={message._id || index}
+              className="border border-[#e5e5e5] p-4 transition-colors hover:bg-[#f7f7f5] dark:border-[#303030] dark:hover:bg-[#1d1d1d] sm:p-5"
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex min-w-0 items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#315c4c] text-sm font-semibold text-white dark:bg-[#6f9f8b] dark:text-[#111111]">
+                    {(message.user || "U").charAt(0).toUpperCase()}
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="font-semibold">
+                      {message.user || "Unknown user"}
+                    </p>
+
+                    <p className="mt-0.5 truncate text-sm text-[#666666] dark:text-[#a3a3a3]">
+                      {message.email || "No email provided"}
+                    </p>
+                  </div>
+                </div>
+
+                <time className="shrink-0 text-xs text-[#666666] dark:text-[#a3a3a3]">
+                  {formatDateTime(message.createdAt)}
+                </time>
+              </div>
+
+              <div className="mt-4 border-t border-[#e5e5e5] pt-4 dark:border-[#303030]">
+                <p className="whitespace-pre-wrap text-sm leading-6 text-[#444444] dark:text-[#d4d4d4]">
+                  {message.message}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 

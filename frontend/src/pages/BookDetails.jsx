@@ -1,9 +1,17 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { FaStar, FaCartPlus, FaHeart } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+import {
+  MdFavorite,
+  MdFavoriteBorder,
+  MdShoppingCart,
+  MdArrowBack,
+  MdFlashOn,
+} from "react-icons/md";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Cards from "../components/Cards";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -11,6 +19,7 @@ function BookDetails() {
   const [authUser, , , setCartCount, , setFavCount] = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +27,6 @@ function BookDetails() {
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
-  // Fetch book details
   useEffect(() => {
     const fetchBook = async () => {
       if (!id) {
@@ -26,13 +34,17 @@ function BookDetails() {
         setLoading(false);
         return;
       }
+
       try {
-        const url = `${import.meta.env.VITE_BACKEND_URL}/book/${id}`;
-        const response = await fetch(url);
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/book/${id}`,
+        );
+
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || "Failed to fetch book");
         }
+
         const bookData = await response.json();
         setBook(bookData);
       } catch (err) {
@@ -41,20 +53,19 @@ function BookDetails() {
         setLoading(false);
       }
     };
+
     fetchBook();
   }, [id]);
 
-  // Fetch related books
   useEffect(() => {
-    if (id) {
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/book/related/${id}`)
-        .then((res) => setRelated(res.data))
-        .catch((err) => console.error("Error fetching related books:", err));
-    }
+    if (!id) return;
+
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/book/related/${id}`)
+      .then((res) => setRelated(res.data))
+      .catch((err) => console.error("Error fetching related books:", err));
   }, [id]);
 
-  // Check if book is favourite
   useEffect(() => {
     if (!authUser?._id || !book) return;
 
@@ -64,7 +75,7 @@ function BookDetails() {
           `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`,
         );
         const favBooks = res.data || [];
-        setIsFavourite(favBooks.some((b) => b._id === book._id));
+        setIsFavourite(favBooks.some((item) => item._id === book._id));
       } catch (err) {
         console.error("Fav fetch error:", err);
       }
@@ -73,7 +84,6 @@ function BookDetails() {
     fetchFavourites();
   }, [authUser?._id, book]);
 
-  // Check if book is in cart
   useEffect(() => {
     if (!authUser?._id || !book) return;
 
@@ -83,7 +93,7 @@ function BookDetails() {
           `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`,
         );
         const cartBooks = res.data || [];
-        setIsInCart(cartBooks.some((b) => b._id === book._id));
+        setIsInCart(cartBooks.some((item) => item._id === book._id));
       } catch (err) {
         console.error("Cart fetch error:", err);
       }
@@ -92,19 +102,21 @@ function BookDetails() {
     fetchCarts();
   }, [authUser?._id, book]);
 
-  // Add to favourite
   const addToFavourite = async () => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const FavToastId = toast.loading("Adding book to favourites...");
+
+    const toastId = toast.loading("Adding book to favourites...");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
         userId: authUser._id,
         bookId: book._id,
       });
-      toast.success("Book added to favourites!", { id: FavToastId });
+
+      toast.success("Book added to favourites!", { id: toastId });
       setIsFavourite(true);
       setFavCount((prev) => prev + 1);
     } catch (error) {
@@ -117,41 +129,43 @@ function BookDetails() {
     }
   };
 
-  // Remove from favourite
   const removeFromFavourite = async () => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const removeFavToastId = toast.loading("Removing from favourite");
+
+    const toastId = toast.loading("Removing from favourites...");
+
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
-          authUser._id
-        }/${book._id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${authUser._id}/${book._id}`,
       );
-      toast.success("Removed from favourites.", { id: removeFavToastId });
+
+      toast.success("Removed from favourites.", { id: toastId });
       setIsFavourite(false);
       setFavCount((prev) => (prev > 0 ? prev - 1 : 0));
-    } catch (err) {
+    } catch (error) {
       toast.error("Error removing book");
-      console.error(err);
+      console.error(error);
     }
   };
 
-  // Add to cart
   const addToCart = async () => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const addToCartToastId = toast.loading("Adding to cart");
+
+    const toastId = toast.loading("Adding to cart...");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
         userId: authUser._id,
         bookId: book._id,
       });
-      toast.success("Book added to cart!", { id: addToCartToastId });
+
+      toast.success("Book added to cart!", { id: toastId });
       setIsInCart(true);
       setCartCount((prev) => prev + 1);
     } catch (error) {
@@ -164,66 +178,29 @@ function BookDetails() {
     }
   };
 
-  // Remove from cart
   const removeFromCart = async () => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const removeFromCartToastId = toast.loading("Removing from cart");
+
+    const toastId = toast.loading("Removing from cart...");
+
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${authUser._id}/${
-          book._id
-        }`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${authUser._id}/${book._id}`,
       );
-      toast.success("Book removed from cart!", { id: removeFromCartToastId });
+
+      toast.success("Book removed from cart!", { id: toastId });
       setIsInCart(false);
       setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
-    } catch (err) {
+    } catch (error) {
       toast.error("Error removing book");
-      console.error(err);
+      console.error(error);
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          Loading...
-        </div>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="flex flex-col justify-center items-center min-h-screen p-4">
-        <div className="text-xl text-red-500 mb-4">Error: {error}</div>
-        <button
-          onClick={() => navigate(-1)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Go Back
-        </button>
-      </div>
-    );
-
-  if (!book)
-    return (
-      <div className="flex flex-col justify-center items-center min-h-screen p-4">
-        <div className="text-xl mb-4 text-gray-800 dark:text-gray-200">
-          Book not found
-        </div>
-        <button
-          onClick={() => navigate(-1)}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Go Back
-        </button>
-      </div>
-    );
-  // handle buy now btn
-  const handleBuyNow = (book) => {
+  const handleBuyNow = () => {
     if (!authUser) {
       toast.error("Please login first!");
       navigate("/login");
@@ -239,174 +216,205 @@ function BookDetails() {
     };
 
     localStorage.setItem("buyNowItem", JSON.stringify(buyNowItem));
-
     navigate("/checkout");
   };
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="flex min-h-screen items-center justify-center bg-white px-4 pt-20 dark:bg-[#111111]">
+          <div className="w-full max-w-md">
+            <div className="h-96 animate-pulse border border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#1d1d1d]" />
+            <div className="mt-4 h-6 animate-pulse bg-[#f0f0ee] dark:bg-[#1d1d1d]" />
+            <div className="mt-3 h-4 w-2/3 animate-pulse bg-[#f0f0ee] dark:bg-[#1d1d1d]" />
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  if (error || !book) {
+    return (
+      <>
+        <Navbar />
+        <main className="flex min-h-screen items-center justify-center bg-white px-4 pt-20 dark:bg-[#111111]">
+          <div className="max-w-md text-center">
+            <p className="text-sm font-medium text-red-600 dark:text-red-400">
+              {error || "Book not found"}
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="mt-6 inline-flex h-10 items-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111]"
+            >
+              <MdArrowBack size={18} />
+              Go back
+            </button>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  const rating = Math.min(5, Math.max(0, Number(book.rating) || 4));
 
   return (
     <>
       <Navbar />
-      <div className="bg-slate-100 dark:bg-slate-900 min-h-screen">
-        <div className="max-w-[1440px] mx-auto p-4 sm:p-6 mt-13 sm:mt-15">
-          {/* Book Card */}
-          <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden flex flex-col md:flex-row md:gap-6">
-            {/* Book Image */}
-            <div className="md:w-1/3 w-full h-80 md:h-auto flex justify-center items-center bg-gray-50 dark:bg-gray-900 p-4">
+
+      <main className="min-h-screen bg-white pt-20 dark:bg-[#111111]">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#666666] transition-colors hover:text-[#315c4c] dark:text-[#a3a3a3] dark:hover:text-[#6f9f8b]"
+          >
+            <MdArrowBack size={18} />
+            Back
+          </button>
+
+          <section className="grid overflow-hidden border border-[#e5e5e5] bg-white lg:grid-cols-[420px_1fr] dark:border-[#303030] dark:bg-[#1d1d1d]">
+            <div className="flex min-h-[420px] items-center justify-center bg-[#f7f7f5] p-8 dark:bg-[#181818] sm:min-h-[520px]">
               <img
                 src={book.image}
                 alt={book.name}
-                className="max-h-full max-w-full object-contain rounded-md  "
+                className="max-h-[480px] max-w-full object-contain"
               />
             </div>
 
-            {/* Book Details */}
-            <div className="md:w-2/3 w-full p-6 md:p-8 flex flex-col justify-between gap-4">
-              <div className="space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white">
+            <div className="flex flex-col p-6 sm:p-8 lg:p-10">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#315c4c] dark:text-[#6f9f8b]">
+                  {book.category}
+                </span>
+
+                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#171717] sm:text-4xl dark:text-[#f5f5f5]">
                   {book.name}
                 </h1>
-                <p className="text-gray-500 dark:text-gray-300">{book.title}</p>
 
-                {/* Category & Price */}
-                <div className="flex flex-wrap items-center gap-4">
-                  <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                    {book.category}
+                <p className="mt-3 text-base text-[#666666] dark:text-[#a3a3a3]">
+                  {book.title}
+                </p>
+
+                <div className="mt-5 flex items-center gap-2">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, index) => (
+                      <FaStar
+                        key={index}
+                        size={14}
+                        className={
+                          index < rating
+                            ? "text-[#d69e2e]"
+                            : "text-[#d5d5d5] dark:text-[#555555]"
+                        }
+                      />
+                    ))}
+                  </div>
+                  <span className="text-sm text-[#666666] dark:text-[#a3a3a3]">
+                    {book.rating || 4} ({book.reviews || 0} reviews)
                   </span>
-                  <span className="text-2xl font-bold text-green-600">
+                </div>
+
+                <div className="mt-7 border-y border-[#e5e5e5] py-5 dark:border-[#303030]">
+                  <p className="text-2xl font-semibold text-[#171717] dark:text-[#f5f5f5]">
                     {book.price === 0 ? "Free" : `$${book.price}`}
-                  </span>
+                  </p>
                 </div>
 
-                {/* Rating */}
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={
-                        i < (book.rating || 4)
-                          ? "text-yellow-400"
-                          : "text-gray-300 dark:text-gray-500"
-                      }
-                    >
-                      <FaStar />
-                    </span>
-                  ))}
-                  <span className="ml-2 text-gray-500 dark:text-gray-300 text-sm">
-                    ({book.reviews || 0} reviews)
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300">
+                <p className="mt-6 text-sm leading-7 text-[#555555] dark:text-[#a3a3a3]">
                   {book.description ||
-                    "Step into a magical world of imagination with this book. Perfect for readers of all ages."}
+                    "Step into a world of imagination and discovery with this book. Perfect for readers looking for an engaging and enjoyable experience."}
                 </p>
-                {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300">
-                  {book.description ||
-                    "Step into a magical world of imagination with this book. Perfect for readers of all ages."}
-                </p>
-              </div>
 
-              {/* Key Features */}
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-sm">
-                <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
-                  Highlights
-                </h2>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-                  <li>Easy-to-follow illustrations</li>
-                  <li>Engaging storytelling style</li>
-                  <li>Perfect for all age groups</li>
-                  <li>Over 100+ pages of fun</li>
-                  <li>High-quality illustrations and design</li>
-                </ul>
-              </div>
-
-              {/* Author & Publish Info */}
-              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mt-2">
-                <div>
-                  <p className=" text-gray-600 dark:text-gray-400">
-                    <span className="font-semibold">Author:</span>{" "}
-                    {book.author || "Unknown"}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    <span className="font-semibold">Publisher:</span>{" "}
-                    {book.publisher || "N/A"}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    <span className="font-semibold">Pages:</span>{" "}
-                    {book.pages || 0}
-                  </p>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 w-full">
-                {/* Add/Remove Cart */}
-                <button
-                  className="flex-1 px-6 py-3 cursor-pointer bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2 whitespace-nowrap"
-                  onClick={isInCart ? removeFromCart : addToCart}
-                >
-                  <FaCartPlus /> {isInCart ? "Remove from Cart" : "Add to Cart"}
-                </button>
-
-                {/* Add/Remove Favourite */}
-                <button
-                  className="flex-1 px-6 py-3 cursor-pointer bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition flex items-center justify-center gap-2 whitespace-nowrap"
-                  onClick={isFavourite ? removeFromFavourite : addToFavourite}
-                >
-                  <FaHeart />{" "}
-                  {isFavourite ? "Remove from Favourite" : "Add to Favourite"}
-                </button>
-
-                {/* Buy / Read Now */}
-                <button
-                  className="flex-1 px-6 py-3 cursor-pointer bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition flex items-center justify-center gap-2 whitespace-nowrap"
-                  onClick={() => handleBuyNow(book)}
-                >
-                  {book.price === 0 ? "Read Now" : "Buy Now"}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Related Books */}
-          {related.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
-                You may also like
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-                {related.map((b) => (
-                  <div
-                    key={b._id}
-                    className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer flex flex-col items-center"
-                    onClick={() => {
-                      window.scrollTo(0, 0);
-                      navigate(`/book/${b._id}`);
-                    }}
-                  >
-                    <img
-                      src={b.image}
-                      alt={b.name}
-                      className="h-48 w-full object-contain rounded"
-                    />
-                    <h3 className="mt-3 font-semibold text-center text-gray-800 dark:text-white">
-                      {b.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-300">
-                      {b.category}
+                <div className="mt-7 grid grid-cols-1 gap-3 border-b border-[#e5e5e5] pb-7 sm:grid-cols-3 dark:border-[#303030]">
+                  <div>
+                    <p className="text-xs text-[#888888] dark:text-[#777777]">
+                      Author
                     </p>
-                    <p className="text-green-600 font-bold">
-                      {b.price === 0 ? "Free" : `$${b.price}`}
+                    <p className="mt-1 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]">
+                      {book.author || "Unknown"}
                     </p>
                   </div>
-                ))}
+
+                  <div>
+                    <p className="text-xs text-[#888888] dark:text-[#777777]">
+                      Publisher
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]">
+                      {book.publisher || "N/A"}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs text-[#888888] dark:text-[#777777]">
+                      Pages
+                    </p>
+                    <p className="mt-1 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]">
+                      {book.pages || 0}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-8">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={isInCart ? removeFromCart : addToCart}
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+                  >
+                    <MdShoppingCart size={19} />
+                    {isInCart ? "Remove from Cart" : "Add to Cart"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#315c4c] px-5 text-sm font-semibold text-[#315c4c] transition-colors hover:bg-[#315c4c] hover:text-white dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
+                  >
+                    <MdFlashOn size={19} />
+                    {book.price === 0 ? "Read Now" : "Buy Now"}
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={isFavourite ? removeFromFavourite : addToFavourite}
+                  className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-[#e0e0e0] text-sm font-medium text-[#555555] transition-colors hover:border-red-300 hover:text-red-500 dark:border-[#303030] dark:text-[#a3a3a3] dark:hover:border-red-800 dark:hover:text-red-400"
+                >
+                  {isFavourite ? (
+                    <MdFavorite size={18} className="text-red-500" />
+                  ) : (
+                    <MdFavoriteBorder size={18} />
+                  )}
+                  {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
+                </button>
               </div>
             </div>
+          </section>
+
+          {related.length > 0 && (
+            <section className="mt-14">
+              <div className="mb-6 border-b border-[#e5e5e5] pb-4 dark:border-[#303030]">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#315c4c] dark:text-[#6f9f8b]">
+                  More to explore
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold text-[#171717] dark:text-[#f5f5f5]">
+                  You may also like
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+                {related.map((item) => (
+                  <Cards key={item._id} item={item} />
+                ))}
+              </div>
+            </section>
           )}
         </div>
-      </div>
+      </main>
+
       <Footer />
     </>
   );

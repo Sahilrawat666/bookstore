@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdDarkMode, MdLightMode, MdSearch } from "react-icons/md";
 import { GoHeart } from "react-icons/go";
 import { LiaCartPlusSolid } from "react-icons/lia";
-import { FiUser, FiLogOut, FiMenu, FiX } from "react-icons/fi";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthProvider";
+import { FiUser, FiLogOut, FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
 import image from "../assets/image.png";
 
 function Navbar() {
@@ -19,9 +19,9 @@ function Navbar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const theme = localStorage.getItem("theme");
+    const savedTheme = localStorage.getItem("theme");
 
-    if (theme === "dark") {
+    if (savedTheme === "dark") {
       document.body.classList.add("dark");
       document.body.classList.remove("light");
       setDarkMode(true);
@@ -32,27 +32,46 @@ function Navbar() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest("[data-user-menu]")) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const switchTheme = () => {
     const nextTheme = darkMode ? "light" : "dark";
 
     setDarkMode(!darkMode);
 
-    document.body.classList.toggle("dark", nextTheme === "dark");
-    document.body.classList.toggle("light", nextTheme === "light");
+    if (nextTheme === "dark") {
+      document.body.classList.add("dark");
+      document.body.classList.remove("light");
+    } else {
+      document.body.classList.add("light");
+      document.body.classList.remove("dark");
+    }
 
     localStorage.setItem("theme", nextTheme);
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    if (!searchTerm.trim()) {
-      return;
-    }
+  const handleSearch = (event) => {
+    event.preventDefault();
 
     if (!authUser) {
       toast.error("Please login first");
       navigate("/login");
+      setIsSearchOpen(false);
+      setIsMenuOpen(false);
+      return;
+    }
+
+    if (!searchTerm.trim()) {
       return;
     }
 
@@ -66,6 +85,7 @@ function Navbar() {
     if (!authUser) {
       toast.error("Please login first!");
       navigate("/login");
+      setIsMenuOpen(false);
       return;
     }
 
@@ -80,10 +100,12 @@ function Navbar() {
       });
 
       localStorage.removeItem("User");
+
+      toast.success("Logout successfully");
+
       setIsUserMenuOpen(false);
       setIsMenuOpen(false);
 
-      toast.success("Logout successfully");
       navigate("/");
       window.location.reload();
     } catch (error) {
@@ -96,35 +118,38 @@ function Navbar() {
   };
 
   const navLinkClass = ({ isActive }) =>
-    `relative text-sm font-medium transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-px after:bg-current after:transition-all after:duration-200 ${isActive ? "text-[#315c4c] after:w-full dark:text-[#6f9f8b]" : "text-[#171717] after:w-0 hover:text-[#315c4c] hover:after:w-full dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"}`;
+    `relative text-sm font-medium transition-colors duration-200 ${isActive ? "text-[#315c4c] dark:text-[#6f9f8b]" : "text-[#171717] hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"}`;
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-[#e5e5e5] bg-[#ebebeb] dark:border-[#303030] dark:bg-[#161616]">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-[68px] sm:px-6 lg:px-8">
-        <div className="flex min-w-0 items-center gap-3">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-transparent bg-[#ebebeb] dark:bg-[#161616] dark:border-[#303030]">
+      <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:h-[68px] sm:px-6 lg:px-8">
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] lg:hidden"
+            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] lg:hidden"
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <FiX /> : <FiMenu />}
+            {isMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
 
           <Link
             to="/"
             onClick={closeMobileMenu}
-            className="flex h-10 w-28 items-center overflow-hidden sm:w-32"
+            className="flex h-10 w-28 items-center sm:w-32"
           >
             <img
               src={image}
-              alt="Bookstore"
-              className="h-full w-auto object-contain"
+              alt="Bookstore logo"
+              className="h-full w-full object-contain object-left"
             />
           </Link>
         </div>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           <NavLink to="/" className={navLinkClass}>
             Home
           </NavLink>
@@ -142,23 +167,26 @@ function Navbar() {
           </NavLink>
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           <form onSubmit={handleSearch} className="hidden md:block">
-            <div className="relative flex h-9 w-52 items-center lg:w-64">
-              <MdSearch className="pointer-events-none absolute left-3 text-lg text-[#666666] dark:text-[#a3a3a3]" />
+            <div className="relative flex h-9 w-52 items-center overflow-hidden rounded-md border border-[#d6d6d6] bg-white dark:border-[#303030] dark:bg-[#1d1d1d] lg:w-60">
+              <MdSearch
+                className="absolute left-3 text-[#666666] dark:text-[#a3a3a3]"
+                size={19}
+              />
 
               <input
                 type="search"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Search books..."
                 aria-label="Search books"
-                className="h-full w-full rounded-md border border-[#d8d8d8] bg-[#ffffff] pl-9 pr-16 text-sm text-[#171717] outline-none transition-colors placeholder:text-[#888888] focus:border-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:placeholder:text-[#888888] dark:focus:border-[#6f9f8b]"
+                className="h-full w-full bg-transparent py-2 pl-9 pr-16 text-xs text-[#171717] outline-none placeholder:text-[#888888] dark:text-[#f5f5f5] dark:placeholder:text-[#777777]"
               />
 
               <button
                 type="submit"
-                className="absolute right-1 top-1 h-7 rounded bg-[#315c4c] px-2.5 text-xs font-medium text-white transition-colors hover:bg-[#264a3d] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+                className="absolute right-1 top-1 bottom-1 rounded bg-[#315c4c] px-2.5 text-[11px] font-medium text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
               >
                 Search
               </button>
@@ -168,20 +196,21 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            aria-label="Search books"
-            className="flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] md:hidden"
+            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b] md:hidden"
+            aria-label="Open search"
           >
-            <MdSearch />
+            <MdSearch size={22} />
           </button>
 
           <NavLink
             to="/favourite"
+            className="relative flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label="Favourite books"
-            className="relative flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
           >
-            <GoHeart />
+            <GoHeart size={21} />
+
             {favCount > 0 && (
-              <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
                 {favCount}
               </span>
             )}
@@ -189,12 +218,13 @@ function Navbar() {
 
           <NavLink
             to="/cart"
+            className="relative flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label="Shopping cart"
-            className="relative flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
           >
-            <LiaCartPlusSolid />
+            <LiaCartPlusSolid size={23} />
+
             {cartCount > 0 && (
-              <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold leading-none text-white">
                 {cartCount}
               </span>
             )}
@@ -203,33 +233,39 @@ function Navbar() {
           <button
             type="button"
             onClick={switchTheme}
+            className="flex h-9 w-9 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             aria-label={
               darkMode ? "Switch to light mode" : "Switch to dark mode"
             }
-            className="flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
           >
-            {darkMode ? <MdLightMode /> : <MdDarkMode />}
+            {darkMode ? <MdLightMode size={21} /> : <MdDarkMode size={21} />}
           </button>
 
-          <div className="relative">
+          <div className="relative" data-user-menu>
             <button
               type="button"
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              aria-label="Open account menu"
+              className="flex h-9 items-center gap-1.5 text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+              aria-label="Open user menu"
               aria-expanded={isUserMenuOpen}
-              className="flex h-9 w-9 items-center justify-center text-xl text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
             >
-              <FiUser />
+              <FiUser size={21} />
+              <FiChevronDown
+                size={14}
+                className={`hidden transition-transform duration-200 sm:block ${isUserMenuOpen ? "rotate-180" : ""}`}
+              />
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 top-12 w-48 overflow-hidden rounded-md border border-[#e5e5e5] bg-[#ffffff] shadow-lg dark:border-[#303030] dark:bg-[#1d1d1d]">
+              <div className="absolute right-0 top-12 w-52 overflow-hidden rounded-md border border-[#e5e5e5] bg-white shadow-lg dark:border-[#303030] dark:bg-[#1d1d1d]">
                 <div className="border-b border-[#e5e5e5] px-4 py-3 dark:border-[#303030]">
                   <p className="text-sm font-semibold text-[#171717] dark:text-[#f5f5f5]">
                     Account
                   </p>
                   <p className="mt-0.5 text-xs text-[#666666] dark:text-[#a3a3a3]">
-                    Manage your account
+                    {authUser
+                      ? "Manage your account"
+                      : "Welcome to our bookstore"}
                   </p>
                 </div>
 
@@ -237,48 +273,48 @@ function Navbar() {
                   <Link
                     to="/user"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-3 rounded px-3 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
+                    className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                   >
-                    <FiUser />
+                    <FiUser size={17} />
                     My Profile
                   </Link>
 
                   <Link
                     to="/admin"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-3 rounded px-3 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
+                    className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                   >
-                    <FiUser />
                     Admin
                   </Link>
 
-                  {!authUser ? (
+                  {authUser ? (
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-3 rounded px-3 py-2.5 text-left text-sm text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/20"
+                    >
+                      <FiLogOut size={17} />
+                      Logout
+                    </button>
+                  ) : (
                     <>
                       <Link
                         to="/login"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded px-3 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
+                        className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                       >
+                        <FiUser size={17} />
                         Login
                       </Link>
 
                       <Link
                         to="/signup"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded px-3 py-2 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
+                        className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                       >
                         Sign Up
                       </Link>
                     </>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="flex w-full items-center gap-3 rounded px-3 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
-                    >
-                      <FiLogOut />
-                      Logout
-                    </button>
                   )}
                 </div>
               </div>
@@ -288,24 +324,27 @@ function Navbar() {
       </nav>
 
       {isSearchOpen && (
-        <div className="border-t border-[#e5e5e5] bg-[#ebebeb] px-4 py-3 dark:border-[#303030] dark:bg-[#161616] md:hidden">
+        <div className="border-t border-[#d9d9d9] bg-[#ebebeb] px-4 py-3 dark:border-[#303030] dark:bg-[#161616] md:hidden">
           <form onSubmit={handleSearch} className="mx-auto max-w-7xl">
-            <div className="relative flex h-10 items-center">
-              <MdSearch className="pointer-events-none absolute left-3 text-lg text-[#666666] dark:text-[#a3a3a3]" />
+            <div className="relative flex h-10 items-center overflow-hidden rounded-md border border-[#d6d6d6] bg-white dark:border-[#303030] dark:bg-[#1d1d1d]">
+              <MdSearch
+                className="absolute left-3 text-[#666666] dark:text-[#a3a3a3]"
+                size={19}
+              />
 
               <input
                 type="search"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Search books..."
                 autoFocus
                 aria-label="Search books"
-                className="h-full w-full rounded-md border border-[#d8d8d8] bg-[#ffffff] pl-9 pr-20 text-sm text-[#171717] outline-none focus:border-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:focus:border-[#6f9f8b]"
+                className="h-full w-full bg-transparent py-2 pl-9 pr-20 text-sm text-[#171717] outline-none placeholder:text-[#888888] dark:text-[#f5f5f5] dark:placeholder:text-[#777777]"
               />
 
               <button
                 type="submit"
-                className="absolute right-1 top-1 h-8 rounded bg-[#315c4c] px-3 text-xs font-medium text-white dark:bg-[#6f9f8b] dark:text-[#111111]"
+                className="absolute right-1 top-1 bottom-1 rounded bg-[#315c4c] px-3 text-xs font-medium text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
               >
                 Search
               </button>
@@ -315,13 +354,13 @@ function Navbar() {
       )}
 
       {isMenuOpen && (
-        <div className="border-t border-[#e5e5e5] bg-[#ffffff] dark:border-[#303030] dark:bg-[#111111] lg:hidden">
-          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+        <div className="border-t border-[#d9d9d9] bg-white dark:border-[#303030] dark:bg-[#111111] lg:hidden">
+          <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
             <div className="flex flex-col">
               <NavLink
                 to="/"
                 onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
               >
                 Home
               </NavLink>
@@ -329,7 +368,7 @@ function Navbar() {
               <NavLink
                 to="/books"
                 onClick={handleBookClick}
-                className="border-b border-[#e5e5e5] py-3 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
               >
                 Books
               </NavLink>
@@ -337,9 +376,9 @@ function Navbar() {
               <NavLink
                 to="/favourite"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between border-b border-[#e5e5e5] py-3 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+                className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
               >
-                <span>Favourite Books</span>
+                <span>Favourites</span>
                 {favCount > 0 && (
                   <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
                     {favCount}
@@ -350,7 +389,7 @@ function Navbar() {
               <NavLink
                 to="/cart"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between border-b border-[#e5e5e5] py-3 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+                className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
               >
                 <span>My Cart</span>
                 {cartCount > 0 && (
@@ -363,51 +402,45 @@ function Navbar() {
               <NavLink
                 to="/contact"
                 onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
               >
                 Contact
               </NavLink>
 
-              <div className="flex items-center gap-3 pt-4">
-                {!authUser ? (
-                  <>
-                    <Link
-                      to="/login"
-                      onClick={closeMobileMenu}
-                      className="flex-1 rounded-md border border-[#e5e5e5] px-4 py-2.5 text-center text-sm font-medium text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:border-[#303030] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
-                    >
-                      Login
-                    </Link>
+              <Link
+                to="/user"
+                onClick={closeMobileMenu}
+                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+              >
+                My Profile
+              </Link>
 
-                    <Link
-                      to="/signup"
-                      onClick={closeMobileMenu}
-                      className="flex-1 rounded-md bg-[#315c4c] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-[#264a3d] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
-                    >
-                      Sign Up
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      to="/user"
-                      onClick={closeMobileMenu}
-                      className="flex-1 rounded-md border border-[#e5e5e5] px-4 py-2.5 text-center text-sm font-medium text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:border-[#303030] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
-                    >
-                      My Profile
-                    </Link>
+              <Link
+                to="/admin"
+                onClick={closeMobileMenu}
+                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+              >
+                Admin
+              </Link>
 
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-md bg-red-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-red-700"
-                    >
-                      <FiLogOut />
-                      Logout
-                    </button>
-                  </>
-                )}
-              </div>
+              {authUser ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 py-3.5 text-left text-sm font-medium text-red-600 dark:text-red-400"
+                >
+                  <FiLogOut size={17} />
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={closeMobileMenu}
+                  className="py-3.5 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

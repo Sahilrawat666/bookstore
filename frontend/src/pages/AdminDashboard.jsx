@@ -1,70 +1,134 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FiBookOpen, FiMessageSquare, FiUsers } from "react-icons/fi";
 import Users from "../components/Users.jsx";
 import Books from "../components/AdminBooks.jsx";
 import Messages from "../components/Messages.jsx";
 import Navbar from "../components/Navbar.jsx";
 
+const tabs = [
+  {
+    name: "Users",
+    key: "users",
+    icon: FiUsers,
+    description: "Manage registered customers",
+  },
+  {
+    name: "Books",
+    key: "books",
+    icon: FiBookOpen,
+    description: "Manage your catalogue",
+  },
+  {
+    name: "Messages",
+    key: "messages",
+    icon: FiMessageSquare,
+    description: "Review customer enquiries",
+  },
+];
+
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
 
-  const tabs = [
-    { name: "Users", key: "users" },
-    { name: "Books", key: "books" },
-    { name: "Messages", key: "messages" },
-  ];
+  const activeTabData = tabs.find((tab) => tab.key === activeTab) || tabs[0];
 
   return (
-    <>
+    <div className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
       <Navbar />
-      <div className="p-4 mt-[52px] sm:mt-[60px] lg:mt-[67px] max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-4 mb-8">
-          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-white text-center md:text-left">
-            Admin Dashboard
-          </h2>
-          <p className="text-gray-500 text-center md:text-right mt-2 md:mt-0">
-            Manage users, books & messages in one place
-          </p>
-        </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-300 shadow-sm w-full sm:w-auto
-              ${
-                activeTab === tab.key
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105"
-                  : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-blue-500 hover:text-white hover:scale-105"
-              }`}
-            >
-              {tab.name}
-            </button>
-          ))}
-        </div>
+      <main className="mx-auto w-full max-w-7xl px-4 pb-10 pt-24 sm:px-6 lg:px-8">
+        <motion.header
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="mb-7 border-b border-[#e5e5e5] pb-6 dark:border-[#303030]"
+        >
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#315c4c] dark:text-[#6f9f8b]">
+                Administration
+              </p>
 
-        {/* Tab Content */}
-        <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-xl min-h-[65vh] transition-all duration-500 ease-in-out border border-gray-200 dark:border-gray-700">
-          {activeTab === "users" && (
-            <div className="animate-fadeIn">
-              <Users />
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                Admin dashboard
+              </h1>
             </div>
-          )}
-          {activeTab === "books" && (
-            <div className="animate-fadeIn">
-              <Books />
+
+            <p className="max-w-md text-sm leading-6 text-[#666666] dark:text-[#a3a3a3] sm:text-right">
+              Manage customers, catalogue content and customer messages from one
+              workspace.
+            </p>
+          </div>
+        </motion.header>
+
+        <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
+          <nav
+            aria-label="Admin sections"
+            className="h-fit border border-[#e5e5e5] bg-[#f7f7f5] p-2 dark:border-[#303030] dark:bg-[#181818]"
+          >
+            <div className="mb-2 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#666666] dark:text-[#a3a3a3]">
+              Workspace
             </div>
-          )}
-          {activeTab === "messages" && (
-            <div className="animate-fadeIn">
-              <Messages />
+
+            <div className="flex gap-1 overflow-x-auto lg:block lg:overflow-visible">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.key;
+
+                return (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    onClick={() => setActiveTab(tab.key)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`flex min-w-[145px] flex-1 items-center gap-3 border px-3 py-3 text-left transition-colors lg:min-w-0 ${isActive ? "border-[#315c4c] bg-white text-[#315c4c] dark:border-[#6f9f8b] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]" : "border-transparent text-[#666666] hover:border-[#e5e5e5] hover:bg-white hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:border-[#303030] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"}`}
+                  >
+                    <Icon className="shrink-0 text-lg" aria-hidden="true" />
+
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold">
+                        {tab.name}
+                      </span>
+
+                      <span className="mt-0.5 hidden text-xs leading-5 lg:block">
+                        {tab.description}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
-          )}
+          </nav>
+
+          <motion.section
+            key={activeTab}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25 }}
+            aria-labelledby="admin-section-title"
+            className="min-w-0 border border-[#e5e5e5] bg-white dark:border-[#303030] dark:bg-[#181818]"
+          >
+            <div className="flex flex-col gap-1 border-b border-[#e5e5e5] px-5 py-4 sm:flex-row sm:items-center sm:justify-between dark:border-[#303030] sm:px-6">
+              <div>
+                <h2 id="admin-section-title" className="text-lg font-semibold">
+                  {activeTabData.name}
+                </h2>
+
+                <p className="text-sm text-[#666666] dark:text-[#a3a3a3]">
+                  {activeTabData.description}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-6">
+              {activeTab === "users" && <Users />}
+              {activeTab === "books" && <Books />}
+              {activeTab === "messages" && <Messages />}
+            </div>
+          </motion.section>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 

@@ -5,45 +5,45 @@ import Slider from "react-slick";
 import Cards from "./Cards.jsx";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { MdArrowForward } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function Freebook() {
   const [book, setBook] = useState([]);
-  const [loading, setLoading] = useState(true); // 🔹 added loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getBook = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
-        const data = res.data.filter((data) =>
-          ["story", "GK"].includes(data.category),
+        const data = res.data.filter((item) =>
+          ["story", "GK"].includes(item.category),
         );
-        console.log(data);
         setBook(data);
       } catch (error) {
         console.error(error);
       } finally {
-        setLoading(false); // 🔹 stop loading after fetch
+        setLoading(false);
       }
     };
+
     getBook();
   }, []);
 
-  var settings = {
+  const settings = {
     dots: true,
     arrows: false,
-    infinite: true,
+    infinite: book.length > 4,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    initialSlide: 1,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          infinite: book.length > 3,
         },
       },
       {
@@ -51,70 +51,84 @@ function Freebook() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
+          infinite: book.length > 2,
         },
       },
       {
-        breakpoint: 640,
+        breakpoint: 480,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: book.length > 1,
         },
       },
     ],
   };
+
   return (
-    <>
-      <div className="w-full h-auto bg-slate-100 dark:bg-[#161616]  py-12  px-3 md:px-8 ">
-        <div className="freebooks max-w-[1440px] mx-auto  ">
-          <div className="freebook-heading    ">
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
-              className="dark:text-white text-4xl  mx-auto w-fit font-semibold  "
-            >
-              Featured Books{" "}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-              className="my-5 mx-auto w-fit text-center font-semibold "
-            >
-              Explore a curated selection of free courses designed to boost your
-              knowledge and skills. From storytelling and general knowledge to
-              sports facts and beyond — start learning today with engaging books
-              and resources that inform, inspire, and empower your personal
-              growth.
-            </motion.p>
+    <section className="border-b border-[#e5e5e5] bg-white py-16 dark:border-[#303030] dark:bg-[#111111]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#315c4c] dark:text-[#6f9f8b]">
+              Curated selection
+            </p>
+
+            <h2 className="text-2xl font-semibold tracking-tight text-[#171717] sm:text-3xl dark:text-[#f5f5f5]">
+              Featured Books
+            </h2>
+
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666666] dark:text-[#a3a3a3]">
+              Explore selected stories and general knowledge books from our
+              collection.
+            </p>
+          </motion.div>
+
+          <Link
+            to="/books"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#315c4c] transition-colors hover:text-[#274c3f] dark:text-[#6f9f8b] dark:hover:text-[#82ad9b]"
+          >
+            View all books
+            <MdArrowForward size={18} />
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((item) => (
+              <div
+                key={item}
+                className="h-80 animate-pulse border border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#1d1d1d]"
+              />
+            ))}
           </div>
-          {/* 🔹 Show loading until books are fetched */}
-          {loading ? (
-            <div className="text-center text-xl py-20 dark:text-white">
-              <p className="text-lg font-medium text-gray-700 dark:text-gray-300 animate-pulse">
-                Loading books...
-              </p>
-            </div>
-          ) : (
+        ) : book.length === 0 ? (
+          <div className="border border-dashed border-[#d9d9d9] px-6 py-16 text-center dark:border-[#303030]">
+            <p className="text-sm font-medium text-[#171717] dark:text-[#f5f5f5]">
+              No featured books available right now.
+            </p>
+            <p className="mt-2 text-sm text-[#666666] dark:text-[#a3a3a3]">
+              Check the full collection for more books.
+            </p>
+          </div>
+        ) : (
+          <div className="featured-books-slider">
             <Slider {...settings}>
               {book.map((item) => (
-                <Cards item={item} key={item._id} />
+                <div key={item._id} className="px-2 pb-2">
+                  <Cards item={item} />
+                </div>
               ))}
             </Slider>
-          )}
-        </div>
-        <button className=" w-full mt-8 sm:mt-11 text-center">
-          <a
-            href="/books"
-            className="inline-flex items-center font-semibold  px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white  rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl whitespace-nowrap"
-          >
-            view all books
-          </a>
-        </button>
+          </div>
+        )}
       </div>
-    </>
+    </section>
   );
 }
 

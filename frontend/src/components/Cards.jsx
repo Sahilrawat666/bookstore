@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   MdFavorite,
   MdFavoriteBorder,
   MdOutlineShoppingCart,
+  MdShoppingCart,
 } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
-import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 function Cards({ item, onRemove, type }) {
@@ -17,9 +17,7 @@ function Cards({ item, onRemove, type }) {
   const [authUser, , , setCartCount, , setFavCount] = useAuth();
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-  // console.log(authUser);
 
-  // Check if this book is already in favourites on mount
   useEffect(() => {
     if (!authUser?._id) return;
 
@@ -28,38 +26,52 @@ function Cards({ item, onRemove, type }) {
         const res = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/user/favourites/${authUser._id}`,
         );
-
-        const favBooks = res.data || []; // API returns array of books
-        const isBookFav = favBooks.some((book) => book._id === item._id);
-
-        setIsFavourite(isBookFav);
-      } catch (err) {
-        console.error("Fav fetch error:", err);
+        const favBooks = res.data || [];
+        setIsFavourite(favBooks.some((book) => book._id === item._id));
+      } catch (error) {
+        console.error("Fav fetch error:", error);
       }
     };
 
     fetchFavourites();
   }, [authUser?._id, item._id]);
 
-  // add to favourite
+  useEffect(() => {
+    if (!authUser?._id) return;
+
+    const fetchCarts = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`,
+        );
+        const cartBooks = res.data || [];
+        setIsInCart(cartBooks.some((book) => book._id === item._id));
+      } catch (error) {
+        console.error("Cart fetch error:", error);
+      }
+    };
+
+    fetchCarts();
+  }, [authUser?._id, item._id]);
+
   const addToFavourite = async (bookId) => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    // 🔹 Show loading toast
-    const FavToastId = toast.loading("Adding book to favourites...");
+
+    const toastId = toast.loading("Adding to favourites...");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/favourite`, {
         userId: authUser._id,
-        bookId: bookId,
+        bookId,
       });
-      // 🔹 Update success toast
-      toast.success("Book added to favourites!", { id: FavToastId });
+
+      toast.success("Book added to favourites!", { id: toastId });
       setIsFavourite(true);
       setFavCount((prev) => prev + 1);
     } catch (error) {
-      // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in favourites") {
         toast.error("Book already in favourites!");
       } else {
@@ -69,74 +81,50 @@ function Cards({ item, onRemove, type }) {
     }
   };
 
-  //  Remove favourite API call
   const removeFromFavourite = async (bookId) => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const removeFavToastId = toast.loading("Removing from favourite");
+
+    const toastId = toast.loading("Removing from favourites...");
+
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${
-          authUser._id
-        }/${bookId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/favourites/user/${authUser._id}/${bookId}`,
       );
-      toast.success("Removed from favourites.", { id: removeFavToastId });
-      setIsFavourite(false);
 
+      toast.success("Removed from favourites.", { id: toastId });
+      setIsFavourite(false);
       setFavCount((prev) => (prev > 0 ? prev - 1 : 0));
 
-      // window.location.reload();
-      // 🔹 Notify parent if callback exists
       if (type === "favourite" && typeof onRemove === "function") {
         onRemove(bookId);
       }
-    } catch (err) {
+    } catch (error) {
       toast.error("Error removing book");
-      console.error(err);
+      console.error(error);
     }
   };
 
-  // Check if this book is already in carts on mount
-  useEffect(() => {
-    if (!authUser?._id) return;
-
-    const fetchCarts = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/user/carts/${authUser._id}`,
-        );
-
-        const cartBooks = res.data || []; // API returns array of books
-        const isBookCart = cartBooks.some((book) => book._id === item._id);
-
-        setIsInCart(isBookCart);
-      } catch (err) {
-        console.error("Fav fetch error:", err);
-      }
-    };
-
-    fetchCarts();
-  }, [authUser?._id, item._id]);
-
-  // add to cart
   const addToCart = async (bookId) => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const addToCartToastId = toast.loading("Adding to cart");
+
+    const toastId = toast.loading("Adding to cart...");
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/cart`, {
         userId: authUser._id,
-        bookId: bookId,
+        bookId,
       });
-      toast.success("Book added to cart!", { id: addToCartToastId });
+
+      toast.success("Book added to cart!", { id: toastId });
       setIsInCart(true);
       setCartCount((prev) => prev + 1);
     } catch (error) {
-      // Check if the backend indicates the book is already in favourites
       if (error.response?.data?.message === "Book already in carts") {
         toast.error("Book already in cart!");
       } else {
@@ -146,137 +134,159 @@ function Cards({ item, onRemove, type }) {
     }
   };
 
-  //  Remove from cart
   const removeFromCart = async (bookId) => {
     if (!authUser) {
       toast.error("Please login first!");
       return;
     }
-    const removeFromCartToastId = toast.loading(
-      "removing book from favouriite!",
-    );
+
+    const toastId = toast.loading("Removing from cart...");
+
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${
-          authUser._id
-        }/${bookId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/user/carts/user/${authUser._id}/${bookId}`,
       );
-      toast.success("Book removed from cart!", { id: removeFromCartToastId });
-      setIsInCart(false);
-      setCartCount((prev) => (prev > 0 ? prev - 1 : 0)); // 🔹 decrement cart count
 
-      // window.location.reload();
-      // 🔹 Notify parent if callback exists
+      toast.success("Book removed from cart!", { id: toastId });
+      setIsInCart(false);
+      setCartCount((prev) => (prev > 0 ? prev - 1 : 0));
+
       if (type === "cart" && typeof onRemove === "function") {
         onRemove(bookId);
       }
-    } catch (err) {
+    } catch (error) {
       toast.error("Error removing book");
-      console.error(err);
+      console.error(error);
     }
   };
 
+  const handleBookClick = () => {
+    navigate(`/book/${item._id}`);
+  };
+
+  const rating = Math.min(5, Math.max(0, Number(item.rating) || 4));
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: "easeInOut", delay: 0.4, duration: 1 }}
-      className="relative sm:p-2 whitespace-nowrap mx-2  hover:scale-101  shadow-sm max-w-73 my-3 sm:my-8 cursor-pointer  rounded-2xl bg-white  hover:shadow-lg transition-transform duration-200  dark:bg-[#f4f4f430] dark:border-gray-700 group-hover:scale-105"
+    <motion.article
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35 }}
+      className="group mx-1 my-3 overflow-hidden border border-[#e5e5e5] bg-white transition-shadow duration-200 hover:shadow-md dark:border-[#303030] dark:bg-[#1d1d1d]"
     >
-      {/* add and remove from cart icons */}
-      {isInCart ? (
-        <MdOutlineShoppingCart
-          className="absolute top-2 z-1 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-green-500 text-white"
-          onClick={() => removeFromCart(item._id)}
-        />
-      ) : (
-        <MdOutlineShoppingCart
-          className="absolute top-2 z-1 right-2 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl text-black dark:text-white  transform transition-transform duration-200 hover:scale-110 active:scale-95"
-          onClick={() => addToCart(item._id)}
-        />
-      )}
+      <div className="relative bg-[#f7f7f5] dark:bg-[#181818]">
+        <button
+          type="button"
+          onClick={() =>
+            isFavourite
+              ? removeFromFavourite(item._id)
+              : addToFavourite(item._id)
+          }
+          aria-label={
+            isFavourite ? "Remove from favourites" : "Add to favourites"
+          }
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-[#dedede] bg-white text-[#171717] transition-colors hover:border-[#315c4c] hover:text-[#315c4c] dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
+        >
+          {isFavourite ? (
+            <MdFavorite size={19} className="text-red-500" />
+          ) : (
+            <MdFavoriteBorder size={20} />
+          )}
+        </button>
 
-      {/* add and remove from favourite icons  */}
-      {isFavourite ? (
-        <MdFavorite
-          className="absolute top-12 right-2 z-1 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 bg-red-500 text-white"
-          onClick={() => removeFromFavourite(item._id)}
-        />
-      ) : (
-        <MdFavoriteBorder
-          className="absolute top-12 right-2 z-1 rounded-full border p-0.5 sm:p-1 text-2xl sm:text-3xl transform transition-transform duration-200 hover:scale-110 active:scale-95 text-black dark:text-white"
-          onClick={() => addToFavourite(item._id)}
-        />
-      )}
+        <button
+          type="button"
+          onClick={() =>
+            isInCart ? removeFromCart(item._id) : addToCart(item._id)
+          }
+          aria-label={isInCart ? "Remove from cart" : "Add to cart"}
+          className="absolute left-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-[#dedede] bg-white text-[#171717] transition-colors hover:border-[#315c4c] hover:text-[#315c4c] dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
+        >
+          {isInCart ? (
+            <MdShoppingCart
+              size={19}
+              className="text-[#315c4c] dark:text-[#6f9f8b]"
+            />
+          ) : (
+            <MdOutlineShoppingCart size={20} />
+          )}
+        </button>
 
-      <figure className="flex items-center justify-center overflow-hidden ">
-        <img
-          src={item.image}
-          alt={item.name}
-          className=" px-3 sm:px-10 py-3 h-40 sm:h-70 w-30   sm:w-65 transition duration-200 hover:brightness-85 hover:scale-105 "
-          onClick={() => navigate(`/book/${item._id}`)}
-        />
-      </figure>
-      {/* Card Body */}
-      <div className=" p-3 sm:p-4">
-        {/* Rating */}
+        <button
+          type="button"
+          onClick={handleBookClick}
+          className="flex h-64 w-full items-center justify-center p-8 sm:h-72"
+        >
+          <img
+            src={item.image}
+            alt={item.name}
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </button>
+      </div>
+
+      <div className="p-4">
         <div className="flex items-center gap-1">
-          {[...Array(5)].map((_, i) => (
-            <span
-              key={i}
+          {[...Array(5)].map((_, index) => (
+            <FaStar
+              key={index}
+              size={12}
               className={
-                i < (item.rating || 4)
-                  ? "text-yellow-400 text-xs sm:text-sm"
-                  : "text-gray-300 dark:text-gray-500 text-xs sm:text-sm"
+                index < rating
+                  ? "text-[#d69e2e]"
+                  : "text-[#d5d5d5] dark:text-[#555555]"
               }
-            >
-              <FaStar />
-            </span>
+            />
           ))}
-          <span className="ml-2 text-gray-500 dark:text-gray-300  text-xs sm:text-sm">
-            ({item.reviews || 0} reviews)
+          <span className="ml-1 text-xs text-[#666666] dark:text-[#a3a3a3]">
+            ({item.reviews || 0})
           </span>
         </div>
 
-        <h2
-          className=" mb-2 flex items-center justify-between gap-2 text:sm sm:text-lg font-bold text-gray-800 dark:text-white"
-          onClick={() => navigate(`/book/${item._id}`)}
+        <button
+          type="button"
+          onClick={handleBookClick}
+          className="mt-3 block w-full text-left"
         >
-          <span className="truncate "> {item.name} </span>
-          <span className="rounded-full whitespace-nowrap bg-gray-200 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-white">
-            {item.category}
-          </span>
-        </h2>
+          <h2 className="truncate text-base font-semibold text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]">
+            {item.name}
+          </h2>
+        </button>
 
-        <p
-          className=" truncate  mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300"
-          onClick={() => navigate(`/book/${item._id}`)}
-        >
+        <p className="mt-1 truncate text-sm text-[#666666] dark:text-[#a3a3a3]">
           {item.title}
         </p>
 
-        <div className="flex items-center justify-between">
-          {/* Price */}
-          <span className="rounded-md border border-slate-400 px-1 sm:px-3 py-0.5 sm:py-1 text-sm font-medium text-gray-700 dark:border-white dark:bg-slate-900 dark:text-white">
-            ${item.price}
-          </span>
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <div>
+            <span className="text-xs text-[#666666] dark:text-[#a3a3a3]">
+              {item.category}
+            </span>
+            <p className="mt-1 text-base font-semibold text-[#171717] dark:text-[#f5f5f5]">
+              {item.price === 0 ? "Free" : `$${item.price}`}
+            </p>
+          </div>
 
-          {/* Buy Button */}
           {isInCart ? (
-            <button className="rounded-md truncate active:scale-90   px-1 sm:px-3 py-1 text-white  text-sm font-semibold  transition duration-200  bg-blue-700 dark:border-white  dark:text-white">
-              <a href="/cart"> Go to cart</a>
+            <button
+              type="button"
+              onClick={() => navigate("/cart")}
+              className="inline-flex h-9 items-center justify-center rounded-md border border-[#315c4c] px-3 text-xs font-semibold text-[#315c4c] transition-colors hover:bg-[#315c4c] hover:text-white dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
+            >
+              Go to cart
             </button>
           ) : (
             <button
-              className="rounded-md truncate cursor-pointer  active:scale-90 transition transform duration-150  px-1 sm:px-3 py-1  text-sm font-semibold   dark:border-white bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
+              type="button"
               onClick={() => addToCart(item._id)}
+              className="inline-flex h-9 items-center justify-center rounded-md bg-[#315c4c] px-3 text-xs font-semibold text-white transition-colors hover:bg-[#274c3f] active:scale-[0.98] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
             >
               Add to cart
             </button>
           )}
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 

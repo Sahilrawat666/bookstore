@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FiAlertCircle, FiCalendar, FiPackage } from "react-icons/fi";
+import {
+  FiAlertCircle,
+  FiBookOpen,
+  FiCalendar,
+  FiPackage,
+} from "react-icons/fi";
 
 function ProfileOrders() {
   const [orders, setOrders] = useState([]);

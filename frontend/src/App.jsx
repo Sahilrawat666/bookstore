@@ -26,28 +26,30 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Books />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/book/:id" element={<BookDetails />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route
-          path="/favourite"
-          element={<FavouriteBooks userId={authUser?._id} />}
-        />
-        <Route path="/cart" element={<Cart userId={authUser?._id} />} />
-        {/* <Route path="/user" element={<Dashboard />} /> */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/user" element={<UserProfile />} />
-        <Route path="/checkout" element={<Checkout />} />
-        {/* <Route path="/user" element={<UserProfile />} /> */}
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/book/:id" element={<BookDetails />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route
+            path="/favourite"
+            element={<FavouriteBooks userId={authUser?._id} />}
+          />
+          <Route path="/cart" element={<Cart userId={authUser?._id} />} />
+          {/* <Route path="/user" element={<Dashboard />} /> */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/user" element={<UserProfile />} />
+          <Route path="/checkout" element={<Checkout />} />
+          {/* <Route path="/user" element={<UserProfile />} /> */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-      </Routes>
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+        </Routes>
+      </main>
       <Footer />
       <Toaster />
     </>

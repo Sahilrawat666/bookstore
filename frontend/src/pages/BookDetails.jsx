@@ -222,7 +222,7 @@ function BookDetails() {
   if (loading) {
     return (
       <>
-        <main className="flex min-h-screen items-center justify-center bg-white px-4 pt-20 dark:bg-[#111111]">
+        <main className="flex min-h-screen items-center justify-center bg-white px-4  dark:bg-[#111111]">
           <div className="w-full max-w-md">
             <div className="h-96 animate-pulse border border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#1d1d1d]" />
             <div className="mt-4 h-6 animate-pulse bg-[#f0f0ee] dark:bg-[#1d1d1d]" />
@@ -236,7 +236,7 @@ function BookDetails() {
   if (error || !book) {
     return (
       <>
-        <main className="flex min-h-screen items-center justify-center bg-white px-4 pt-20 dark:bg-[#111111]">
+        <main className="flex min-h-screen items-center justify-center bg-white px-4  dark:bg-[#111111]">
           <div className="max-w-md text-center">
             <p className="text-sm font-medium text-red-600 dark:text-red-400">
               {error || "Book not found"}
@@ -259,7 +259,7 @@ function BookDetails() {
 
   return (
     <>
-      <main className="min-h-screen bg-white pt-20 dark:bg-[#111111]">
+      <main className="min-h-screen bg-white  dark:bg-[#111111]">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
           <button
             type="button"

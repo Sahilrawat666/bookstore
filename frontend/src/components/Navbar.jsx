@@ -129,7 +129,7 @@ function Navbar() {
     `relative text-sm font-medium transition-colors duration-200 ${isActive ? "text-[#315c4c] dark:text-[#6f9f8b]" : "text-[#171717] hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"}`;
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-transparent bg-[#ebebeb] dark:bg-[#161616] dark:border-[#303030]">
+    <header className="sticky top-0 left-0 z-50 w-full border-b border-transparent bg-[#ebebeb] dark:bg-[#161616] dark:border-[#303030]">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:h-[68px] sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <button

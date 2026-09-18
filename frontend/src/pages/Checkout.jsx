@@ -130,7 +130,7 @@ function Checkout() {
   if (!carts.length) {
     return (
       <>
-        <main className="flex min-h-screen items-center justify-center bg-white px-4 pt-20 dark:bg-[#111111]">
+        <main className="flex min-h-screen items-center justify-center bg-white px-4  dark:bg-[#111111]">
           <div className="max-w-md text-center">
             <div className="mx-auto flex h-14 w-14 items-center justify-center border border-[#e5e5e5] text-[#999999] dark:border-[#303030] dark:text-[#666666]">
               <MdShoppingBag size={27} />
@@ -160,7 +160,7 @@ function Checkout() {
 
   return (
     <>
-      <main className="min-h-screen bg-white pt-20 dark:bg-[#111111]">
+      <main className="min-h-screen bg-white  dark:bg-[#111111]">
         <section className="border-b border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#181818]">
           <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
             <button

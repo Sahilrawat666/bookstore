@@ -114,10 +114,6 @@ function Footer() {
             <MdCopyright size={14} />
             {new Date().getFullYear()} Bookstore. All rights reserved.
           </p>
-
-          <p className="text-xs text-[#888888] dark:text-[#777777]">
-            Built with React
-          </p>
         </div>
       </div>
     </footer>

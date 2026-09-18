@@ -103,7 +103,7 @@ function Checkout() {
       }
 
       toast.success("Order placed successfully");
-      navigate("/user");
+      navigate("/user?tab=orders");
     } catch (err) {
       console.error(err);
       toast.error("Order failed");

@@ -3,7 +3,15 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdDarkMode, MdLightMode, MdSearch } from "react-icons/md";
 import { GoHeart } from "react-icons/go";
 import { LiaCartPlusSolid } from "react-icons/lia";
-import { FiUser, FiLogOut, FiMenu, FiX, FiChevronDown } from "react-icons/fi";
+import {
+  FiUser,
+  FiLogOut,
+  FiMenu,
+  FiX,
+  FiChevronDown,
+  FiShield,
+  FiLogIn,
+} from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
 import image from "../assets/image.png";
@@ -284,6 +292,7 @@ function Navbar() {
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                   >
+                    <FiShield size={17} />
                     Admin
                   </Link>
 
@@ -303,16 +312,8 @@ function Navbar() {
                         onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
                       >
-                        <FiUser size={17} />
+                        <FiLogIn size={17} />
                         Login
-                      </Link>
-
-                      <Link
-                        to="/signup"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-3 rounded px-3 py-2.5 text-sm text-[#171717] transition-colors hover:bg-[#f7f7f5] dark:text-[#f5f5f5] dark:hover:bg-[#181818]"
-                      >
-                        Sign Up
                       </Link>
                     </>
                   )}

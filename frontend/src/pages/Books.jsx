@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import NewsletterSection from "../components/NewsletterSection";
 import { motion } from "framer-motion";
 
@@ -13,10 +11,41 @@ function Books() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const checkImage = (url) => {
+      return new Promise((resolve) => {
+        if (!url) {
+          resolve(false);
+          return;
+        }
+
+        const img = new Image();
+
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+
+        img.src = url;
+      });
+    };
+
     const getBook = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book`);
-        setBook(res.data);
+
+        const books = Array.isArray(res.data) ? res.data : [];
+
+        // Check all book images
+        const booksWithValidImages = await Promise.all(
+          books.map(async (item) => {
+            const isValidImage = await checkImage(item.image);
+
+            return isValidImage ? item : null;
+          }),
+        );
+
+        // Remove books whose image URL doesn't work
+        const validBooks = booksWithValidImages.filter(Boolean);
+
+        setBook(validBooks);
       } catch (error) {
         console.error(error);
         setError("Unable to load books right now.");
@@ -41,6 +70,7 @@ function Books() {
     }
 
     acc[item.category].push(item);
+
     return acc;
   }, {});
 
@@ -117,6 +147,7 @@ function Books() {
                       <h2 className="text-xl font-semibold capitalize text-[#171717] sm:text-2xl dark:text-[#f5f5f5]">
                         {category}
                       </h2>
+
                       <p className="mt-1 text-xs text-[#666666] dark:text-[#a3a3a3]">
                         {groupedBooks[category].length}{" "}
                         {groupedBooks[category].length === 1 ? "book" : "books"}

@@ -33,7 +33,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
-      <main className="mx-auto w-full max-w-7xl px-4 pb-10 pt-24 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <motion.header
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
                     type="button"
                     onClick={() => setActiveTab(tab.key)}
                     aria-current={isActive ? "page" : undefined}
-                    className={`flex min-w-[145px] flex-1 items-center gap-3 border px-3 py-3 text-left transition-colors lg:min-w-0 ${isActive ? "border-[#315c4c] bg-white text-[#315c4c] dark:border-[#6f9f8b] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]" : "border-transparent text-[#666666] hover:border-[#e5e5e5] hover:bg-white hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:border-[#303030] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"}`}
+                    className={`flex  flex-1 items-center gap-3 border px-2 py-2 text-left transition-colors lg:min-w-0 ${isActive ? "border-[#315c4c] bg-white text-[#315c4c] dark:border-[#6f9f8b] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]" : "border-transparent text-[#666666] hover:border-[#e5e5e5] hover:bg-white hover:text-[#171717] dark:text-[#a3a3a3] dark:hover:border-[#303030] dark:hover:bg-[#1d1d1d] dark:hover:text-[#f5f5f5]"}`}
                   >
                     <Icon className="shrink-0 text-lg" aria-hidden="true" />
 

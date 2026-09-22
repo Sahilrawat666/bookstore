@@ -109,7 +109,7 @@ function Freebook() {
   };
 
   return (
-    <section className="border-b border-[#e5e5e5] bg-white py-16 dark:border-[#303030] dark:bg-[#111111]">
+    <section className="border-b border-[#e5e5e5] bg-white py-10 dark:border-[#303030] dark:bg-[#111111]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <motion.div

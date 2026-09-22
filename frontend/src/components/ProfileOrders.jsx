@@ -92,7 +92,7 @@ function ProfileOrders() {
 
   if (orders.length === 0) {
     return (
-      <div className="border border-[#e5e5e5] bg-white px-6 py-14 text-center dark:border-[#303030] dark:bg-[#181818]">
+      <div className="border border-[#e5e5e5] bg-white px-6 py-8 text-center dark:border-[#303030] dark:bg-[#181818]">
         <div className="mx-auto flex h-12 w-12 items-center justify-center bg-[#f7f7f5] text-[#315c4c] dark:bg-[#1d1d1d] dark:text-[#6f9f8b]">
           <FiPackage size={21} />
         </div>

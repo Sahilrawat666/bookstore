@@ -353,99 +353,103 @@ function Navbar() {
           </form>
         </div>
       )}
+      {/* isMenuOpen  */}
+      <div
+        className={`absolute left-0 top-full z-40 w-full border-t border-[#d9d9d9] bg-white shadow-md transition-all duration-300 ease-out dark:border-[#303030] dark:bg-[#111111] lg:hidden ${
+          isMenuOpen
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-3 opacity-0"
+        }`}
+      >
+        <div className="   mx-auto max-w-7xl px-4 py-5 sm:px-6">
+          <div className="flex flex-col">
+            <NavLink
+              to="/"
+              onClick={closeMobileMenu}
+              className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              Home
+            </NavLink>
 
-      {isMenuOpen && (
-        <div className="border-t border-[#d9d9d9] bg-white dark:border-[#303030] dark:bg-[#111111] lg:hidden">
-          <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
-            <div className="flex flex-col">
-              <NavLink
-                to="/"
-                onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                Home
-              </NavLink>
+            <NavLink
+              to="/books"
+              onClick={handleBookClick}
+              className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              Books
+            </NavLink>
 
-              <NavLink
-                to="/books"
-                onClick={handleBookClick}
-                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                Books
-              </NavLink>
-
-              <NavLink
-                to="/favourite"
-                onClick={closeMobileMenu}
-                className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                <span>Favourites</span>
-                {favCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
-                    {favCount}
-                  </span>
-                )}
-              </NavLink>
-
-              <NavLink
-                to="/cart"
-                onClick={closeMobileMenu}
-                className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                <span>My Cart</span>
-                {cartCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
-                    {cartCount}
-                  </span>
-                )}
-              </NavLink>
-
-              <NavLink
-                to="/contact"
-                onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                Contact
-              </NavLink>
-
-              <Link
-                to="/user"
-                onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                My Profile
-              </Link>
-
-              <Link
-                to="/admin"
-                onClick={closeMobileMenu}
-                className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
-              >
-                Admin
-              </Link>
-
-              {authUser ? (
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 py-3.5 text-left text-sm font-medium text-red-600 dark:text-red-400"
-                >
-                  <FiLogOut size={17} />
-                  Logout
-                </button>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={closeMobileMenu}
-                  className="py-3.5 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]"
-                >
-                  Login
-                </Link>
+            <NavLink
+              to="/favourite"
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              <span>Favourites</span>
+              {favCount > 0 && (
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+                  {favCount}
+                </span>
               )}
-            </div>
+            </NavLink>
+
+            <NavLink
+              to="/cart"
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              <span>My Cart</span>
+              {cartCount > 0 && (
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+                  {cartCount}
+                </span>
+              )}
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              onClick={closeMobileMenu}
+              className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              Contact
+            </NavLink>
+
+            <Link
+              to="/user"
+              onClick={closeMobileMenu}
+              className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              My Profile
+            </Link>
+
+            <Link
+              to="/admin"
+              onClick={closeMobileMenu}
+              className="border-b border-[#e5e5e5] py-3.5 text-sm font-medium text-[#171717] dark:border-[#303030] dark:text-[#f5f5f5]"
+            >
+              Admin
+            </Link>
+
+            {authUser ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="flex items-center gap-2 py-3.5 text-left text-sm font-medium text-red-600 dark:text-red-400"
+              >
+                <FiLogOut size={17} />
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={closeMobileMenu}
+                className="py-3.5 text-sm font-medium text-[#171717] dark:text-[#f5f5f5]"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

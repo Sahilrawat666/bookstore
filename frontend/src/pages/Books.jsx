@@ -78,7 +78,7 @@ function Books() {
     <>
       <main className="min-h-screen bg-white  dark:bg-[#111111]">
         <section className="border-b border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#181818]">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -100,13 +100,13 @@ function Books() {
             </motion.div>
 
             {!loading && categories.length > 1 && (
-              <div className="mt-8 flex flex-wrap gap-2">
+              <div className="mt-5 flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
                     key={category}
                     type="button"
                     onClick={() => setSelectedCategory(category)}
-                    className={`rounded-md border px-4 py-2 text-sm font-medium transition-colors ${selectedCategory === category ? "border-[#315c4c] bg-[#315c4c] text-white dark:border-[#6f9f8b] dark:bg-[#6f9f8b] dark:text-[#111111]" : "border-[#d9d9d9] bg-white text-[#555555] hover:border-[#315c4c] hover:text-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#a3a3a3] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"}`}
+                    className={`rounded-md border px-3 py-2 text-sm font-medium transition-colors ${selectedCategory === category ? "border-[#315c4c] bg-[#315c4c] text-white dark:border-[#6f9f8b] dark:bg-[#6f9f8b] dark:text-[#111111]" : "border-[#d9d9d9] bg-white text-[#555555] hover:border-[#315c4c] hover:text-[#315c4c] dark:border-[#303030] dark:bg-[#1d1d1d] dark:text-[#a3a3a3] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"}`}
                   >
                     {category}
                   </button>
@@ -149,7 +149,7 @@ function Books() {
                       </h2>
 
                       <p className="mt-1 text-xs text-[#666666] dark:text-[#a3a3a3]">
-                        {groupedBooks[category].length}{" "}
+                        {groupedBooks[category].length}
                         {groupedBooks[category].length === 1 ? "book" : "books"}
                       </p>
                     </div>

@@ -109,7 +109,7 @@ function ForgotPassword() {
               size={17}
             />
             <p className="text-xs leading-5 text-[#666666] dark:text-[#a3a3a3]">
-              Your password reset link expires in{" "}
+              Your password reset link expires in
               <strong className="font-medium text-[#171717] dark:text-[#f5f5f5]">
                 15 minutes
               </strong>

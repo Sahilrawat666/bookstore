@@ -61,7 +61,7 @@ function SearchResults() {
 
                 {!loading && (
                   <p className="mt-2 text-sm text-[#666666] dark:text-[#a3a3a3]">
-                    {results.length} {results.length === 1 ? "book" : "books"}{" "}
+                    {results.length} {results.length === 1 ? "book" : "books"}
                     found
                   </p>
                 )}

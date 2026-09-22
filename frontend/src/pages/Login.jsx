@@ -74,8 +74,8 @@ function Login() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+    <main className=" bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
+      <div className="mx-auto flex  w-full max-w-7xl items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid w-full max-w-5xl overflow-hidden border border-[#e5e5e5] bg-white dark:border-[#303030] dark:bg-[#181818] lg:grid-cols-2">
           <div className="hidden flex-col justify-between bg-[#f7f7f5] p-10 dark:bg-[#1d1d1d] lg:flex">
             <div>
@@ -248,7 +248,7 @@ function Login() {
             </div>
 
             <p className="mt-7 text-center text-sm text-[#666666] dark:text-[#a3a3a3]">
-              Don't have an account?{" "}
+              Don't have an account?
               <Link
                 to="/signup"
                 className="font-medium text-[#315c4c] hover:underline dark:text-[#6f9f8b]"

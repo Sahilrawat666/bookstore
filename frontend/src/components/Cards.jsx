@@ -278,7 +278,7 @@ function Cards({ item, onRemove, type }) {
           {item.title}
         </p>
 
-        <div className=" flex flex-col gap-2.5 pt-3 sm:gap-3 sm:pt-4 md:flex-row md:items-end md:justify-between md:gap-2.5 md:pt-5">
+        <div className=" flex flex-col gap-2.5 pt-1 sm:gap-3 sm:pt-4 md:flex-row md:items-end md:justify-between md:gap-2.5 md:pt-5">
           <div className="min-w-0">
             <span className="block truncate text-[10px] text-[#666666] sm:text-[11px] md:text-xs dark:text-[#a3a3a3]">
               {item.category}
@@ -293,7 +293,7 @@ function Cards({ item, onRemove, type }) {
             <button
               type="button"
               onClick={() => navigate("/cart")}
-              className="inline-flex h-8 w-full shrink-0 items-center justify-center rounded-md border border-[#315c4c] px-2.5 text-[10px] font-semibold text-[#315c4c] transition-all duration-200 hover:bg-[#315c4c] hover:text-white active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 sm:text-xs dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
+              className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md border border-[#315c4c] px-2.5 text-xs font-semibold text-[#315c4c] transition-all duration-200 hover:bg-[#315c4c] hover:text-white active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 sm:text-xs dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
             >
               Go to cart
             </button>
@@ -301,7 +301,7 @@ function Cards({ item, onRemove, type }) {
             <button
               type="button"
               onClick={() => addToCart(item._id)}
-              className="inline-flex h-8 w-full shrink-0 items-center justify-center rounded-md bg-[#315c4c] px-2.5 text-[10px] font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 sm:text-xs dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+              className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md bg-[#315c4c] px-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
             >
               Add to cart
             </button>

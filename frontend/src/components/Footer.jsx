@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="border-t border-[#e5e5e5] bg-[#f7f7f5] text-[#171717] dark:border-[#303030] dark:bg-[#181818] dark:text-[#f5f5f5]">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Link to="/" className="inline-flex items-center">
               <span className="text-2xl font-semibold tracking-tight">
@@ -109,7 +109,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-[#e5e5e5] pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-[#303030]">
+        <div className=" flex flex-col gap-3 border-t border-[#e5e5e5] pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-[#303030]">
           <p className="flex items-center gap-1 text-xs text-[#666666] dark:text-[#a3a3a3]">
             <MdCopyright size={14} />
             {new Date().getFullYear()} Bookstore. All rights reserved.

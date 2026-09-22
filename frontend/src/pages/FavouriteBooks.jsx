@@ -44,8 +44,6 @@ function FavouriteBooks({ userId }) {
 
   return (
     <>
-      {" "}
-      ```
       <main className="min-h-screen bg-white text-[#171717] dark:bg-[#111111] dark:text-[#f5f5f5]">
         <section className="border-b border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#181818]">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">

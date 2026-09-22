@@ -62,7 +62,7 @@ function Cards({ item, onRemove, type }) {
 
   const addToFavourite = async (bookId) => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -89,7 +89,7 @@ function Cards({ item, onRemove, type }) {
 
   const removeFromFavourite = async (bookId) => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -115,7 +115,7 @@ function Cards({ item, onRemove, type }) {
 
   const addToCart = async (bookId) => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -142,7 +142,7 @@ function Cards({ item, onRemove, type }) {
 
   const removeFromCart = async (bookId) => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 

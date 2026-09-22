@@ -104,7 +104,7 @@ function BookDetails() {
 
   const addToFavourite = async () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -131,7 +131,7 @@ function BookDetails() {
 
   const removeFromFavourite = async () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -153,7 +153,7 @@ function BookDetails() {
 
   const addToCart = async () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -180,7 +180,7 @@ function BookDetails() {
 
   const removeFromCart = async () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 
@@ -202,7 +202,7 @@ function BookDetails() {
 
   const handleBuyNow = () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       navigate("/login");
       return;
     }

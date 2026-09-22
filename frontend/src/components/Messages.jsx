@@ -12,7 +12,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       if (!token) {
-        toast.error("Please login as admin.");
+        toast.error("Please log in as admin.");
         setLoading(false);
         return;
       }

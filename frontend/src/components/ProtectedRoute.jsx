@@ -6,7 +6,7 @@ function ProtectedRoute({ children }) {
   const [authUser] = useAuth();
 
   if (!authUser) {
-    toast.error("Please login first!");
+    toast.error("Please log in first.");
     return <Navigate to="/login" replace />;
   }
 

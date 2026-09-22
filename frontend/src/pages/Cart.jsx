@@ -44,7 +44,7 @@ function Cart({ userId }) {
     const id = authUser?._id || userId;
 
     if (!id) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       return;
     }
 

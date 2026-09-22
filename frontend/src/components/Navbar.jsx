@@ -72,7 +72,7 @@ function Navbar() {
     event.preventDefault();
 
     if (!authUser) {
-      toast.error("Please login first");
+      toast.error("Please log in first");
       navigate("/login");
       setIsSearchOpen(false);
       setIsMenuOpen(false);
@@ -91,7 +91,7 @@ function Navbar() {
 
   const handleBookClick = () => {
     if (!authUser) {
-      toast.error("Please login first!");
+      toast.error("Please log in first.");
       navigate("/login");
       setIsMenuOpen(false);
       return;
@@ -109,7 +109,7 @@ function Navbar() {
 
       localStorage.removeItem("User");
 
-      toast.success("Logout successfully");
+      toast.success("Logged out successfully");
 
       setIsUserMenuOpen(false);
       setIsMenuOpen(false);
@@ -218,7 +218,7 @@ function Navbar() {
             <GoHeart size={21} />
 
             {favCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4  items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px font-semibold leading-none text-white">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4  items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
                 {favCount}
               </span>
             )}

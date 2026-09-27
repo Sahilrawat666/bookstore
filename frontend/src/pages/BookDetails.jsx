@@ -260,18 +260,18 @@ function BookDetails() {
   return (
     <>
       <main className="min-h-screen bg-white  dark:bg-[#111111]">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-6 lg:py-8">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#666666] transition-colors hover:text-[#315c4c] dark:text-[#a3a3a3] dark:hover:text-[#6f9f8b]"
+            className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-[#666666] transition-colors hover:text-[#315c4c] dark:text-[#a3a3a3] dark:hover:text-[#6f9f8b]"
           >
             <MdArrowBack size={18} />
             Back
           </button>
 
           <section className="grid overflow-hidden border border-[#e5e5e5] bg-white lg:grid-cols-[420px_1fr] dark:border-[#303030] dark:bg-[#1d1d1d]">
-            <div className="flex min-h-[420px] items-center justify-center bg-[#f7f7f5] p-8 dark:bg-[#181818] sm:min-h-[520px]">
+            <div className="flex min-h-[420px] items-center justify-center bg-[#f7f7f5] p-4 dark:bg-[#181818] sm:min-h-[520px]">
               <img
                 src={book.image}
                 alt={book.name}

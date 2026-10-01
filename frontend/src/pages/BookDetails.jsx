@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 import Cards from "../components/Cards";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
+import { FiEdit2 } from "react-icons/fi";
 
 function BookDetails() {
   const [authUser, , , setCartCount, , setFavCount] = useAuth();
@@ -354,38 +355,56 @@ function BookDetails() {
               </div>
 
               <div className="mt-auto pt-8">
-                <div className="grid gap-3 sm:grid-cols-2">
+                {authUser?.role === "admin" ? (
                   <button
                     type="button"
-                    onClick={isInCart ? removeFromCart : addToCart}
-                    className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+                    onClick={() => navigate(`/admin?edit=${book._id}`)}
+                    className="inline-flex h-10 items-center justify-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
                   >
-                    <MdShoppingCart size={19} />
-                    {isInCart ? "Remove from Cart" : "Add to Cart"}
+                    <FiEdit2 size={17} />
+                    Edit Book
                   </button>
+                ) : (
+                  <>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <button
+                        type="button"
+                        onClick={isInCart ? removeFromCart : addToCart}
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#315c4c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#274c3f] dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+                      >
+                        <MdShoppingCart size={19} />
+                        {isInCart ? "Remove from Cart" : "Add to Cart"}
+                      </button>
 
-                  <button
-                    type="button"
-                    onClick={handleBuyNow}
-                    className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#315c4c] px-5 text-sm font-semibold text-[#315c4c] transition-colors hover:bg-[#315c4c] hover:text-white dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
-                  >
-                    <MdFlashOn size={19} />
-                    {book.price === 0 ? "Read Now" : "Buy Now"}
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={isFavourite ? removeFromFavourite : addToFavourite}
-                  className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-[#e0e0e0] text-sm font-medium text-[#555555] transition-colors hover:border-red-300 hover:text-red-500 dark:border-[#303030] dark:text-[#a3a3a3] dark:hover:border-red-800 dark:hover:text-red-400"
-                >
-                  {isFavourite ? (
-                    <MdFavorite size={18} className="text-red-500" />
-                  ) : (
-                    <MdFavoriteBorder size={18} />
-                  )}
-                  {isFavourite ? "Remove from Favourites" : "Add to Favourites"}
-                </button>
+                      <button
+                        type="button"
+                        onClick={handleBuyNow}
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-[#315c4c] px-5 text-sm font-semibold text-[#315c4c] transition-colors hover:bg-[#315c4c] hover:text-white dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
+                      >
+                        <MdFlashOn size={19} />
+                        {book.price === 0 ? "Read Now" : "Buy Now"}
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={
+                          isFavourite ? removeFromFavourite : addToFavourite
+                        }
+                        className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md border border-[#e0e0e0] text-sm font-medium text-[#555555] transition-colors hover:border-red-300 hover:text-red-500 dark:border-[#303030] dark:text-[#a3a3a3] dark:hover:border-red-800 dark:hover:text-red-400"
+                      >
+                        {isFavourite ? (
+                          <MdFavorite size={18} className="text-red-500" />
+                        ) : (
+                          <MdFavoriteBorder size={18} />
+                        )}
+                        {isFavourite
+                          ? "Remove from Favourites"
+                          : "Add to Favourites"}
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </section>

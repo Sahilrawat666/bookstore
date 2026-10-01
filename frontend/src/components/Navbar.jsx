@@ -26,6 +26,8 @@ function Navbar() {
   const [authUser, setAuthUser, cartCount, , favCount] = useAuth();
   const navigate = useNavigate();
 
+  const isAdmin = authUser?.role === "admin";
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
 
@@ -209,34 +211,37 @@ function Navbar() {
           >
             <MdSearch size={22} />
           </button>
+          {!isAdmin && (
+            <>
+              <NavLink
+                to="/favourite"
+                className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+                aria-label="Favourite books"
+              >
+                <GoHeart size={21} />
 
-          <NavLink
-            to="/favourite"
-            className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
-            aria-label="Favourite books"
-          >
-            <GoHeart size={21} />
+                {favCount > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4  items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
+                    {favCount}
+                  </span>
+                )}
+              </NavLink>
 
-            {favCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4  items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
-                {favCount}
-              </span>
-            )}
-          </NavLink>
+              <NavLink
+                to="/cart"
+                className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
+                aria-label="Shopping cart"
+              >
+                <LiaCartPlusSolid size={23} />
 
-          <NavLink
-            to="/cart"
-            className="relative flex h-5 w-5 sm:h-8 sm:w-8 items-center justify-center text-[#171717] transition-colors hover:text-[#315c4c] dark:text-[#f5f5f5] dark:hover:text-[#6f9f8b]"
-            aria-label="Shopping cart"
-          >
-            <LiaCartPlusSolid size={23} />
-
-            {cartCount > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
-                {cartCount}
-              </span>
-            )}
-          </NavLink>
+                {cartCount > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[8px] md:text-[10px] font-semibold leading-none text-white">
+                    {cartCount}
+                  </span>
+                )}
+              </NavLink>
+            </>
+          )}
 
           <button
             type="button"

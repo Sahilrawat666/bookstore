@@ -18,6 +18,8 @@ function Cards({ item, onRemove, type }) {
   const [isFavourite, setIsFavourite] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
+  const isAdmin = authUser?.role === "admin";
+
   useEffect(() => {
     if (!authUser?._id) {
       setIsFavourite(false);
@@ -181,52 +183,55 @@ function Cards({ item, onRemove, type }) {
       className="group mx-1 my-2 flex h-full min-w-0 flex-col overflow-hidden border border-[#e5e5e5] bg-white transition-shadow duration-200 hover:shadow-md sm:mx-1.5 sm:my-2.5 md:mx-2 md:my-3 lg:mx-2.5 lg:my-3 dark:border-[#303030] dark:bg-[#1d1d1d]"
     >
       <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-[#f7f7f5] sm:aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] xl:aspect-[3/4] dark:bg-[#181818]">
-        <button
-          type="button"
-          onClick={() =>
-            isFavourite
-              ? removeFromFavourite(item._id)
-              : addToFavourite(item._id)
-          }
-          aria-label={
-            isFavourite ? "Remove from favourites" : "Add to favourites"
-          }
-          className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#dedede] bg-white shadow-sm transition-all duration-200 hover:border-[#315c4c] hover:text-[#315c4c] active:scale-95 sm:right-2.5 sm:top-2.5 sm:h-8 sm:w-8 md:right-3 md:top-3 md:h-9 md:w-9 dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
-        >
-          {isFavourite ? (
-            <MdFavorite
-              size={15}
-              className="text-red-500 sm:size-[17px] md:size-[19px]"
-            />
-          ) : (
-            <MdFavoriteBorder
-              size={16}
-              className="sm:size-[18px] md:size-[20px]"
-            />
-          )}
-        </button>
+        {!isAdmin && (
+          <>
+            <button
+              type="button"
+              onClick={() =>
+                isFavourite
+                  ? removeFromFavourite(item._id)
+                  : addToFavourite(item._id)
+              }
+              aria-label={
+                isFavourite ? "Remove from favourites" : "Add to favourites"
+              }
+              className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#dedede] bg-white shadow-sm transition-all duration-200 hover:border-[#315c4c] hover:text-[#315c4c] active:scale-95 sm:right-2.5 sm:top-2.5 sm:h-8 sm:w-8 md:right-3 md:top-3 md:h-9 md:w-9 dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
+            >
+              {isFavourite ? (
+                <MdFavorite
+                  size={15}
+                  className="text-red-500 sm:size-[17px] md:size-[19px]"
+                />
+              ) : (
+                <MdFavoriteBorder
+                  size={16}
+                  className="sm:size-[18px] md:size-[20px]"
+                />
+              )}
+            </button>
 
-        <button
-          type="button"
-          onClick={() =>
-            isInCart ? removeFromCart(item._id) : addToCart(item._id)
-          }
-          aria-label={isInCart ? "Remove from cart" : "Add to cart"}
-          className="absolute left-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#dedede] bg-white shadow-sm transition-all duration-200 hover:border-[#315c4c] hover:text-[#315c4c] active:scale-95 sm:left-2.5 sm:top-2.5 sm:h-8 sm:w-8 md:left-3 md:top-3 md:h-9 md:w-9 dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
-        >
-          {isInCart ? (
-            <MdShoppingCart
-              size={15}
-              className="text-[#315c4c] sm:size-[17px] md:size-[19px] dark:text-[#6f9f8b]"
-            />
-          ) : (
-            <MdOutlineShoppingCart
-              size={16}
-              className="sm:size-[18px] md:size-[20px]"
-            />
-          )}
-        </button>
-
+            <button
+              type="button"
+              onClick={() =>
+                isInCart ? removeFromCart(item._id) : addToCart(item._id)
+              }
+              aria-label={isInCart ? "Remove from cart" : "Add to cart"}
+              className="absolute left-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#dedede] bg-white shadow-sm transition-all duration-200 hover:border-[#315c4c] hover:text-[#315c4c] active:scale-95 sm:left-2.5 sm:top-2.5 sm:h-8 sm:w-8 md:left-3 md:top-3 md:h-9 md:w-9 dark:border-[#404040] dark:bg-[#1d1d1d] dark:text-[#f5f5f5] dark:hover:border-[#6f9f8b] dark:hover:text-[#6f9f8b]"
+            >
+              {isInCart ? (
+                <MdShoppingCart
+                  size={15}
+                  className="text-[#315c4c] sm:size-[17px] md:size-[19px] dark:text-[#6f9f8b]"
+                />
+              ) : (
+                <MdOutlineShoppingCart
+                  size={16}
+                  className="sm:size-[18px] md:size-[20px]"
+                />
+              )}
+            </button>
+          </>
+        )}
         <button
           type="button"
           onClick={handleBookClick}
@@ -288,23 +293,36 @@ function Cards({ item, onRemove, type }) {
               {item.price === 0 ? "Free" : `$${item.price}`}
             </p>
           </div>
-
-          {isInCart ? (
-            <button
-              type="button"
-              onClick={() => navigate("/cart")}
-              className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md border border-[#315c4c] px-2.5 text-xs font-semibold text-[#315c4c] transition-all duration-200 hover:bg-[#315c4c] hover:text-white active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 sm:text-xs dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
-            >
-              Go to cart
-            </button>
+          {!isAdmin ? (
+            <>
+              {isInCart ? (
+                <button
+                  type="button"
+                  onClick={() => navigate("/cart")}
+                  className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md border border-[#315c4c] px-2.5 text-xs font-semibold text-[#315c4c] transition-all duration-200 hover:bg-[#315c4c] hover:text-white active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 sm:text-xs dark:border-[#6f9f8b] dark:text-[#6f9f8b] dark:hover:bg-[#6f9f8b] dark:hover:text-[#111111]"
+                >
+                  Go to cart
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => addToCart(item._id)}
+                  className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md bg-[#315c4c] px-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+                >
+                  Add to cart
+                </button>
+              )}
+            </>
           ) : (
-            <button
-              type="button"
-              onClick={() => addToCart(item._id)}
-              className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md bg-[#315c4c] px-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
-            >
-              Add to cart
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => navigate(`/book/${item._id}`)}
+                className="inline-flex h-8 w-full truncate shrink-0 items-center justify-center rounded-md bg-[#315c4c] px-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-200 hover:bg-[#274c3f] active:scale-[0.98] sm:h-9 sm:w-auto sm:px-3 dark:bg-[#6f9f8b] dark:text-[#111111] dark:hover:bg-[#82ad9b]"
+              >
+                view book
+              </button>
+            </>
           )}
         </div>
       </div>

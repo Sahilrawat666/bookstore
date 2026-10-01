@@ -150,7 +150,9 @@ function Books() {
 
                       <p className="mt-1 text-xs text-[#666666] dark:text-[#a3a3a3]">
                         {groupedBooks[category].length}
-                        {groupedBooks[category].length === 1 ? "book" : "books"}
+                        {groupedBooks[category].length === 1
+                          ? " book"
+                          : " books"}
                       </p>
                     </div>
                   </div>

@@ -42,7 +42,7 @@ function ContactForm() {
   return (
     <main className="min-h-screen bg-white dark:bg-[#111111]">
       <section className="border-b border-[#e5e5e5] bg-[#f7f7f5] dark:border-[#303030] dark:bg-[#181818]">
-        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6  lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
